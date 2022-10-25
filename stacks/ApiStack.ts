@@ -29,6 +29,8 @@ export function ApiStack({ stack, app }: StackContext) {
       "GET /apps": "functions/apps.main",
       "GET /stages": "functions/stages.main",
       "POST /apps": "functions/createApp.main",
+      "POST /webhook": "functions/webhook.main",
+      "POST /build": "functions/manualBuild.main",
       
     }
   });
