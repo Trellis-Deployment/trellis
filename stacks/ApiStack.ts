@@ -31,7 +31,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "POST /apps": "functions/createApp.main",
       "POST /webhook": "functions/webhook.main",
       "POST /build": "functions/manualBuild.main",
-      
+      "POST /setStatus": "functions/setDeploymentStatus.main",
     }
   });
 

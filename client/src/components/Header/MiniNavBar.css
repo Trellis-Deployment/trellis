@@ -1,0 +1,16 @@
+.mini-bar {
+  font-size: 13px;
+  color: white;
+  font-weight: 500;
+  border-bottom: 1.5px solid gray;
+  padding-bottom: 0px;
+  margin-bottom: 10px;
+}
+
+u :hover {
+  text-decoration: underline !important;
+}
+/* 
+.card-top {
+  background: black;
+} */
