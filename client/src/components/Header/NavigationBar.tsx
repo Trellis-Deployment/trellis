@@ -3,7 +3,6 @@ import './NavigationBar.css'
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { LinkContainer } from "react-router-bootstrap";
-import Dobby from "../../resources/favicon-32x32.png";
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router';
 
@@ -19,7 +18,6 @@ function NavigationBar({authUser, handleLogoutClick, repoName}) {
           <Container>
          <LinkContainer to="/">
             <Navbar.Brand>
-              <img src={ Dobby } alt="Dobby Placeholder Logo" class="topicon pe-2"></img>
               Trellis
               { authUser ? ` ➤ ${authUser}` : null}
             </Navbar.Brand>
