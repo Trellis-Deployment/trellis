@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import APICalls from "../services/APICalls";
-import Waiting from "../resources/Trellis_house.jpg";
+import Waiting from "../Resources/Trellis_house.jpg";
 import Image from "react-bootstrap/Image";
 
 const GitRedirect = ({ setAuthUser }) => {

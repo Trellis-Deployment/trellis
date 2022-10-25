@@ -12,13 +12,13 @@ const Header = ({ authUser, setAuthUser }) => {
   // };
 
   return (
-    <div class="pt-4">
-      <div class="px-4">
+    <div className="pt-4">
+      <div className="px-4">
         <Image fluid="true" src={Trellis} className="App-logo" alt="logo" />
 
         {/* <div class="d-flex-center align-items-center justify-content-center"> */}
-        <h2 class="text-light pt-2">Welcome to Dobby</h2>
-        <h5 class="text-white pb-2">
+        <h2 className="text-light pt-2">Welcome to Dobby</h2>
+        <h5 className="text-white pb-2">
           An open-source CI/CD pipeline dedicated to simplifying deployments
         </h5>
         {/* </div> */}

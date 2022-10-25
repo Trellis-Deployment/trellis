@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Header.css";
 import Image from "react-bootstrap/Image";
-import Trellis from "../../resources/android-chrome-512x512.png";
+import Trellis from "../../Resources/android-chrome-512x512.png";
 // import Container from 'react-bootstrap/Container';
 
 const Header = ({ authUser, setAuthUser }) => {

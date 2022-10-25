@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 // import Card from 'react-bootstrap/Card'
 
+
 const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get("redirect");
@@ -35,7 +36,7 @@ const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
           ></Header>
         </div>
         <div class="card justified-content-center p-3 m-2" className="mid">
-          <Container>
+        <Container>
             <Row>
               <Col>
                 <div class="d-grid gap-2 col-8 mx-auto">
@@ -45,7 +46,6 @@ const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
                     variant="outline-light"
                     href={`https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`}
                   >
- 
                     Signup via Github
                   </Button>
                 </div>
@@ -71,3 +71,7 @@ const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
 };
 
 export default Main;
+
+/*
+          
+          */

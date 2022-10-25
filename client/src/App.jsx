@@ -1,8 +1,10 @@
+import React from "react";
 import './index.css'
 import './App.css';
 import NavigationBar from "./components/Header/NavigationBar"
 import { useState} from "react";
 import Routes from "./components/Routes";
+import { BrowserRouter as Router} from 'react-router-dom';
 
 
 function App() {
@@ -16,8 +18,10 @@ function App() {
 
   return (
     <div className="App">
-      <NavigationBar authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></NavigationBar>
-      <Routes authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></Routes>
+      <Router>
+        <NavigationBar authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></NavigationBar>
+        <Routes authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></Routes>
+      </Router>
     </div>
   );
 }
