@@ -1,0 +1,9 @@
+.logout {
+  color: white;
+  font-weight: 500;
+}
+
+
+.logout:hover {
+  color: peachpuff;
+}

@@ -1,5 +1,5 @@
 import getTokenByLogin from "./usersTableUtils/getTokenByLogin";
-import githubCalls from "../github/githubCalls.js";
+import githubCalls from "./github/githubCalls";
 import dynamodb from "./templates/dynamodb";
 
 const getReposByLogin = async (login) => {

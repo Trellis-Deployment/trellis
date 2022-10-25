@@ -8,6 +8,7 @@ const SignedIn = ({ setAuthUser }) => {
   const code = searchParams.get("code");
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     const makeRequest = async () => {
       try {

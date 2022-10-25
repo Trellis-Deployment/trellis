@@ -1,0 +1,73 @@
+/* body {
+  background: #25415F;
+} */
+
+@media all and (min-width: 500px) {
+  button {
+    padding: 60px 0;
+    margin: 0 auto;
+    min-width: 220px;
+    max-width: 330px;
+  }
+  
+  .m-title {
+    color: black;
+    font-weight: 600;
+  }
+  h3 {
+    color: white;
+  }
+
+  .app-list-body {
+    padding: 20px;
+    /* background: lightcyan */
+  }
+  
+  ul {
+    list-style-type: none;
+    /* text-align: center; */
+  } 
+
+  li {
+    display: inline-block;
+    
+  }
+
+  .msx {
+    /* background: black; */
+    max-width: 600px;
+    min-width: 480px;
+    margin: 5px;
+  }
+
+  .card-face {
+    /* background-image: linear-gradient(to top, #09203f 0%, #537895 100%); */
+    /* background-blend-mode: screen; */
+    background-color: white;
+    border-radius: 7px;
+  }
+
+  /* .c-title :hover {
+    color: darkgray;
+  } */
+  
+  .c-title {
+    color: #25415F;
+    font-weight: 600;
+    font-size: 1em;
+  }
+
+  .c-subtitle {
+    font-size: 0.85em;
+  }
+  
+  
+}
+.card-face :hover {
+  transition: 0.3s;
+  color: darkgray;
+  font-weight: 500;
+  cursor: grab;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0);
+}
