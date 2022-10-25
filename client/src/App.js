@@ -1,7 +1,7 @@
 import React from "react";
 import './index.css'
 import './App.css';
-import NavigationBar from "./components/Header/NavigationBar"
+import NavigationBar from "./components/Header/NavigationBar";
 import { useState} from "react";
 import Routes from "./components/Routes";
 import { BrowserRouter as Router} from 'react-router-dom';
