@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import './index.css'
 import './App.css';
+import NavigationBar from "./components/Header/NavigationBar"
+import { useState} from "react";
+import Routes from "./components/Routes";
+
 
 function App() {
+  const [ authUser, setAuthUser ] = useState(window.sessionStorage.getItem("authUser"));
+
+  const handleLogoutClick = (e) => {
+    e.preventDefault();
+    window.sessionStorage.removeItem("authUser");
+    setAuthUser(undefined);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavigationBar authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></NavigationBar>
+      <Routes authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></Routes>
     </div>
   );
 }
+
 
 export default App;

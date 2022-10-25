@@ -1,0 +1,54 @@
+body {
+  /* background-image: linear-gradient(to top, #09203f 0%, #537895 100%); */
+  /* margin: auto; */
+  background: #25415F;
+}
+
+@media all and (min-width: 480px) {
+  .Login {
+    margin: auto;
+    padding: 20px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-blend-mode: screen;
+    max-width: 410px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: solid 1px gray;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+
+  button {
+    padding: 30px 0;
+    margin: 0 auto;
+    /* min-width: 220px; */
+    max-width: 230px;
+  }
+
+  form {
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+  }
+
+  .form-container {
+    /* background: linear-gradient(-180deg, #BCC5CE 0%, #929EAD 98%), radial-gradient(at top left, rgba(255,255,255,0.30) 0%, rgba(0,0,0,0.30) 100%); */
+    /* background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-blend-mode: screen; */
+    
+    border-radius: 10px;
+    /* padding: 15px; */
+    /* padding-top: 20px; */
+    padding-bottom: 20px;
+    /* border: solid #397bc2; */
+    /* border-width: 1px; */
+  }
+
+  .form-control:focus {
+    border-color: peachpuff;
+    box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075), 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+
+}

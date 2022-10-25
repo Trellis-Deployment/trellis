@@ -1,18 +1,16 @@
-body {
-  background-image: linear-gradient(to left, #243949 0%, #517fa4 100%) !important;
-}
+/* body {
+  background: #25415F;
+} */
 
 @media all and (min-width: 500px) {
-  /* button {
+  button {
     padding: 60px 0;
     margin: 0 auto;
     min-width: 220px;
     max-width: 330px;
-  } */
-  
-  .cont {
-    background: rgb(231, 33, 33);
   }
+
+
   
   .m-title {
     color: black;
@@ -44,36 +42,34 @@ body {
     margin: 5px;
   }
 
-
-  
   .card-face {
-    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
-    background-blend-mode: screen;
-    /* background-color: white; */
+    /* background-image: linear-gradient(to top, #09203f 0%, #537895 100%); */
+    /* background-blend-mode: screen; */
+    background-color: white;
     border-radius: 7px;
   }
 
   /* .c-title :hover {
-    color: lightgray;
+    color: darkgray;
   } */
   
   .c-title {
     color: #25415F;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1em;
   }
 
   .c-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.85em;
   }
   
-  .card-face :hover {
-    transition: 0.2s;
-    background-color: #859bb2;
-    color: lightgray;
-    font-weight: 500;
-    cursor: grab;
-    border-radius: 5px;
-  }
   
+}
+.card-face :hover {
+  transition: 0.3s;
+  color: darkgray;
+  font-weight: 500;
+  cursor: grab;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0);
 }

@@ -29,7 +29,7 @@ const getReposByToken = async (token) => {
     auth: token
   });
 
-  const repos: object[] = [];
+  const repos = [];
   try {
     const installations = await octokit.request('GET /user/installations', {});
     for (const installation of installations.data.installations) {
