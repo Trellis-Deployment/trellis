@@ -14,7 +14,6 @@ export const main = handler(async (event) => {
     return {error: e.message};
   }
 
-  //const repo = data.repo.split("/")[1];
   const webhookUrl = `https://${event.headers.host}/webhook?user=${data.user}&repo=${data.repo}`;
 
   let webhook;

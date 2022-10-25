@@ -27,6 +27,9 @@ export function ApiStack({ stack, app }: StackContext) {
       "GET /signin": "functions/signin.main",
       "GET /repos": "functions/repos.main",
       "GET /apps": "functions/apps.main",
+      "GET /stages": "functions/stages.main",
+      "POST /apps": "functions/createApp.main",
+      
     }
   });
 
