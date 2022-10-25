@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 // import Card from 'react-bootstrap/Card'
 
+
 const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get("redirect");
@@ -45,7 +46,6 @@ const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
                     variant="outline-light"
                     href={`https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`}
                   >
- 
                     Signup via Github
                   </Button>
                 </div>

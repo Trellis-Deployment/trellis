@@ -1,16 +1,19 @@
 import { Api, use, Function, StackContext } from "@serverless-stack/resources";
 import { StorageStack } from "./StorageStack";
+import { BuildServerStack } from "./BuildServerStack";
 import config from "../util/config";
 
 export function ApiStack({ stack, app }: StackContext) {
   const { users, repos, apps, stages } = use(StorageStack);
+  const { vpc, buildFunction } = use(BuildServerStack);
+
   const Client_ID = config.Client_ID ? config.Client_ID : "undefined";
   const Client_secret = config.Client_secret || "undefined";
 
   const api = new Api(stack, "Api", {
     defaults: {
       function: {
-        permissions: [users, repos, apps, stages],
+        permissions: [users, repos, apps, stages, buildFunction],
         environment: {
           USERS_TABLE_NAME: users.tableName,
           REPOS_TABLE_NAME: repos.tableName,
@@ -18,6 +21,7 @@ export function ApiStack({ stack, app }: StackContext) {
           STAGES_TABLE_NAME: stages.tableName,
           Client_ID,
           Client_secret,
+          DEPLOY_LAMBDA_NAME: buildFunction.functionName,
         },
       },
     },

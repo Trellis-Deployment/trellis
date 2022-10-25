@@ -7,6 +7,7 @@ import Applications from "./Applications";
 import CreateApp from "./CreateApp";
 import AppModal from "./AppModal";
 
+
 export default function RoutesComp({
   authUser,
   setAuthUser,

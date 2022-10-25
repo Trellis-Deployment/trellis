@@ -9,6 +9,7 @@ const Header = ({ authUser, setAuthUser }) => {
   //   setAuthUser(undefined);
   // };
 
+  
   return (
     <div class="pt-4">
       <div class="px-4">
@@ -24,5 +25,6 @@ const Header = ({ authUser, setAuthUser }) => {
     </div>
   );
 };
+
 
 export default Header;

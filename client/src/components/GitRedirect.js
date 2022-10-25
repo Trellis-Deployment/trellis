@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import APICalls from "../services/APICalls";
+import Waiting from "../resources/dobby_waiting.png";
+
 import Image from "react-bootstrap/Image";
 
 const GitRedirect = ({ setAuthUser }) => {
@@ -42,7 +44,7 @@ const GitRedirect = ({ setAuthUser }) => {
     <div class="position-absolute top-50 start-50 translate-middle bg-light">
       <header className="App-header" class="pt-3 pb-2">
         <div class="container">
-          place image here
+          <Image src={Waiting} className="App-logo" alt="logo" fluid="true" />
         </div>
       </header>
       <div class="spinner-border text-secondary">

@@ -6,6 +6,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router';
 
+
 function NavigationBar({authUser, handleLogoutClick, repoName}) {
   const SIGN_UP = `https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`
   const SIGN_IN = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_Client_ID}`
@@ -46,5 +47,6 @@ function NavigationBar({authUser, handleLogoutClick, repoName}) {
     </Navbar>
   )
 }
+
 
 export default NavigationBar;
