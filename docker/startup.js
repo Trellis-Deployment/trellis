@@ -40,3 +40,18 @@ const deployCommands = [
 ];
 execSync(deployCommands.join(' && '), { stdio: 'inherit' });
 console.log('SUCCESS: APP DEPLOYED!');
+const data = {
+  GITHUB_USER,
+  STAGE_NAME,
+  APP_NAME,
+}
+
+fetch(SET_STATUS_URL, {
+  method: "POST",
+  body: JSON.stringify(data),
+  headers: {
+    "Content-type": "application/json; charset=UTF-8"
+  },
+});
+console.log({SET_STATUS_URL});
+console.log("made data update");
