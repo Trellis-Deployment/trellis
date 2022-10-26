@@ -27,7 +27,7 @@ const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
   }, [authUser, navigate, redirect]);
 
   return (
-    <div className="Main card main m-3 mx-4 p-3">
+    <div className="card main m-3 mx-4 p-3">
       <div className="">
         <div className="d-flex justify-content-center">
           <div className="row">
@@ -35,8 +35,7 @@ const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
               <Image
                 // fluid="true"
                 src={Trellis}
-                className="#"
-                classNameName="App-logo"
+                className="App-logo"
                 alt="logo"
               />
             </div>

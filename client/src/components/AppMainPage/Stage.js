@@ -1,12 +1,11 @@
 import "../../stylesheets/AppModal.css";
-import { Col, Card, Row} from "react-bootstrap"
-import { useEffect } from "react";
+import { Col, Card, Row } from "react-bootstrap"
+import { useEffect, useState, useRef } from "react";
 import APICalls from "../../services/APICalls";
 import { CloudCheck, Code, ExclamationCircle, GearWideConnected } from "react-bootstrap-icons";
 
-
 const Stage = ({ stage, authUser, appName, setStages, stages }) => {
-
+  const intervalId = useRef(0);
   const handleDeployClick = async (e, stageName) => {
     e.preventDefault();
     await APICalls.buildStage({ authUser, appName, stageName });
@@ -14,23 +13,32 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
     setStages(data);
   };
   
-  useEffect(() => {
-    const intervalDuration = stage.state === 'deployed' ? 60000 : 30000;
+  const callNewInterval = async () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
 
-    const intervalId = setInterval(async () => {
+    const duration = stage.state === 'deploying' ? 15000 : 30000;
+
+    const id = setInterval(async () => {
+      console.log('poll');
       const data = await APICalls.getStageStatus(stage);
       if (data.state === stage.stageState) {
         return;
       }
 
       setStages(stages.map((s) => s.stageId === stage.stageId ? ({...s, stageState: data.state}) : s));
-      console.log('poll');
-    }, intervalDuration);
-
+    }, duration);
+    console.log({id});
+    intervalId.current = id;
+  }
+  useEffect(() => {
+    callNewInterval();
     return (() => {
-      clearInterval(intervalId);
+      console.log('cleared ', intervalId.current);
+      clearInterval(intervalId.current);
     });
-  }, []);
+  }, [stage.stageState]);
 
   return (
     <Col key={stage.stageId} className="stage-row">
@@ -70,13 +78,13 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
                       >
                         Stage ID: {stage.stageId.split('-')[0]}
                       </a>
-                      <p>App ID: {stage.appId.split('-')[0]}</p>
+                      App ID: {stage.appId.split('-')[0]}
                     </Row>
                   </div>
                 </Row>
                 {stage.stageStage ==='created' && <Col className="text-center"> <CloudCheck color="yellow" size={28}/></Col>}
                 {stage.stageState === 'deployed' && <Col className="text-center"> <CloudCheck color="green" size={28}/></Col>}
-                {stage.stageState === 'deploying' && <div className="spinner-border gear text-center"><GearWideConnected color="grey" size={29} /></div>}
+                {stage.stageState === 'deploying' && <div className="spinner-border gear"><GearWideConnected color="grey" className="text-center" size={29} /></div>}
                 {stage.stageState === 'error' && <Col className="text-center"> <ExclamationCircle color="red" size={28} /></Col>}
               </div>
             ) : (
@@ -94,7 +102,7 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
 
       <Row>
         <button
-          className="btn btn-sm px-1" variant="success"
+          className="btn btn-sm px-1 color-success"
           type="button"
           onClick={(e) => handleDeployClick(e, stage.stageName)}
         >

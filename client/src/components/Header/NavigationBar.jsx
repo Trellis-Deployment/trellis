@@ -1,5 +1,4 @@
 import '../../App.css';
-import './NavigationBar.css'
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Trellis from "../../Resources/favicon-32x32.png"
