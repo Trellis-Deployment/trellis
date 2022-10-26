@@ -52,7 +52,7 @@ const Applications = ({ authUser }) => {
       <div className="row bg-black mt-3">
         <ul className="container p-0">
           {applications.map((application) => (
-            <div className="row">
+            <div key={application.appId} className="row">
               <li className="my-1">
                 <div className="card-face">
                   <Card

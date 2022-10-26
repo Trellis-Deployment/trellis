@@ -23,7 +23,6 @@ const AppModal = ({ authUser }) => {
       <div className="px-3">
         <MiniNavBar></MiniNavBar>
       </div>
-
       <div className="container">
         <div className="card p-2 pipes mt-3 mid-wide-card">
           <div className="container">
@@ -49,7 +48,7 @@ const AppModal = ({ authUser }) => {
                   ))}
                 </div>
                 <div className="card mini-card">
-                  <row className="stage-title"></row>
+                  {/* <Row className="stage-title"></Row> */}
                 </div>
               </div>
             </div>
