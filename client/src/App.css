@@ -1,5 +1,8 @@
 body {
-  background-image: linear-gradient(to left, #243949 0%, #517fa4 100%) !important;
+  background: #161e26 !important;
+  background-image: url("./Resources/trellis_pattern.jpg") !important;
+  background-repeat: repeat;
+  /* background-image: linear-gradient(to left, #243949 0%, #517fa4 100%) !important; */
 }
 
 @media all and (min-width: 500px) {

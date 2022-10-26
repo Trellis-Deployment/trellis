@@ -1,7 +1,8 @@
-// import '../../App.css';
+import '../../App.css';
 import './NavigationBar.css'
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import Trellis from "../../Resources/favicon-32x32.png"
 import { LinkContainer } from "react-router-bootstrap";
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router';
@@ -14,11 +15,12 @@ function NavigationBar({authUser, handleLogoutClick, repoName}) {
   console.log(useParams());
   console.log({appName});
   return (
-    <Navbar collapseOnSelect bg="dark" variant="dark" expand="md"
+    <Navbar collapseOnSelect bg="dark" variant="dark" expand="sm"
        className="#" sticky="top">
           <Container>
          <LinkContainer to="/">
             <Navbar.Brand>
+            <img src={ Trellis } alt="Dobby Placeholder Logo" class="topicon pe-2"></img>
               Trellis
               { authUser ? ` ➤ ${authUser}` : null}
             </Navbar.Brand>
