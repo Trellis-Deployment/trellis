@@ -1,149 +1,101 @@
-import "../stylesheets/AppModal.css";
+import "../stylesheets/Applications.css";
 import Button from "react-bootstrap/Button";
-import MiniNavBar from "./Header/MiniNavBar";
-import Card from "react-bootstrap/Card";
+import { useState, useEffect } from "react";
+import APICalls from "../services/APICalls";
+import { useNavigate } from "react-router-dom";
+// import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import APICalls from "../services/APICalls";
-import { CloudCheck, Check2Circle, Code } from "react-bootstrap-icons";
 
-const AppModal = ({ authUser }) => {
-  const [stages, setStages] = useState([]);
-  const appName = useParams().appName;
-  console.log(useParams());
+const Applications = ({ authUser }) => {
+  const [applications, setApplications] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const getStages = async () => {
-      const data = await APICalls.getStages(authUser, appName);
-      setStages(data);
+    const getApps = async () => {
+      try {
+        const data = await APICalls.getApps(authUser);
+        setApplications(data);
+      } catch (e) {
+        console.log(e.message);
+      }
     };
-    getStages();
-  }, [authUser, appName]);
 
-  const handleDeployClick = async (e, stageName) => {
+    getApps();
+  }, [authUser]);
+
+  const handleNewAppClick = (e) => {
     e.preventDefault();
-    const data = await APICalls.buildStage({ authUser, appName, stageName });
-    console.log(data);
+    navigate("/create-app");
   };
 
+  const handleAppClick = (e, appName) => {
+    e.preventDefault();
+    navigate(`/application/${appName}`);
+  };
 
   return (
-    <div>
-      <div class="px-3">
-        <MiniNavBar></MiniNavBar>
-      </div>
-
-      <div class="container">
-        <div class="card p-2 pipes mt-3 mid-wide-card">
-          <div class="container">
-            <div class="row">
-              <div class="row">
-                <div
-                  class="col 
-                pipeline-title"
-                >
-                  Pipeline
-                  <a class="ps-2 small-font" href="/apps">
-                    edit
-                  </a>
-                </div>
-                <div
-                  class="d-flex col pe-0
-                justify-content-end 
-                align-items-end
-               small-font"
-                >
-                  <a href="/apps">View Full Pipeline</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="row border">
-              <div class="col  bg-white">
-                <div class="row ">
-                  {stages.map((stage) => (
-                    <Col key={stage.stageId} className="stage-row" class="#">
-                      <Card.Title class="SectionHeader">
-                        Stage Name: {stage.stageName}
-                      </Card.Title>
-                      <Card.Text class="stage-branch">
-                        <Row>
-                          Stage Branch:{" "}
-                          {stage.stageBranch !== "undefined"
-                            ? stage.stageBranch
-                            : "no branch"}{" "}
-                          <Col class="lh-0">
-                            {stage.stageBranch === "main" ? (
-                              <div>
-                                <p class="line-2">
-                                  <a
-                                    target="_blank"
-                                    class="branch px-1"
-                                    rel="noopener noreferrer"
-                                    href="/"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="fa  fa-code-fork "
-                                    ></i>
-                                    main
-                                  </a>
-                                  <a
-                                    target="_blank"
-                                    class="commit ps-1"
-                                    rel="noopener noreferrer"
-                                    href="https://github.com/Maru-ko/notes-one1/commit/abd29d1df4dcb5cd3b8a0a141b9276c0ba6b7029"
-                                  >
-                                    abd29d1
-                                  </a>
-                                </p>
-                                <Col>
-                                  <CloudCheck color="green" size={28} />
-                                </Col>
-                              </div>
-                            ) : (
-                              <div>
-                                <p>-</p>{" "}
-                                <Col>
-                                  {" "}
-                                  <Code color="grey" size={28} />
-                                </Col>
-                              </div>
-                            )}
-                          </Col>
-                        </Row>
-                      </Card.Text>
-
-                      <Row>
-                        <button
-                          class="btn btn-sm px-1"
-                          type="button"
-                          onClick={(e) => handleDeployClick(e, stage.stageName)}
-                        >
-                          <text>Manually Deploy Stage</text>
-                        </button>
-                      </Row>
-                    </Col>
-                  ))}
-                </div>
-                <div class="card mini-card">
-                  <row class="stage-title"></row>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="app-list-home" class="container">
+      <div class="row pb-2">
+        <div class="col col-auto">
+          <h3 class="text-start">Welcome {authUser}</h3>
+        </div>
+        <div class="col d-flex justify-content-end">
+          <Button
+            onClick={handleNewAppClick}
+            variant="light"
+            size="sm"
+            class="#"
+          >
+            &#43; New App
+          </Button>
         </div>
       </div>
-
-      <div class="container py-3">
+      <div class="row bg-black mt-3">
+        <ul class="container p-0">
+          {applications.map((application) => (
+            <div class="row">
+              <li className="my-1">
+                <div className="card-face">
+                  <Card
+                    key={application.appId}
+                    onClick={(e) => handleAppClick(e, application.appName)}
+                    
+                  >
+                    <div class="row px-1 ps-2">
+                      <div class="col col-auto
+                      align-self-center">
+                        {application.appName[0]}
+                      </div>
+                      <div class="col">
+                        <Card.Body class="py-2">
+                          <Card.Title class="text-start c-title">
+                            App: {application.appName}
+                          </Card.Title>
+                          <Card.Subtitle class="text-start c-subtitle">
+                            Repo: {application.repo}
+                          </Card.Subtitle>
+                        </Card.Body>
+                      </div>
+                      <div class="col col-auto 
+                      align-self-center 
+                      
+                      pe-4">
+                        <div class="row dep d-flex justify-content-end">Last Deployed</div>
+                        <div class="row date">Oct 25, 2022 2:00pm</div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </li>
+            </div>
+          ))}
+        </ul>
       </div>
-
- 
     </div>
   );
 };
 
-export default AppModal;
+export default Applications;
