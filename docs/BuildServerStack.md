@@ -1,6 +1,6 @@
 # Build Server Stack
 
-Used the guide here: https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/run-event-driven-and-scheduled-workloads-at-scale-with-aws-fargate.html
+[Used the guide here:](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/run-event-driven-and-scheduled-workloads-at-scale-with-aws-fargate.html)
 
 1. Creates a VPC - this is necessary to make the cluster, which is passed to the lambda and used to execute the `ecs.runTask()` method to start the task
 1. An IAM role is created that will have permissions to execute tasks - this is passed to the task
