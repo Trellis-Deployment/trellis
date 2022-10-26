@@ -5,7 +5,6 @@ import "../stylesheets/CreateApp.css";
 import { useNavigate } from "react-router-dom";
 import { Container, Nav } from "react-bootstrap";
 
-
 const CreateApp = ({ authUser }) => {
   const [repos, setRepos] = useState([]);
   const [appName, setAppName] = useState("Application name");
