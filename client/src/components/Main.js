@@ -27,43 +27,42 @@ const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
   }, [authUser, navigate, redirect]);
 
   return (
-    <div className="Main" class="card main m-3 mx-4 p-3">
-      <div class="">
-        <div class="d-flex justify-content-center">
-          <div class="row">
-            <div class="col text-center">
+    <div className="Main card main m-3 mx-4 p-3">
+      <div className="">
+        <div className="d-flex justify-content-center">
+          <div className="row">
+            <div className="col text-center">
               <Image
                 // fluid="true"
                 src={Trellis}
-                class="#"
-                className="App-logo"
+                className="#"
+                classNameName="App-logo"
                 alt="logo"
               />
             </div>
-            <div class="col">
-              <div class="row py-3">
-                <h2 class="text-light pt-4">Welcome to Trellis</h2>
+            <div className="col">
+              <div className="row py-3">
+                <h2 className="text-light pt-4">Welcome to Trellis</h2>
               </div>
-              <div class="row">
-                <h5 class="text-white pb-2">
-                  An open-source CI/CD pipeline dedicated to simplifying
-                  deployments
+              <div className="row">
+                <h5 className="text-white pb-2">
+                  An open-source, low-config deployment pipeline for your serverless applications
                 </h5>
-                <div class="#">
-                  <div class="row pt-3 m-1">
+                <div className="#">
+                  <div className="row pt-3 m-1">
                     <Button
                       size="md"
-                      class="sign-buttons"
+                      className="sign-buttons"
                       variant="light"
                       href={`https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`}
                     >
                       Signup via Github
                     </Button>
                   </div>
-                  <div class="row pt-3 m-1 ">
+                  <div className="row pt-3 m-1 ">
                     <Button
                       size="md"
-                      class="sign-buttons"
+                      className="sign-buttons"
                       variant="light"
                       href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_Client_ID}`}
                     >
@@ -75,14 +74,14 @@ const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
             </div>
           </div>
         </div>
-        {/* <div class="card justified-content-center p-3 m-2" className="mid">
+        {/* <div className="card justified-content-center p-3 m-2" classNameName="mid">
           <Container>
             <Row>
               <Col>
-                <div class="d-grid gap-2 col-8 mx-auto">
+                <div className="d-grid gap-2 col-8 mx-auto">
                   <Button
                     size="md"
-                    class="sign-buttons"
+                    className="sign-buttons"
                     variant="outline-light"
                     href={`https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`}
                   >
@@ -91,10 +90,10 @@ const Main = ({ authUser, setAuthUser, handleLogoutClick }) => {
                 </div>
               </Col>
               <Col>
-                <div class="d-grid gap-2 col-8 mx-auto">
+                <div className="d-grid gap-2 col-8 mx-auto">
                   <Button
                     size="md"
-                    class="sign-buttons"
+                    className="sign-buttons"
                     variant="outline-light"
                     href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_Client_ID}`}
                   >

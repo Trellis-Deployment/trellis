@@ -50,10 +50,13 @@ export function StorageStack({ stack, app }: StackContext) {
       IAMSecretKey: "string",
       stageBranch: "string",
       stageState: "string",
+      lastDeploymentTime: "string",
+      lastCommitId: "string",
     },
     primaryIndex: { partitionKey: "appId", sortKey: "stageName"},
     globalIndexes: {
       "stageIndex": { partitionKey: "appId", sortKey: 'stageBranch'},
+      "idIndex": { partitionKey: "stageId" },
     },
   });
 

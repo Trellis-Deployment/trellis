@@ -20,7 +20,7 @@ function NavigationBar({authUser, handleLogoutClick, repoName}) {
           <Container>
          <LinkContainer to="/">
             <Navbar.Brand>
-            <img src={ Trellis } alt="Dobby Placeholder Logo" class="topicon pe-2"></img>
+            <img src={ Trellis } alt="Dobby Placeholder Logo" className="topicon pe-2"></img>
               Trellis
               { authUser ? ` ➤ ${authUser}` : null}
             </Navbar.Brand>

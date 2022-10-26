@@ -55,7 +55,7 @@ const CreateApp = ({ authUser }) => {
       <Container className="form-container">
         <Form onSubmit={handleFormSubmit}>
           <Form.Group className="mb-3" controlid="formBasicName">
-            <p class="text-start">Application Name:</p>
+            <p className="text-start">Application Name:</p>
             <Form.Control
               type="string"
               placeholder="Application name"
@@ -64,7 +64,7 @@ const CreateApp = ({ authUser }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlid="formBasicDescription">
-            <p class="text-start">Description:</p>
+            <p className="text-start">Description:</p>
             <Form.Control
               type="string"
               placeholder="Description"
@@ -72,7 +72,7 @@ const CreateApp = ({ authUser }) => {
             />
           </Form.Group>
           <Form.Group>
-            <p class="text-start">Repo:</p>
+            <p className="text-start">Repo:</p>
             <Form.Select
               aria-label="select repo"
               size="sm"
@@ -84,17 +84,17 @@ const CreateApp = ({ authUser }) => {
                 <option key={idx}>{repo}</option>
               ))}
             </Form.Select>
-            <p class="text-center  pb-0 text-light fw-light">
+            <p className="text-center  pb-0 text-light fw-light">
               <em>Don't see your repo? configure github</em>
             </p>
             <Nav.Link href={CONFIGURE}>
-              <Button variant="success" size="sm" class="#">
+              <Button variant="success" size="sm" className="#">
                 Configure Github
               </Button>
             </Nav.Link>
           </Form.Group>
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
-            <p class="text-start pt-3">IAM Access Key:</p>
+            <p className="text-start pt-3">IAM Access Key:</p>
             <Form.Control
               type="string"
               placeholder="IAM Access Key"
@@ -103,22 +103,22 @@ const CreateApp = ({ authUser }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlid="formBasicSecretKey">
-            <p class="text-start">IAM Access Secret:</p>
+            <p className="text-start">IAM Access Secret:</p>
             <Form.Control
               type="string"
               placeholder="IAM Secret Key"
-              class="#"
+              className="#"
               required
               onChange={(e) => setSecretKey(e.target.value)}
             />
           </Form.Group>
-          {/* <div class="bg-transparent p-3 m-2"> */}
-          <div class="container">
+          {/* <div className="bg-transparent p-3 m-2"> */}
+          <div className="container">
             <Button
               variant="outline-light"
               size="md"
               type="submit"
-              class="submit"
+              className="submit"
             >
               Submit
             </Button>

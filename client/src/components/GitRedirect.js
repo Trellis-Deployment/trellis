@@ -40,16 +40,16 @@ const GitRedirect = ({ setAuthUser }) => {
   }, [code, navigate, setAuthUser, application]);
 
   return (
-    <div class="position-absolute top-50 start-50 translate-middle bg-light">
-      <header className="App-header" class="pt-3 pb-2">
-        <div class="container">
+    <div className="position-absolute top-50 start-50 translate-middle bg-light">
+      <header className="App-header pt-3 pb-2">
+        <div className="container">
           <Image src={Waiting} className="App-logo" alt="logo" fluid="true" />
         </div>
       </header>
-      <div class="spinner-border text-secondary">
+      <div className="spinner-border text-secondary">
         <strong>{`<`}</strong>
       </div>
-      <h3 class="box text-dark p-1">
+      <h3 className="box text-dark p-1">
         {authenticated
           ? `Congratulations you signed in`
           : `Waiting for Authentication`}

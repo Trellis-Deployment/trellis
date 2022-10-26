@@ -16,7 +16,7 @@ const Header = ({ authUser, setAuthUser }) => {
       <div className="px-4">
         <Image fluid="true" src={Trellis} className="App-logo" alt="logo" />
 
-        {/* <div class="d-flex-center align-items-center justify-content-center"> */}
+        {/* <div className="d-flex-center align-items-center justify-content-center"> */}
         <h2 className="text-light pt-2">Welcome to Dobby</h2>
         <h5 className="text-white pb-2">
           An open-source CI/CD pipeline dedicated to simplifying deployments

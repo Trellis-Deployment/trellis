@@ -12,21 +12,20 @@ const Header = ({ authUser, setAuthUser }) => {
   // };
 
   return (
-    <div class="pt-4">
-      <div class="px-4">
-        {/* <div class="d-flex-center align-items-center justify-content-center"> */}
-        <div class="row">
-          <div class="col">
+    <div className="pt-4">
+      <div className="px-4">
+        {/* <div className="d-flex-center align-items-center justify-content-center"> */}
+        <div className="row">
+          <div className="col">
             <Image fluid="true" src={Trellis} className="App-logo" alt="logo" />
           </div>
-          <div class="col">
-            <div class="row">
-              <h2 class="text-light pt-2">Welcome to Trellis</h2>
+          <div className="col">
+            <div className="row">
+              <h2 className="text-light pt-2">Welcome to Trellis</h2>
             </div>
-            <div class="row">
-              <h5 class="text-white pb-2">
-                An open-source CI/CD pipeline dedicated to simplifying
-                deployments
+            <div className="row">
+              <h5 className="text-white pb-2">
+                An open-source, low-config deployment pipeline for your serverless applications
               </h5>
             </div>
           </div>

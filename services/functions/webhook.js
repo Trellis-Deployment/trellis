@@ -8,7 +8,7 @@ export const main = handler(async (event, context) => {
   const refArray = (data.ref.split("/"));
   let branch = refArray[refArray.length - 1];
   const repoName = data.repository["full_name"];
-   if(branch !== "main" && branch !== "master") {
+  if(branch !== "main" && branch !== "master") {
      return "Not important";
   }
 

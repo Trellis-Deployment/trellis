@@ -32,13 +32,13 @@ export function ApiStack({ stack, app }: StackContext) {
       "GET /repos": "functions/repos.main",
       "GET /apps": "functions/apps.main",
       "GET /stages": "functions/stages.main",
+      "GET /stageStatus": "functions/getStageStatus.main",
       "POST /apps": "functions/createApp.main",
       "POST /webhook": "functions/webhook.main",
       "POST /build": "functions/manualBuild.main",
       "POST /setStatus": "functions/setDeploymentStatus.main",
     }
   });
-
 
   stack.addOutputs({
     ApiEndpoint: api.url,

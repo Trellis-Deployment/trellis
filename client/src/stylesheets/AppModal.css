@@ -24,6 +24,10 @@ body {
   margin: 0.5%;
 }
 
+.gear {
+  background: rgb(237, 235, 235);
+}
+
 /* bluish: 2df4d6
 pink: f48cb4
 salmon: f5c1ac
@@ -366,7 +370,6 @@ button, input, select, textarea {
 }
 
 button, html input[type=button], input[type=reset], input[type=submit] {
-  -webkit-appearance: button;
   cursor: pointer;
   
 }
@@ -761,7 +764,7 @@ ol, ul {
   font-size: 10px;
 }
 
-.btbox {
-  /* width: 20px; */
-}
+/* .btbox {
+  width: 20px;
+} */
 
