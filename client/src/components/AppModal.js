@@ -76,33 +76,36 @@ const AppModal = ({ authUser }) => {
                             : "no branch"}{" "}
                           <Col class="lh-0">
                             {stage.stageBranch === "main" ? (
-                              <div>
-                                <p class="line-2">
-                                  <a
-                                    target="_blank"
-                                    class="branch px-1"
-                                    rel="noopener noreferrer"
-                                    href="/"
-                                  >
-                                    <i
-                                      aria-hidden="true"
-                                      class="fa  fa-code-fork "
-                                    ></i>
-                                    main
-                                  </a>
-                                  <Row>
-
+                              <div class="row">
+                                <Row>
+                                  {" "}
+                                  <p class="line-2">
+                                    <a
+                                      target="_blank"
+                                      class="branch px-1"
+                                      rel="noopener noreferrer"
+                                      href="/"
+                                    >
+                                      <i
+                                        aria-hidden="true"
+                                        class="fa  fa-code-fork "
+                                      ></i>
+                                      main
+                                    </a>
+                                    <Row>
                                       <a
                                         target="_blank"
                                         class="commit ps-1"
                                         rel="noopener noreferrer"
-                                        href="https://github.com/Maru-ko/notes-one1/commit/abd29d1df4dcb5cd3b8a0a141b9276c0ba6b7029"
+                                        href={stage.Id}
                                       >
-                                       Stage ID: {stage.stageId}
+                                        Stage ID: {stage.stageId.split('-')[0]}
                                       </a>
-                                  <p>App ID: {stage.appId}</p>
-                                  </Row>
-                                </p>
+                                      <p>App ID: {stage.appId.split('-')[0]}</p>
+                                    </Row>
+                                  </p>
+                                </Row>
+                                     
                                 <Col>
                                   <CloudCheck color="green" size={28} />
                                 </Col>
