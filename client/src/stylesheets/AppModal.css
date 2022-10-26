@@ -30,11 +30,11 @@ salmon: f5c1ac
 yellow: d7db1f
 magenta: de1e5d */
 
-.btn {
+/* .btn {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
-  font-size: 14px;
+  font-size: 10px;
   font-weight: 400;
   line-height: 1.42857143;
   text-align: center;
@@ -50,7 +50,8 @@ magenta: de1e5d */
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-}
+  width: 10px !important;
+} */
 
 .Apps {
   padding: 5px 20px 20px;
@@ -139,10 +140,10 @@ magenta: de1e5d */
 }
 
 
-.TextButton, .btn-link, a {
+/* .TextButton, .btn-link, a {
   color: #507DA2;
   transition: .3s;
-}
+} */
 
 .MiniActivityList>h4 a {
   font-size: 13px;
@@ -337,6 +338,7 @@ img {
   content: "\f105"
 }
 
+
 :before {
   box-sizing: border-box;
 }
@@ -391,15 +393,17 @@ button, input, select, textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  
 }
 
-.btn-default {
+
+/* .btn-default {
   color: #333;
   background-color: #fff;
   border-color: #ccc;
-}
+} */
 
-.btn-group>.btn:first-child {
+/* .btn-group>.btn:first-child {
   margin-left: 0;
 }
 
@@ -407,7 +411,7 @@ button, input, select, textarea {
   position: relative;
   display: inline-block;
   vertical-align: middle;
-}
+} */
 
 .MiniPipelineStageCell .PipelineDropdownButton button {
   margin-bottom: 1px;
@@ -528,10 +532,6 @@ button, input, select, textarea {
   text-overflow: ellipsis;
   font-size: 15px;
 }
-.TextButton, .btn-link, a {
-  color: #507DA2;
-  transition: .3s;
-}
 a {
   color: #337ab7;
   text-decoration: none;
@@ -540,20 +540,20 @@ a {
   background-color: transparent;
 }
 
-.btn-group, .btn-group-vertical {
+/* .btn-group, .btn-group-vertical {
   position: relative;
   display: inline-block;
   vertical-align: middle;
-}
+} */
 
-.btn-group>.btn:first-child {
+/* .btn-group>.btn:first-child {
   margin-left: 0;
 }
 
 .btn-group-vertical>.btn, .btn-group>.btn {
   position: relative;
   float: left;
-}
+} */
 
 
 ol, ul {
@@ -645,10 +645,6 @@ ol, ul {
   flex: 0 1 auto;
 }
 
-.TextButton, .btn-link, a {
-  color: #507DA2;
-  transition: .3s;
-}
 
 .PipelineTableStageStatusCell .commit {
   flex: 0 0 auto;
@@ -682,7 +678,7 @@ ol, ul {
 }
 
 .mid-wide-card {
-  max-width: 800px;
+  /* max-width: 800px; */
   font-weight: 500;
 }
 
@@ -712,8 +708,6 @@ ol, ul {
   border: none;
   cursor: pointer;
   border-radius: 10px;
-  
-
 }
 
 .dropbtn:hover, .dropbtn:focus {
@@ -750,3 +744,24 @@ ol, ul {
 .custom {
   width: 30px !important;
 }
+
+.stage-branch {
+  font-size: 12px;
+}
+
+.btn-sm {
+  font-size: 11px;
+  color: white;
+  background: rgb(13, 13, 13);
+  font-weight: 600;
+
+}
+
+.btn {
+  font-size: 10px;
+}
+
+.btbox {
+  /* width: 20px; */
+}
+
