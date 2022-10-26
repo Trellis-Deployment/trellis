@@ -89,7 +89,7 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
               </div>
             ) : (
               <div>
-                <p>-</p>{" "}
+                -{" "}
                 <Col>
                   {" "}
                   <Code color="grey" size={28} />
@@ -106,7 +106,7 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
           type="button"
           onClick={(e) => handleDeployClick(e, stage.stageName)}
         >
-          <text>Manually Deploy Stage</text>
+          Manually Deploy Stage
         </button>
       </Row>
     </Col>

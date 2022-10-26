@@ -42,14 +42,14 @@ const Applications = ({ authUser }) => {
         <div className="col d-flex justify-content-end">
           <Button
             onClick={handleNewAppClick}
-            variant="light"
+            variant="success"
             size="sm"
           >
             &#43; New App
           </Button>
         </div>
       </div>
-      <div className="row bg-black mt-3">
+      <div className="row mt-3">
         <ul className="container p-0">
           {applications.map((application) => (
             <div key={application.appId} className="row">
