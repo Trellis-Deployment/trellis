@@ -3,8 +3,8 @@ import updateStageStateByAppNameUserAndStageName from "../util/stagesTableUtils/
 
 export const main = handler(async (event) => {
   const data = event.body ? JSON.parse(event.body) : null;
+  console.log(data.ERROR);
+  updateStageStateByAppNameUserAndStageName({user: data.GITHUB_USER, stageName: data.STAGE_NAME, appName: data.APP_NAME, state: data.STATE});
 
-  updateStageStateByAppNameUserAndStageName({user: data.GITHUB_USER, stageName: data.STAGE_NAME, appName: data.APP_NAME, state: "deployed"});
-
-  return "success";
+  return "received";
 });
