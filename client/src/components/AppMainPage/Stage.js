@@ -46,24 +46,27 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
   }, [stage.stageState]);
   console.log({ stage });
   return (
-    <Col key={stage.stageId} className="stage-row">
-      <Card.Title className="SectionHeader">
+    <Col key={stage.stageId} className="stage-row m-1">
+      <Card.Title className="SectionHeader m-1">
         Stage Name: {stage.stageName}
       </Card.Title>
-      <Card.Text className="stage-branch">
+      <Card.Text className="stage-branch ps-2">
         <Row>
           Stage Branch:{" "}
           {stage.stageBranch !== "undefined" ? stage.stageBranch : "no branch"}{" "}
-          <Col className="lh-0">{<Stages stage={stage} />}</Col>
+          <Col className="lh-0">{<Stages stage={stage}></Stages>}</Col>
         </Row>
       </Card.Text>
       <Row>
-        <Button
-          variant="success"
-          onClick={(e) => handleDeployClick(e, stage.stageName)}
-        >
-          Manually Deploy Stage
-        </Button>
+        <div className="d-flex">
+          <Button
+            size="sm"
+            variant="success"
+            onClick={(e) => handleDeployClick(e, stage.stageName)}
+          >
+            Manually Deploy Stage
+          </Button>
+        </div>
       </Row>
     </Col>
   );
