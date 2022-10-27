@@ -1,4 +1,5 @@
 import "../../App.css";
+import "../../stylesheets/Stages.css"
 import { Col, Row } from "react-bootstrap";
 
 import {
@@ -6,6 +7,7 @@ import {
   Code,
   ExclamationCircle,
   GearWideConnected,
+  Gear
 } from "react-bootstrap-icons";
 
 const stages = ({ stage }) => {
@@ -43,7 +45,7 @@ const stages = ({ stage }) => {
         </Row>
         {stage.stageStage ==='created' && <Col className="text-center"><CloudCheck color="yellow" size={28}/></Col>}
         {stage.stageState === 'deployed' && <Col className="text-center"> <CloudCheck color="green" size={28}/></Col>}
-        {stage.stageState === 'deploying' && <GearWideConnected color="grey" className="text-center spinner-border text-light" size={29} />}
+        {stage.stageState === 'deploying' &&   <Gear className="text-center text-dark spinner-border" size={29} />}
         {stage.stageState === 'error' && <Col className="text-center"> <ExclamationCircle color="red" size={28} /></Col>}
       </div>
     ) 

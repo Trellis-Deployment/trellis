@@ -48,7 +48,6 @@ const AppModal = ({ authUser }) => {
                   ))}
                 </div>
                 <div className="card mini-card">
-                  {/* <Row className="stage-title"></Row> */}
                 </div>
               </div>
             </div>

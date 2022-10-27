@@ -3,7 +3,7 @@
   .Login {
     margin: auto;
     padding: 20px;
-    background-image: linear-gradient(to top, #09203fb5 0%, #5378956b 100%);
+    background: rgba(139, 139, 139, 0.563);
     background-blend-mode: screen;
     max-width: 410px;
     border-radius: 10px;
