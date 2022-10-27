@@ -112,47 +112,31 @@ We have four tables, below is their schemas.
 ### Users
 
 ```js
-const users = new Table(stack, "DobbyUsersList", {
+const users = new Table(stack, "TrellisUsersList", {
   fields: {
     userId: "string",
-    login: "string",
+    githubLogin: "string",
     email: "string",
-    userName: "string",
+    githubFullName: "string",
     userToken: "string",
-    refreshToken: "string",
+    githubAvatarUrl: "string",
   },
   primaryIndex: { partitionKey: "userId", sortKey: "login" },
-});
-```
-
-### Repos
-
-```js
-const repos = new Table(stack, "DobbyRepos", {
-  fields: {
-    repoId: "string",
-    repoName: "string",
-    userId: "string",
-    repoUrl: "string",
-    cloneUrl: "string",
-  },
-  primaryIndex: { partitionKey: "userId", sortKey: "repoName" },
 });
 ```
 
 ### Apps
 
 ```js
-const apps = new Table(stack, "DobbyAppsList", {
+const apps = new Table(stack, "TrellisAppsList", {
   fields: {
     appId: "string",
     appName: "string",
-    ownerLogin: "string",
-    appState: "string",
+    userId: "string",
     description: "string",
-    repo: "string",
-    IAMAccessKey: "string",
-    IAMSecretKey: "string",
+    repoName: "string",
+    defaultIAMAccessKey: "string",
+    defaultIAMSecretKey: "string",
   },
   primaryIndex: { partitionKey: "ownerLogin", sortKey: "appName" },
 });
@@ -161,16 +145,32 @@ const apps = new Table(stack, "DobbyAppsList", {
 ### Stages
 
 ```js
-const stages = new Table(stack, "DobbyStages", {
+const stages = new Table(stack, "TrellisAppsList", {
   fields: {
-    stageId: "string",
-    stageName: "string",
-    appId: "string",
-    IAMAccessKey: "string",
-    IAMSecretKey: "string",
-    stageBranch: "string",
-    stageState: "string",
-  },
-  primaryIndex: { partitionKey: "appId", sortKey: "stageName" },
-});
+     stageId: "string",
+     appId: "string",
+     stageName: "string",
+     IAMAccessKey: "string",
+     IAMSecretKey: "string",
+     stageBranch: "string",
+     stageState: "string",
+     lastCommitId: "string",
+     lastDeploymentTime: "number",
+     },
+     primaryIndex: { partitionKey: "appId", sortKey: "stageName" },
+```
+
+### Deployments
+
+```js
+const deployments = new Table(deployments, "TrellisAppsList", {
+  fields: {
+       deploymentId: "string",
+       stageId: "string",
+       commitId: "string",
+       logs: "string",
+       deploymentState: "string",
+       time: "number"
+     },
+     primaryIndex: { partitionKey: "stageId", sortKey: "stageId" },
 ```
