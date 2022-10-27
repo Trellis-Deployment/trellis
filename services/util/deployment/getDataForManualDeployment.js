@@ -1,5 +1,5 @@
 import getAppByUserAndAppName from "../appsTableUtils/getAppByUserAndAppName";
-import getTokenByLogin from "../usersTableUtils/getTokenByLogin";
+import getTokenByLogin from "../usersTableUtils/getTokenByUserId";
 import getRepoByUserAndRepoName from "../reposTableUtils/getRepoByUserAndRepoName";
 import getStageByAppIdAndStageName from "../stagesTableUtils/getStageByAppIdAndStageName";
 

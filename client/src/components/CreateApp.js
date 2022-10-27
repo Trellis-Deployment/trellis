@@ -5,7 +5,7 @@ import "../stylesheets/CreateApp.css";
 import { useNavigate } from "react-router-dom";
 import { Container, Nav } from "react-bootstrap";
 
-const CreateApp = ({ authUser }) => {
+const CreateApp = ({ authUser, userId }) => {
   const [repos, setRepos] = useState([]);
   const [appName, setAppName] = useState("Application name");
   const [description, setDescription] = useState("Description");
@@ -17,7 +17,8 @@ const CreateApp = ({ authUser }) => {
   useEffect(() => {
     const getRepos = async () => {
       try {
-        const data = await APICalls.getRepos(authUser);
+        console.log({userId});
+        const data = await APICalls.getRepos(userId);
         setRepos(data);
       } catch (e) {
         console.log(e.message);
@@ -25,17 +26,18 @@ const CreateApp = ({ authUser }) => {
     };
 
     getRepos();
-  }, [authUser]);
+  }, [userId]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const app = {
-      name: appName.replace(" ", "-"),
-      user: authUser,
+      appName: appName.replace(" ", "-"),
+      userLogin: authUser,
+      userId: userId,
       description,
-      repo,
-      accessKey,
-      secretKey,
+      repoName: repo,
+      defaultIAMAccessKey: accessKey,
+      defaultIAMSecretKey: secretKey,
     };
     try {
       const data = await APICalls.postApps(app);

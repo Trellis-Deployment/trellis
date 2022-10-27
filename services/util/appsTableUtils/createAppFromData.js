@@ -7,13 +7,12 @@ const createAppFromData = async (data) => {
     TableName: process.env.APPS_TABLE_NAME,
     Item: {
       appId,
-      appName: data.name,
-      ownerLogin: data.user,
-      appState: "App Created",
+      appName: data.appName,
+      userId: data.userId,
       description: data.description,
-      repo: data.repo,
-      IAMAccessKey: data.accessKey,
-      IAMSecretKey: data.secretKey,
+      repoName: data.repoName,
+      defaultIAMAccessKey: data.defaultIAMAccessKey,
+      defaultIAMSecretKey: data.defaultIAMSecretKey,
     }
   };
 

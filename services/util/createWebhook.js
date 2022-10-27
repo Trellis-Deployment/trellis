@@ -1,4 +1,4 @@
-import getTokenByLogin from "./usersTableUtils/getTokenByLogin";
+import getTokenByLogin from "./usersTableUtils/getTokenByUserId";
 import githubCalls from "./github/githubCalls";
 const createWebhook = async (webhookUrl, user, repo) => {
   const token = await getTokenByLogin(user);

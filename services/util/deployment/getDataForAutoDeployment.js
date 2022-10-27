@@ -1,6 +1,6 @@
 import getAppByRepoName from "../appsTableUtils/getAppByRepoName";
 import getStageByAppIdAndBranch from "../stagesTableUtils/getStageByAppIdAndBranch";
-import getTokenByLogin from "../usersTableUtils/getTokenByLogin";
+import getTokenByLogin from "../usersTableUtils/getTokenByUserId";
 
 const getDataForAutoDeployment = async ({repoName, branch}) => {
   const app = (await getAppByRepoName(repoName))[0];

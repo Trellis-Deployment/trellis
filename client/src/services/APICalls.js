@@ -27,8 +27,8 @@ const buildRepo = async(user, repo) => {
   return response.data;
 };
 
-const getApps = async(user) => {
-  const response = await axios.get(`${API_URL}/apps?user=${user}`);
+const getApps = async(userId) => {
+  const response = await axios.get(`${API_URL}/apps?user=${userId}`);
   return response.data;
 };
 

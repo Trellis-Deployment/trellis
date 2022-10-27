@@ -14,13 +14,13 @@ export const main = handler(async (event) => {
     return {error: e.message};
   }
 
-  const webhookUrl = `https://${event.headers.host}/webhook?user=${data.user}&repo=${data.repo}`;
+  const webhookUrl = `https://${event.headers.host}/webhook?user=${data.userLogin}&repo=${data.repo}`;
 
   let webhook;
   try {
-    webhook = await createWebhook(webhookUrl, data.user, data.repo);
+    webhook = await createWebhook(webhookUrl, data.userLogin, data.repo);
   } catch(e) {
-    console(e.message);
+    console.log(e.message);
     webhook = e.message;
   }
   let prodStage;

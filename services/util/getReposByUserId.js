@@ -1,11 +1,10 @@
-import getTokenByLogin from "./usersTableUtils/getTokenByLogin";
+import getTokenByUserId from "./usersTableUtils/getTokenByUserId";
 import githubCalls from "./github/githubCalls";
 import dynamodb from "./templates/dynamodb";
 
-const getReposByLogin = async (login) => {
-
+const getReposByUserId = async (userId) => {
   try {
-    const token = await getTokenByLogin(login);
+    const token = await getTokenByUserId(userId);
     const repos = await githubCalls.getReposByToken(token);
     const repoNames = [];
     repos.forEach(async repo => {
@@ -29,4 +28,4 @@ const getReposByLogin = async (login) => {
   }
 }
 
-export default getReposByLogin;
+export default getReposByUserId;

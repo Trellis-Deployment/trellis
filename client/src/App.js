@@ -9,18 +9,20 @@ import { BrowserRouter as Router} from 'react-router-dom';
 
 function App() {
   const [ authUser, setAuthUser ] = useState(window.sessionStorage.getItem("authUser"));
+  const [ userId, setUserId ] = useState(window.sessionStorage.getItem("trellisUserId"));
 
   const handleLogoutClick = (e) => {
     e.preventDefault();
     window.sessionStorage.removeItem("authUser");
+    window.sessionStorage.removeItem("trellisUserId");
     setAuthUser(undefined);
+    setUserId(undefined);
   };
-
   return (
     <div className="App">
       <Router>
         <NavigationBar authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></NavigationBar>
-        <Routes authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></Routes>
+        <Routes userId={userId} setUserId={setUserId} authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></Routes>
       </Router>
     </div>
   );

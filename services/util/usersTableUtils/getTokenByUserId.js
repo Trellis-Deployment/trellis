@@ -1,10 +1,10 @@
 import dynamodb from "../templates/dynamodb"
 
-const getTokenByLogin = async (login) => {
+const getTokenByUserId = async (userId) => {
   const params = {
     TableName: process.env.USERS_TABLE_NAME,
     Key: {
-      login: login,
+      userId: userId,
     },
   };
 
@@ -16,4 +16,4 @@ const getTokenByLogin = async (login) => {
   return result.Item.userToken;
 }
 
-export default getTokenByLogin;
+export default getTokenByUserId;

@@ -3,23 +3,26 @@ import dynamodb from "../templates/dynamodb";
 
 const updateUser = async (tokenObject) => {
   const data = await githubCalls.getUserInfo(tokenObject.access_token);
-
   const params = {
     TableName: process.env.USERS_TABLE_NAME,
-    Key: {
-      login: data.login,
+    IndexName: "loginIndex",
+    KeyConditionExpression: "githubLogin = :githubLogin",
+    ExpressionAttributeValues: {
+      ":githubLogin" : data.login,
     },
   };
 
-  const result = await dynamodb.get(params);
-  if (!result.Item) {
+  const result = await dynamodb.query(params);
+  if (result.Items.length === 0) {
     throw new Error("User not found");
   }
+
+  const userToUpdate = result.Items[0];
 
   const putParams = {
     TableName: process.env.USERS_TABLE_NAME,
     Key: {
-      login: data.login,
+      userId: userToUpdate.userId,
     },
     UpdateExpression: "SET userToken = :userToken",
     ExpressionAttributeValues: {
@@ -32,7 +35,8 @@ const updateUser = async (tokenObject) => {
   } catch(e) {
     throw new Error(e.message);
   }
-  return data;
+  console.log({user});
+  return userToUpdate;
 }
 
 export default updateUser;
