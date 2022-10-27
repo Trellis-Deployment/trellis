@@ -1,5 +1,4 @@
 import "../../App.css";
-import "../../stylesheets/Stage.css"
 import { Col, Row } from "react-bootstrap";
 
 import {
