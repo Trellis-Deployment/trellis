@@ -39,7 +39,7 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
       clearInterval(intervalId.current);
     });
   }, [stage.stageState]);
-
+  console.log({stage});
   return (
     <Col key={stage.stageId} className="stage-row">
       <Card.Title className="SectionHeader">
@@ -76,7 +76,7 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
                         rel="noopener noreferrer"
                         href={stage.Id}
                       >
-                        Stage ID: {stage.stageId.split('-')[0]}
+                        Last Deployed: {stage.lastDeploymentTime}
                       </a>
                       App ID: {stage.appId.split('-')[0]}
                     </Row>

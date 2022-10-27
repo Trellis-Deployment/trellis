@@ -5,12 +5,14 @@ const GITHUB_REPO = process.env.GITHUB_REPO;
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const STAGE_NAME = process.env.STAGE_NAME;
+const APP_NAME = process.env.APP_NAME;
+const SET_STATUS_URL = process.env.SET_STATUS_URL;
 
 const buildStatusData = {
   GITHUB_USER,
   STAGE_NAME,
   APP_NAME,
-}
+};
 
 try {
   const awsCredentialCommands = [
@@ -47,20 +49,17 @@ try {
   ];
   execSync(deployCommands.join(' && '), { stdio: 'inherit' });
   
-  buildStatusData.STATUS = "D"
+  buildStatusData.STATE = "deployed";
 
   console.log('SUCCESS: APP DEPLOYED!');
 } catch(e) {
-
+  buildStatusData.STATE = "error";
+  buildStatusData.ERROR = e.message;
 }
-
-
-
-
 
 fetch(SET_STATUS_URL, {
   method: "POST",
-  body: JSON.stringify(data),
+  body: JSON.stringify(buildStatusData),
   headers: {
     "Content-type": "application/json; charset=UTF-8"
   },
