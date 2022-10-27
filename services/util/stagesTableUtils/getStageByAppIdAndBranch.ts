@@ -1,6 +1,6 @@
 import dynamodb from "../templates/dynamodb";
 
-const getStageByAppNameAndBranch = async ({ appId, stageBranch }) => {
+const getStageByAppIdAndBranch = async ({ appId, stageBranch }) => {
   const params = {
     TableName: process.env.STAGES_TABLE_NAME,
     IndexName: "stageIndex",
@@ -17,4 +17,4 @@ const getStageByAppNameAndBranch = async ({ appId, stageBranch }) => {
 }
 
 
-export default getStageByAppNameAndBranch;
+export default getStageByAppIdAndBranch;

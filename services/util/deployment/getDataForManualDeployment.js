@@ -10,7 +10,6 @@ const getDataForManualDeployment = async ({authUser, appName, stageName }) => {
   const repo = await getRepoByUserAndRepoName({ user: authUser, repoName: app.repo });
   const token = await getTokenByLogin(authUser);
   const [user, repoName] = app.repo.split("/");
-  console.log({stage});
   return { appName, stageName, token, cloneUrl: repo.cloneUrl, user, repoName, IAMAccessKey: stage.IAMAccessKey, IAMSecretKey: stage.IAMSecretKey };
 };
 
