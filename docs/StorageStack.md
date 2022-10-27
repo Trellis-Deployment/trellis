@@ -112,7 +112,7 @@ We have four tables, below is their schemas.
 ### Users
 
 ```js
-const users = new Table(stack, "DobbyUsersList", {
+const users = new Table(stack, "TrellisUsersList", {
   fields: {
     userId: "string",
     githubLogin: "string",
@@ -128,7 +128,7 @@ const users = new Table(stack, "DobbyUsersList", {
 ### Apps
 
 ```js
-const apps = new Table(stack, "DobbyAppsList", {
+const apps = new Table(stack, "TrellisAppsList", {
   fields: {
     appId: "string",
     appName: "string",
@@ -137,30 +137,40 @@ const apps = new Table(stack, "DobbyAppsList", {
     repoName: "string",
     defaultIAMAccessKey: "string",
     defaultIAMSecretKey: "string",
-    usersWithAccess: [
-       userId: "string"
-    ],
-    stages: [
-     {
+  },
+  primaryIndex: { partitionKey: "ownerLogin", sortKey: "appName" },
+});
+```
+
+### Stages
+
+```js
+const stages = new Table(stack, "TrellisAppsList", {
+  fields: {
      stageId: "string",
+     appId: "string",
      stageName: "string",
      IAMAccessKey: "string",
      IAMSecretKey: "string",
      stageBranch: "string",
      stageState: "string",
      lastCommitId: "string",
-     lastDeploymentTime: "date",
-     deploymentHistory: [
-       {
+     lastDeploymentTime: "number",
+     },
+     primaryIndex: { partitionKey: "appId", sortKey: "stageName" },
+```
+
+### Deployments
+
+```js
+const deployments = new Table(deployments, "TrellisAppsList", {
+  fields: {
+       deploymentId: "string",
+       stageId: "string",
        commitId: "string",
        logs: "string",
        deploymentState: "string",
-       time: "string"
-       }
-     ]
-     }
-    ]
-  },
-  primaryIndex: { partitionKey: "ownerLogin", sortKey: "appName" },
-});
+       time: "number"
+     },
+     primaryIndex: { partitionKey: "stageId", sortKey: "stageId" },
 ```
