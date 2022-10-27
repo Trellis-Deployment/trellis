@@ -2,9 +2,20 @@
   button {
     padding: 60px 0;
     margin: 0 auto;
-    min-width: 220px;
-    max-width: 330px;
+    width: 160px !important;
+    color: white !important;
+    background-color: #51e6bc3c !important;
+    border-radius: 50px !important;
+    font-size: 15px !important;
   }
+
+
+  .sush :hover {
+    color: #51e6bc !important;
+  }
+
+
+
 
   .m-title {
     color: black;
