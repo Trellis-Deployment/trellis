@@ -4,16 +4,24 @@ import dynamodb from "../templates/dynamodb";
 const updateStageStateByAppNameUserAndStageName = async ({user, stageName, appName, state}) => {
   const apps = (await getAppByUserAndAppName({user, appName}));
   const app = apps ? apps[0] : null;
-
+  const time = (new Date()).toDateString();
+  console.log({time});
+  console.log({state});
   if(app) {
+    console.log({app});
     const putParams = {
       TableName: process.env.STAGES_TABLE_NAME,
       Key: {
         appId: app.appId,
         stageName: stageName,
       },
-      UpdateExpression: "SET stageState = :stageState",
-      ExpressionAttributeValues: {
+      UpdateExpression: state === "deployed" ? "SET stageState = :stageState, lastDeploymentTime = :lastDeploymentTime" : "SET stageState = :stageState",
+      ExpressionAttributeValues: state === "deployed" ? 
+      {
+        ":stageState": state,
+        ":lastDeploymentTime": time,
+      } :
+      {
         ":stageState": state,
       },
     };

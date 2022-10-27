@@ -10,10 +10,7 @@ const getStageById = async (stageId) => {
     },
   };
 
-  console.log({params});
-
   const result = await dynamodb.query(params);
-  console.log({result});
   return result.Items[0];
 }
 
