@@ -115,28 +115,13 @@ We have four tables, below is their schemas.
 const users = new Table(stack, "DobbyUsersList", {
   fields: {
     userId: "string",
-    login: "string",
+    githubLogin: "string",
     email: "string",
-    userName: "string",
+    githubFullName: "string",
     userToken: "string",
-    refreshToken: "string",
+    githubAvatarUrl: "string",
   },
   primaryIndex: { partitionKey: "userId", sortKey: "login" },
-});
-```
-
-### Repos
-
-```js
-const repos = new Table(stack, "DobbyRepos", {
-  fields: {
-    repoId: "string",
-    repoName: "string",
-    userId: "string",
-    repoUrl: "string",
-    cloneUrl: "string",
-  },
-  primaryIndex: { partitionKey: "userId", sortKey: "repoName" },
 });
 ```
 
@@ -147,30 +132,35 @@ const apps = new Table(stack, "DobbyAppsList", {
   fields: {
     appId: "string",
     appName: "string",
-    ownerLogin: "string",
-    appState: "string",
+    userId: "string",
     description: "string",
-    repo: "string",
-    IAMAccessKey: "string",
-    IAMSecretKey: "string",
+    repoName: "string",
+    defaultIAMAccessKey: "string",
+    defaultIAMSecretKey: "string",
+    usersWithAccess: [
+       userId: "string"
+    ],
+    stages: [
+     {
+     stageId: "string",
+     stageName: "string",
+     IAMAccessKey: "string",
+     IAMSecretKey: "string",
+     stageBranch: "string",
+     stageState: "string",
+     lastCommitId: "string",
+     lastDeploymentTime: "date",
+     deploymentHistory: [
+       {
+       commitId: "string",
+       logs: "string",
+       deploymentState: "string",
+       time: "string"
+       }
+     ]
+     }
+    ]
   },
   primaryIndex: { partitionKey: "ownerLogin", sortKey: "appName" },
-});
-```
-
-### Stages
-
-```js
-const stages = new Table(stack, "DobbyStages", {
-  fields: {
-    stageId: "string",
-    stageName: "string",
-    appId: "string",
-    IAMAccessKey: "string",
-    IAMSecretKey: "string",
-    stageBranch: "string",
-    stageState: "string",
-  },
-  primaryIndex: { partitionKey: "appId", sortKey: "stageName" },
 });
 ```
