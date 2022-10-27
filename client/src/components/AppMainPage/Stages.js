@@ -1,4 +1,4 @@
-import "../stylesheets/AppModal.css";
+import "../../App.css";
 import { Col, Row } from "react-bootstrap";
 
 import {
