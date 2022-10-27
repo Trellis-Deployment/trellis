@@ -2,7 +2,7 @@
 
 # Fill in with your AWS information
 AWS_REGION="us-east-1"
-AWS_ACCOUNT_ID_NUMBER=
+AWS_ACCOUNT_ID_NUMBER=$(aws sts get-caller-identity --query "Account" --output text)
 
 reponame="build-server"
 output=$(aws ecr describe-repositories --repository-names $reponame 2>&1)

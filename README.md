@@ -31,7 +31,7 @@
 1. Now install packages in the client directory - `cd client` and `npm install`
 1. Next we need to locally build and push a docker image to ECR
    1. In `docker-container` is a script called `build-and-push-to-aws.sh` build and image and loads it to AWS ECR.
-   1. Edit the script - insert your desired AWS Region and 12-digit AWS account number
+   1. The script uses the AWS CLI to get your AWS account number, and defaults to the region 'us-east-1' - change these values in the script if you so desire
    1. Make the `/docker-container/build-and-push-to-aws.sh` executable with `chmod a+rx build-and-push-to-aws.sh`
    1. run `./build-and-push-to-aws.sh`
    1. If you like, go to ECR in the AWS console and verify the container exists
