@@ -2,8 +2,6 @@
   button {
     padding: 60px 0;
     margin: 0 auto;
-    min-width: 220px;
-    max-width: 330px;
   }
 
   .m-title {
@@ -17,12 +15,10 @@
 
   .app-list-body {
     padding: 20px;
-    /* background: lightcyan */
   }
   
   ul {
     list-style-type: none;
-    /* text-align: center; */
   } 
 
   li {
@@ -31,22 +27,16 @@
   }
 
   .msx {
-    /* background: black; */
     max-width: 600px;
     min-width: 480px;
     margin: 5px;
   }
 
   .card-face {
-    /* background-image: linear-gradient(to top, #09203f 0%, #537895 100%); */
-    /* background-blend-mode: screen; */
+
     background-color: rgb(166, 249, 230);
     border-radius: 5px;
   }
-
-  /* .c-title :hover {
-    color: darkgray;
-  } */
   
   .c-title {
     color: #25415F;

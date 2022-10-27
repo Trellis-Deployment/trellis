@@ -42,7 +42,7 @@ const CreateApp = ({ authUser, userId }) => {
     try {
       const data = await APICalls.postApps(app);
       console.log(data);
-      navigate(`/application/${appName}`);
+      navigate(`/Apps`);
     } catch (e) {
       console.log(e.message);
     }
@@ -111,7 +111,6 @@ const CreateApp = ({ authUser, userId }) => {
               onChange={(e) => setSecretKey(e.target.value)}
             />
           </Form.Group>
-          {/* <div className="bg-transparent p-3 m-2"> */}
           <div className="container">
             <Button
               variant="outline-light"

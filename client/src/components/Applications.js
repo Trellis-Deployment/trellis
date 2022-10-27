@@ -3,8 +3,8 @@ import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
 import APICalls from "../services/APICalls";
 import { useNavigate } from "react-router-dom";
-// import Nav from "react-bootstrap/Nav";
 import Card from "react-bootstrap/Card";
+import { PlusCircle } from "react-bootstrap-icons";
 
 const Applications = ({ authUser, userId }) => {
   const [applications, setApplications] = useState([]);
@@ -39,13 +39,9 @@ const Applications = ({ authUser, userId }) => {
         <div className="col col-auto">
           <h3 className="text-start">Welcome {authUser}</h3>
         </div>
-        <div className="col d-flex justify-content-end">
-          <Button
-            onClick={handleNewAppClick}
-            variant="success"
-            size="sm"
-          >
-            &#43; New App
+        <div className="col d-flex justify-content-end sush">
+          <Button onClick={handleNewAppClick} size="sm" variant="light">
+            <PlusCircle size={20} /> New App
           </Button>
         </div>
       </div>
@@ -58,12 +54,13 @@ const Applications = ({ authUser, userId }) => {
                   <Card
                     key={application.appId}
                     onClick={(e) => handleAppClick(e, application.appName)}
-                    
                   >
-                    <div className="row px-1 ps-2">
-                      <div className="col col-auto
-                      align-self-center">
-                        {application.appName[0]}
+                    <div className="row mx-2 ps-2">
+                      <div
+                        className="col col-auto
+                      align-self-center"
+                      >
+                        {<span class="badge bg-info">{application.appName[0]}</span>}
                       </div>
                       <div className="col">
                         <Card.Body className="py-2">
@@ -75,11 +72,15 @@ const Applications = ({ authUser, userId }) => {
                           </Card.Subtitle>
                         </Card.Body>
                       </div>
-                      <div className="col col-auto 
+                      <div
+                        className="col col-auto 
                       align-self-center 
                       
-                      pe-4">
-                        <div className="row dep d-flex justify-content-end">Last Deployed</div>
+                      pe-4"
+                      >
+                        <div className="row dep d-flex justify-content-end">
+                          Last Deployed
+                        </div>
                         <div className="row date">Oct 25, 2022 2:00pm</div>
                       </div>
                     </div>
