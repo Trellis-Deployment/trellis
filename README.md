@@ -1,6 +1,7 @@
 # Installation
 
 1. Clone the project - `git clone https://github.com/Trellis-Deployment/trellis.git`
+1. Enter the cloned directory (`cd trellis`) and rename the `.env.template` to `.env` - `mv .env.template .env`
 1. Create a github app to interact with trellis
    1. Sign into github.com
    1. Settings --> Developer Settings [link](https://github.com/settings/apps)
