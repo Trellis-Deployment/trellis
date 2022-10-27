@@ -94,7 +94,7 @@ const CreateApp = ({ authUser }) => {
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
             <p className="text-start pt-3">IAM Access Key:</p>
             <Form.Control
-              type="string"
+              type="password"
               placeholder="IAM Access Key"
               required
               onChange={(e) => setAccessKey(e.target.value)}
@@ -103,7 +103,7 @@ const CreateApp = ({ authUser }) => {
           <Form.Group className="mb-3" controlid="formBasicSecretKey">
             <p className="text-start">IAM Access Secret:</p>
             <Form.Control
-              type="string"
+              type="password"
               placeholder="IAM Secret Key"
               required
               onChange={(e) => setSecretKey(e.target.value)}
