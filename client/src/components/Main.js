@@ -1,76 +1,63 @@
-import "../stylesheets/Main.css";
-import Button from "react-bootstrap/Button";
+import "../stylesheets/GitRedirect.css";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import Trellis from "../Resources/trellis_ph_clear900.png";
+import APICalls from "../services/APICalls";
+import Waiting from "../Resources/Trellis_house.jpg";
 import Image from "react-bootstrap/Image";
 
-const Main = ({ authUser}) => {
+const GitRedirect = ({ setAuthUser }) => {
   const [searchParams] = useSearchParams();
-  const redirect = searchParams.get("redirect");
+  const [authenticated, setAuthenticated] = useState(false);
+  const code = searchParams.get("code");
+  const application = searchParams.get("installation_id");
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!authUser) {
-      return;
-    } else {
-      if (!redirect || redirect === "apps") {
-        navigate("/apps");
-      } else if (redirect === "create-app") {
-        navigate("/create-app");
+    const makeRequest = async () => {
+      try {
+        if (application) {
+          const data = await APICalls.signup(code);
+          setAuthUser(data.user.login);
+          setAuthenticated(true);
+          window.sessionStorage.setItem("authUser", data.user.login);
+          navigate("/apps");
+        } else {
+          const data = await APICalls.signin(code);
+          if (!data.user) {
+            alert("User not found");
+            navigate("/apps");
+          }
+          setAuthUser(data.user.login);
+          setAuthenticated(true);
+          window.sessionStorage.setItem("authUser", data.user.login);
+          navigate("/apps");
+        }
+      } catch (e) {
+        setAuthenticated(false);
       }
-    }
-  }, [authUser, navigate, redirect]);
+    };
+    makeRequest();
+  }, [code, navigate, setAuthUser, application]);
 
   return (
-    <div className="card main m-3 mx-4 p-3">
-      <div className="">
-        <div className="d-flex justify-content-center">
-          <div className="row">
-            <div className="col text-center">
-              <Image
-                src={Trellis}
-                className="App-logo"
-                alt="logo"
-              />
-            </div>
-            <div className="col">
-              <div className="row py-3">
-                <h2 className="text-light pt-4">Welcome to Trellis</h2>
-              </div>
-              <div className="row">
-                <h5 className="text-white pb-2">
-                  An open-source, low-config deployment pipeline for your
-                  serverless applications
-                </h5>
-                <div className="#">
-                  <div className="row pt-3 m-1">
-                    <Button
-                      size="md"
-                      className="sign-buttons"
-                      variant="light"
-                      href={`https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`}
-                    >
-                      Signup via Github
-                    </Button>
-                  </div>
-                  <div className="row pt-3 m-1 ">
-                    <Button
-                      size="md"
-                      className="sign-buttons"
-                      variant="light"
-                      href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_Client_ID}`}
-                    >
-                      Signin via Github
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="position-absolute top-50 start-50 translate-middle wait pb-1 px-2">
+      <header className="App-header pt-3 pb-2">
+        <div className="container">
+          <Image src={Waiting} className="App-logo" alt="logo" fluid="true" />
         </div>
+      </header>
+      <div className="text-center">
+        <div className="spinner-border text-center spin">
+          <strong>{`<`}</strong>
+        </div>
+        <h3 className="box text-dark p-1">
+          {authenticated
+            ? `Congratulations you signed in`
+            : `Waiting for Authentication`}
+        </h3>
       </div>
     </div>
   );
 };
 
-export default Main;
+export default GitRedirect;
