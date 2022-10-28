@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import APICalls from "../../services/APICalls";
 import Stages from "./Stages";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useAppContext } from "../../Lib/AppContext";
 
 const Stage = ({ stage, setStages, stages }) => {
@@ -52,7 +53,7 @@ const Stage = ({ stage, setStages, stages }) => {
   return (
     <Col key={stage.stageId} className="stage-row m-1">
       <Card.Title className="SectionHeader m-1">
-        Stage Name: {stage.stageName}
+        Stage Name: <Link to={`/application/${appName}/activity`} >{stage.stageName}</Link>
       </Card.Title>
       <Card.Text className="stage-branch ps-2">
         <Row>
