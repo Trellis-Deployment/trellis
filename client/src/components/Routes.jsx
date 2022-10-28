@@ -5,7 +5,7 @@ import NotFound from "./NotFound";
 import GitRedirect from "./GitRedirect";
 import Applications from "./Applications";
 import CreateApp from "./CreateApp";
-import AppModal from "./AppModal";
+import AppModal from "./AppMainPage/UserApp";
 import AppActivity from "./ActivityPages/AppActivity";
 import { useAppContext } from "../Lib/AppContext";
 

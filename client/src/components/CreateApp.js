@@ -98,7 +98,7 @@ const CreateApp = () => {
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
             <p className="text-start pt-3">IAM Access Key:</p>
             <Form.Control
-              type="password"
+              type="string"
               placeholder="IAM Access Key"
               required
               onChange={(e) => setAccessKey(e.target.value)}

@@ -1,8 +1,8 @@
-import "../../stylesheets/AppModal.css";
+import "../../stylesheets/AppStage.css";
 import { Col, Card, Row } from "react-bootstrap";
 import { useEffect, useRef } from "react";
 import APICalls from "../../services/APICalls";
-import Stages from "./Stages";
+import Stages from "./StageData";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../Lib/AppContext";
