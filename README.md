@@ -11,15 +11,17 @@
    1. Check `Request user authorization (OAuth) during installation`
    1. Check 'Enable Device Flow'
    1. We will be returning here to fill out the callback and setup URLs
-   1. Permissions - set the following to `Read and Write`
-      - Actions
-      - Administration
-      - Checks
-      - Codespaces Metadata
-      - Commit statuses
-      - Metadata
-      - Pull Requests
-      - Webhooks
+   1. Permissions
+      - Repository Permissions
+        - Checks - Read and Write
+        - Commit statuses - Read and Write
+        - Contents - Read
+        - Deployments - Read and Write
+        - Metadata - Read
+        - Pull Requests - Read and Write
+        - Webhooks - Read and Write
+      - Account Permissions
+        - Email addresses - Read
    1. 'Where can this GitHub app be installed?' - select 'Any account'
    1. Click 'Create GitHub App'
    1. In the `.env` file in the trellis directory, copy the following information from your github app
