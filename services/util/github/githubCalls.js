@@ -73,11 +73,27 @@ const createWebhook = async (token, webhookURL, user, fullRepo) => {
     throw new Error(`{githubFailed: ${e.message}}`);
   }
 }
+
+const getCommits = async ({token, userLogin, repo}) => {
+  const octokit = new Octokit({
+    auth: token
+  });
+  try {
+    const response = await octokit.request('Get /repos/{owner}/{repo}/commits', {
+      owner: userLogin,
+      repo: repo,
+    });
+    return response.data;
+  } catch(e) {
+    console.log(e.message);
+  }
+}
 const githubCalls = {
   getAccessToken,
   getUserInfo,
   getReposByToken,
-  createWebhook
+  createWebhook,
+  getCommits
 };
 
 export default githubCalls;

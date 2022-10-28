@@ -1,7 +1,7 @@
 import AWS from "aws-sdk";
 import updateStageState from "../stagesTableUtils/updateStageState";
 
-const invokeBuildFunction = async (data, stage) => {
+const invokeBuildFunction = async (data, stage, commitId) => {
   const lambda = new AWS.Lambda();
   const params = {
     FunctionName: process.env.DEPLOY_LAMBDA_NAME,
@@ -10,7 +10,7 @@ const invokeBuildFunction = async (data, stage) => {
     Payload: JSON.stringify({ data: data }),
   };
   const lambdaResponse = await lambda.invoke(params).promise();
-  await updateStageState({stage, state: "deploying"});
+  await updateStageState({stage, state: "deploying", commitId });
 
   console.log("after invokation");
 
