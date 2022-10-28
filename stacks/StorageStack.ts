@@ -16,6 +16,6 @@ export function StorageStack({ stack, app }: StackContext) {
     users,
     apps,
     stages,
-    deployments
+    deployments,
   }
 }

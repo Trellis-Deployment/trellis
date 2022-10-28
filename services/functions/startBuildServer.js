@@ -57,6 +57,10 @@ export const main = handler(async (event, context) => {
               name: "APP_NAME",
               value: data.APP_NAME,
             },
+            {
+              name: "DEPLOYMENT_ID",
+              value: data.DEPLOYMENT_ID,
+            }
           ],
           name: CONTAINER,
         },

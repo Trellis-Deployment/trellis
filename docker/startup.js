@@ -7,11 +7,13 @@ const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const STAGE_NAME = process.env.STAGE_NAME;
 const APP_NAME = process.env.APP_NAME;
 const SET_STATUS_URL = process.env.SET_STATUS_URL;
+const DEPLOYMENT_ID = process.env.DEPLOYMENT_ID;
 
 const buildStatusData = {
   GITHUB_USER,
   STAGE_NAME,
   APP_NAME,
+  DEPLOYMENT_ID,
 };
 
 try {

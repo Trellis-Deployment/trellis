@@ -1,4 +1,4 @@
-import "../../stylesheets/AppModal.css";
+import "../../stylesheets/AppStage.css";
 import { useState, useEffect } from "react";
 import DeploymentCard from "./DeploymentCard";
 

@@ -9,7 +9,7 @@ export const createDeploymentsTable = (stack) => {
       commitId: "string",
       logs: "string",
       deploymentState: "string",
-      time: "number",
+      deployedTime: "number",
     },
     primaryIndex: { partitionKey: "deploymentId" },
     globalIndexes: {

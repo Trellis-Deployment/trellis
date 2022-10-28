@@ -1,21 +1,19 @@
 import dynamodb from "../templates/dynamodb";
 
-const updateStageState = async ({ stage, state }) => {
+const updateStageState = async ({ stage, state, commitId }) => {
   const time = (new Date()).getTime();
   const updateParams = {
     TableName: process.env.STAGES_TABLE_NAME,
     Key: {
       stageId: stage.stageId,
     },
-    UpdateExpression: state === "deployed" ? "SET stageState = :stageState, lastDeploymentTime = :lastDeploymentTime" : "SET stageState = :stageState",
-    ExpressionAttributeValues: state === "deployed" ? 
+    UpdateExpression:"SET stageState = :stageState, lastDeploymentTime = :lastDeploymentTime, commitId = :commitId",
+    ExpressionAttributeValues:
       {
         ":stageState": state,
         ":lastDeploymentTime": time,
-      } :
-      {
-        ":stageState": state,
-      },
+        ":commitId": commitId,
+      }
   };
 
   try {

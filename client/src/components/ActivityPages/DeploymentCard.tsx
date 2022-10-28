@@ -1,4 +1,4 @@
-import "../../stylesheets/AppModal.css";
+import "../../stylesheets/AppStage.css";
 import { Row, Card } from "react-bootstrap";
 
 const DeploymentCard = ({deployment}) => {
