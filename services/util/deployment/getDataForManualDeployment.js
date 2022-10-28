@@ -1,16 +1,15 @@
 import getAppByUserAndAppName from "../appsTableUtils/getAppByUserAndAppName";
-import getTokenByLogin from "../usersTableUtils/getTokenByLogin";
-import getRepoByUserAndRepoName from "../reposTableUtils/getRepoByUserAndRepoName";
-import getStageByAppIdAndStageName from "../stagesTableUtils/getStageByAppIdAndStageName";
+import getTokenByUserId from "../usersTableUtils/getTokenByUserId";
+import getStageById from "../stagesTableUtils/getStageById";
 
-const getDataForManualDeployment = async ({authUser, appName, stageName }) => {
-  const app = (await getAppByUserAndAppName({user: authUser, appName}))[0];
+const getDataForManualDeployment = async ({userId, appName, stageId }) => {
+  const app = (await getAppByUserAndAppName({userId, appName}));
   const appId  = app.appId;
-  const stage = await getStageByAppIdAndStageName({stageName, appId});
-  const repo = await getRepoByUserAndRepoName({ user: authUser, repoName: app.repo });
-  const token = await getTokenByLogin(authUser);
-  const [user, repoName] = app.repo.split("/");
-  return { appName, stageName, token, cloneUrl: repo.cloneUrl, user, repoName, IAMAccessKey: stage.IAMAccessKey, IAMSecretKey: stage.IAMSecretKey };
+  const stage = await getStageById(stageId);
+  console.log({stage});
+  const token = await getTokenByUserId(userId);
+  const [user, repoName] = app.repoName.split("/");
+  return { stage, appName, stageName: stage.stageName, token, user, repoName, IAMAccessKey: stage.IAMAccessKey, IAMSecretKey: stage.IAMSecretKey };
 };
 
 export default getDataForManualDeployment;

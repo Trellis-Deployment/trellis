@@ -1,11 +1,11 @@
 import dynamodb from "../templates/dynamodb";
 
-const getAppsByOwner = async (login) => {
+const getAppsByOwnerId = async (userId) => {
   const params = {
     TableName: process.env.APPS_TABLE_NAME,
-    KeyConditionExpression: "ownerLogin = :ownerLogin",
+    KeyConditionExpression: "userId = :userId",
     ExpressionAttributeValues: {
-      ":ownerLogin": login,
+      ":userId": userId,
     },
   };
 
@@ -15,4 +15,4 @@ const getAppsByOwner = async (login) => {
 }
 
 
-export default getAppsByOwner;
+export default getAppsByOwnerId;

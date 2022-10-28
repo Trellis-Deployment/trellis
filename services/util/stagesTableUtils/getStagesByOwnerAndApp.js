@@ -1,17 +1,19 @@
 import dynamodb from "../templates/dynamodb";
 
-const getStagesByOwnerAndApp = async ({ownerLogin, appName}) => {
+const getStagesByOwnerAndApp = async ({userId, appName}) => {
   const appParams = {
     TableName: process.env.APPS_TABLE_NAME,
-    Key: {
-      ownerLogin,
-      appName,
-    },
+    IndexName: "appNameIndex",
+    KeyConditionExpression: `userId = :userId and appName = :appName`,
+    ExpressionAttributeValues: {
+      ":userId" : userId,
+      ":appName" : appName
+    }
   };
 
   let app;
   try {
-    app = (await dynamodb.get(appParams)).Item;
+    app = ((await dynamodb.query(appParams)).Items)[0];
   } catch(e) {
     console.log(e.message);
     throw new Error(`{dynamodb:"failed to get app"}`);
@@ -19,6 +21,7 @@ const getStagesByOwnerAndApp = async ({ownerLogin, appName}) => {
 
   const stagesParams = {
     TableName: process.env.STAGES_TABLE_NAME,
+    IndexName: "branchIndex",
     KeyConditionExpression: "appId = :appId",
     ExpressionAttributeValues: {
       ":appId": app.appId,
@@ -28,9 +31,8 @@ const getStagesByOwnerAndApp = async ({ownerLogin, appName}) => {
   try {
     result = await dynamodb.query(stagesParams);
   } catch(e) {
-    throw new Error('{dynamodb:"failed to get stages"}');
+    throw e;
   }
-
   return result.Items;
 }
 

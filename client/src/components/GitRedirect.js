@@ -5,7 +5,7 @@ import APICalls from "../services/APICalls";
 import Waiting from "../Resources/Trellis_house.jpg";
 import Image from "react-bootstrap/Image";
 
-const GitRedirect = ({ setAuthUser }) => {
+const GitRedirect = ({ setAuthUser, setUserId }) => {
   const [searchParams] = useSearchParams();
   const [authenticated, setAuthenticated] = useState(false);
   const code = searchParams.get("code");
@@ -17,9 +17,11 @@ const GitRedirect = ({ setAuthUser }) => {
       try {
         if (application) {
           const data = await APICalls.signup(code);
-          setAuthUser(data.user.login);
+          setAuthUser(data.user.githubLogin);
+          setUserId(data.user.userId)
           setAuthenticated(true);
-          window.sessionStorage.setItem("authUser", data.user.login);
+          window.sessionStorage.setItem("authUser", data.user.githubLogin);
+          window.sessionStorage.setItem("trellisUserId", data.user.userId);
           navigate("/apps");
         } else {
           const data = await APICalls.signin(code);
@@ -27,9 +29,11 @@ const GitRedirect = ({ setAuthUser }) => {
             alert("User not found");
             navigate("/apps");
           }
-          setAuthUser(data.user.login);
+          setAuthUser(data.user.githubLogin);
+          setUserId(data.user.userId);
           setAuthenticated(true);
-          window.sessionStorage.setItem("authUser", data.user.login);
+          window.sessionStorage.setItem("authUser", data.user.githubLogin);
+          window.sessionStorage.setItem("trellisUserId", data.user.userId);
           navigate("/apps");
         }
       } catch (e) {
@@ -37,7 +41,7 @@ const GitRedirect = ({ setAuthUser }) => {
       }
     };
     makeRequest();
-  }, [code, navigate, setAuthUser, application]);
+  }, [code, navigate, setAuthUser, application, setUserId]);
 
   return (
     <div className="position-absolute top-50 start-50 translate-middle wait pb-1 px-2">

@@ -1,6 +1,6 @@
 import handler from "../util/templates/handler";
 import githubCalls from "../util/github/githubCalls";
-import updateUser from "../util/usersTableUtils/updateUser";
+import updateUser from "../util/usersTableUtils/updateUserTokenByLogin";
 
 
 export const main = handler(async (event) => {

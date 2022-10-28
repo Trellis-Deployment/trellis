@@ -6,7 +6,7 @@ import createStage from "../util/stagesTableUtils/createStage";
 export const main = handler(async (event) => {
   const data = JSON.parse(event.body);
   let app;
-  
+  const { appName, userLogin, userId, repoName} = data;
   try {
     app = await createAppFromData(data);
   } catch(e) {
@@ -14,20 +14,20 @@ export const main = handler(async (event) => {
     return {error: e.message};
   }
 
-  const webhookUrl = `https://${event.headers.host}/webhook?user=${data.user}&repo=${data.repo}`;
+  const webhookUrl = `https://${event.headers.host}/webhook?user=${userLogin}&repo=${repoName}`;
 
   let webhook;
   try {
-    webhook = await createWebhook(webhookUrl, data.user, data.repo);
+    webhook = await createWebhook({webhookUrl, login: data.userLogin, repo: data.repoName, userId});
   } catch(e) {
-    console(e.message);
+    console.log(e.message);
     webhook = e.message;
   }
   let prodStage;
   let devStage;
   try {
-    prodStage = await createStage(app, null, "prod");
-    devStage = await createStage(app, "main", "dev");
+    prodStage = await createStage({app, branch: null, stageName: "prod"});
+    devStage = await createStage({app, branch: "main", stageName: "dev"});
     console.log({prodStage});
   } catch(e) {
     console.log(e.message);

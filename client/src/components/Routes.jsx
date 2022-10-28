@@ -11,6 +11,8 @@ import AppModal from "./AppModal";
 export default function RoutesComp({
   authUser,
   setAuthUser,
+  setUserId,
+  userId
 }) {
   return (
     <Routes>
@@ -19,7 +21,7 @@ export default function RoutesComp({
         path="/create-app"
         element={
           authUser ? (
-            <CreateApp authUser={authUser} />
+            <CreateApp authUser={authUser} userId={userId}/>
           ) : (
             <Navigate to="/?redirect=create-app" />
           )
@@ -27,13 +29,13 @@ export default function RoutesComp({
       />
       <Route
         path="/gitRedirect"
-        element={<GitRedirect setAuthUser={setAuthUser} />}
+        element={<GitRedirect setAuthUser={setAuthUser} setUserId={setUserId}/>}
       />
       <Route
         path="/apps"
         element={
           authUser ? (
-            <Applications authUser={authUser} />
+            <Applications authUser={authUser} userId={userId}/>
           ) : (
             <Navigate to="/?redirect=apps" />
           )
@@ -43,7 +45,7 @@ export default function RoutesComp({
         path={`/application/:appName`}
         element={
           authUser ? (
-            <AppModal authUser={authUser} />
+            <AppModal authUser={authUser} userId={userId}/>
           ) : (
             <Navigate to="/?redirect=apps" />
           )

@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { PlusCircle } from "react-bootstrap-icons";
 
-const Applications = ({ authUser }) => {
+const Applications = ({ authUser, userId }) => {
   const [applications, setApplications] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getApps = async () => {
       try {
-        const data = await APICalls.getApps(authUser);
+        const data = await APICalls.getApps(userId);
         setApplications(data);
       } catch (e) {
         console.log(e.message);
@@ -21,7 +21,7 @@ const Applications = ({ authUser }) => {
     };
 
     getApps();
-  }, [authUser]);
+  }, [userId]);
 
   const handleNewAppClick = (e) => {
     e.preventDefault();
