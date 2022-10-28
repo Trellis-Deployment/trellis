@@ -5,12 +5,12 @@ import APICalls from "../../services/APICalls";
 import Stages from "./Stages";
 import { Button } from "react-bootstrap";
 
-const Stage = ({ stage, authUser, appName, setStages, stages }) => {
+const Stage = ({ stage, authUser, appName, setStages, stages, userId }) => {
   const intervalId = useRef(0);
-  const handleDeployClick = async (e, stageName) => {
+  const handleDeployClick = async (e, stageId) => {
     e.preventDefault();
-    await APICalls.buildStage({ authUser, appName, stageName });
-    const data = await APICalls.getStages(authUser, appName);
+    await APICalls.buildStage({ userId, appName, stageId });
+    const data = await APICalls.getStages(userId, appName);
     setStages(data);
   };
 
@@ -37,6 +37,7 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
     console.log({ id });
     intervalId.current = id;
   };
+
   useEffect(() => {
     callNewInterval();
     return () => {
@@ -44,6 +45,7 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
       clearInterval(intervalId.current);
     };
   }, [stage.stageState]);
+
   console.log({ stage });
   return (
     <Col key={stage.stageId} className="stage-row">
@@ -60,7 +62,7 @@ const Stage = ({ stage, authUser, appName, setStages, stages }) => {
       <Row>
         <Button
           variant="success"
-          onClick={(e) => handleDeployClick(e, stage.stageName)}
+          onClick={(e) => handleDeployClick(e, stage.stageId)}
         >
           Manually Deploy Stage
         </Button>

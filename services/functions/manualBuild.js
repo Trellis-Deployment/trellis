@@ -1,35 +1,27 @@
 import handler from "../util/templates/handler";
 import getDataForManualDeployment from "../util/deployment/getDataForManualDeployment";
-import AWS from "aws-sdk";
-import updateStageStateByAppNameUserAndStageName from "../util/stagesTableUtils/updateStageStateByAppNameUserAndStageName";
+import invokeBuildFunction from "../util/deployment/invokeBuildFunction";
 
 export const main = handler(async (event) => {
-  const { authUser, appName, stageName } = JSON.parse(event.body);
-  const { token, user, repoName, IAMAccessKey, IAMSecretKey } = await getDataForManualDeployment({ authUser, appName, stageName });
-  const data = { 
-    AWS_ACCESS_KEY_ID: IAMAccessKey, 
-    AWS_SECRET_ACCESS_KEY: IAMSecretKey,
-    GITHUB_X_ACCESS_TOKEN: token,
-    GITHUB_USER: user,
-    GITHUB_REPO: repoName,
-    STAGE_NAME: stageName,
-    SET_STATUS_URL: `https://${event.headers.host}/setStatus`,
-    APP_NAME: appName,
-  };
-  console.log(data);
-  const lambda = new AWS.Lambda();
-  const params = {
-    FunctionName: process.env.DEPLOY_LAMBDA_NAME,
-    InvocationType: 'RequestResponse',
-    LogType: 'Tail',
-    Payload: JSON.stringify({ data }),
-  };
-
-  const lambdaResponse = await lambda.invoke(params).promise();
-  console.log(lambdaResponse);
-  await updateStageStateByAppNameUserAndStageName({user: authUser, appName, stageName, state: "deploying"});
-
-  console.log("after invokation");
-  return "success";
-
+  const { userId, appName, stageId } = JSON.parse(event.body);
+  const { stage, token, user, stageName, repoName, IAMAccessKey, IAMSecretKey } = await getDataForManualDeployment({ userId, appName, stageId });
+  try {
+    const data = {
+      AWS_ACCESS_KEY_ID: IAMAccessKey, 
+      AWS_SECRET_ACCESS_KEY: IAMSecretKey,
+      GITHUB_X_ACCESS_TOKEN: token,
+      GITHUB_USER: user,
+      GITHUB_REPO: repoName,
+      STAGE_NAME: stageName,
+      SET_STATUS_URL: `https://${event.headers.host}/setStatus`,
+      APP_NAME: appName,
+    };
+    
+    console.log(data);
+    await invokeBuildFunction(data, stage);
+    return "success";
+  } catch(e) {
+    console.log(e.message);
+    return e.message;
+  }
 });

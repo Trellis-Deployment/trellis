@@ -3,12 +3,13 @@ import getStagesByOwnerAndApp from "../util/stagesTableUtils/getStagesByOwnerAnd
 
 
 export const main = handler(async (event) => {
-  const login = await event['queryStringParameters']['user'];
+  const userId = await event['queryStringParameters']['user'];
   const app = await event['queryStringParameters']['appName'];
   try {
-    const stages = await getStagesByOwnerAndApp({ownerLogin: login, appName: app});
+    const stages = await getStagesByOwnerAndApp({userId: userId, appName: app});
     return(stages);
   } catch(e) {
-    return(new Error(e.message));
+    console.log(e.message);
+    return(e.message);
   }
 });

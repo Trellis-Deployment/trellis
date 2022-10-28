@@ -14,7 +14,7 @@ export const createAppsTable = (stack) => {
     },
     primaryIndex: { partitionKey: "userId", sortKey: "appId" },
     globalIndexes: {
-      "repoIndex": { partitionKey: "repoName"},
+      "repoIndex": { partitionKey: "repoName" },
       "appNameIndex": { partitionKey: "userId", sortKey: "appName" }
     },
   });

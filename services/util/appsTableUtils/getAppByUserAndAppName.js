@@ -1,18 +1,18 @@
 import dynamodb from "../templates/dynamodb";
 
-const getAppByUserAndAppName = async ({ user, appName }) => {
+const getAppByUserAndAppName = async ({ userId, appName }) => {
   const params = {
     TableName: process.env.APPS_TABLE_NAME,
-    partitionKey: "ownerLogin", sortKey: "appName",
-    KeyConditionExpression: "ownerLogin = :ownerLogin and appName = :appName",
+    IndexName: "appNameIndex",
+    KeyConditionExpression: "userId = :userId and appName = :appName",
     ExpressionAttributeValues: {
-      ":ownerLogin" : user,
+      ":userId" : userId,
       ":appName": appName,
     },
   };
 
   const result = await dynamodb.query(params);
-  return result.Items;
+  return result.Items[0];
 }
 
 

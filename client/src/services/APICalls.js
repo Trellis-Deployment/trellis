@@ -38,8 +38,8 @@ const postApps = async(app) => {
   return response.data;
 };
 
-const getStages = async(user, appName) => {
-  const response = await axios.get(`${API_URL}/stages?user=${user}&appName=${appName}`);
+const getStages = async(userId, appName) => {
+  const response = await axios.get(`${API_URL}/stages?user=${userId}&appName=${appName}`);
   return response.data;
 };
 

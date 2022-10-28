@@ -5,18 +5,18 @@ import { useParams } from "react-router";
 import APICalls from "../services/APICalls";
 import Stage from "./AppMainPage/Stage";
 
-const AppModal = ({ authUser }) => {
+const AppModal = ({ authUser, userId }) => {
   const [stages, setStages] = useState([]);
   const appName = useParams().appName;
 
   useEffect(() => {
     const getStages = async () => {
-      const data = await APICalls.getStages(authUser, appName);
+      const data = await APICalls.getStages(userId, appName);
       setStages(data);
     };
 
     getStages();
-  }, [authUser, appName]);
+  }, [userId, appName]);
 
   return (
     <div>
@@ -44,7 +44,15 @@ const AppModal = ({ authUser }) => {
               <div className="col  bg-white">
                 <div className="row ">
                   {stages.map((stage) => (
-                    <Stage key={stage.stageId} stage={stage} authUser={authUser} appName={appName} setStages={setStages} stages={stages}/>
+                    <Stage 
+                      key={stage.stageId}
+                      stage={stage}
+                      authUser={authUser}
+                      appName={appName}
+                      setStages={setStages} 
+                      stages={stages}
+                      userId={userId}
+                    />
                   ))}
                 </div>
                 <div className="card mini-card">
