@@ -10,7 +10,7 @@ import AppActivity from "./ActivityPages/AppActivity";
 import { useAppContext } from "../Lib/AppContext";
 
 export default function RoutesComp() {
-  const { authUser, setAuthUser, userId, setUserId } = useAppContext();
+  const { authUser } = useAppContext();
   return (
 
     <Routes>
