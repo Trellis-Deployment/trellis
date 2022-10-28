@@ -5,10 +5,12 @@ import APICalls from "../services/APICalls";
 import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { PlusCircle } from "react-bootstrap-icons";
+import { useAppContext } from "../Lib/AppContext";
 
-const Applications = ({ authUser, userId }) => {
+const Applications = () => {
   const [applications, setApplications] = useState([]);
   const navigate = useNavigate();
+  const { authUser, userId, setAppName, setAppId } = useAppContext();
 
   useEffect(() => {
     const getApps = async () => {
@@ -28,9 +30,13 @@ const Applications = ({ authUser, userId }) => {
     navigate("/create-app");
   };
 
-  const handleAppClick = (e, appName) => {
+  const handleAppClick = (e, application) => {
     e.preventDefault();
-    navigate(`/application/${appName}`);
+    setAppName(application.appName);
+    setAppId(application.appId);
+    window.sessionStorage.setItem("trellisAppName", application.appName);
+    window.sessionStorage.setItem("trellisAppId", application.appId);
+    navigate(`/application/${application.appName}`);
   };
 
   return (
@@ -54,7 +60,7 @@ const Applications = ({ authUser, userId }) => {
                 <div className="card-face">
                   <Card
                     key={application.appId}
-                    onClick={(e) => handleAppClick(e, application.appName)}
+                    onClick={(e) => handleAppClick(e, application)}
                   >
                     <div className="row mx-2 ps-2">
                       <div

@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 import APICalls from "../../services/APICalls";
 import Stages from "./Stages";
 import { Button } from "react-bootstrap";
+import { useAppContext } from "../../Lib/AppContext";
 
-const Stage = ({ stage, authUser, appName, setStages, stages, userId }) => {
+const Stage = ({ stage, setStages, stages }) => {
+  const { appName, userId } = useAppContext();
   const intervalId = useRef(0);
   const handleDeployClick = async (e, stageId) => {
     e.preventDefault();
