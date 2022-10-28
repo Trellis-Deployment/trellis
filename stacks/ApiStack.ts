@@ -4,7 +4,7 @@ import { BuildServerStack } from "./BuildServerStack";
 import config from "../util/config";
 
 export function ApiStack({ stack, app }: StackContext) {
-  const { users, apps, stages } = use(StorageStack);
+  const { users, apps, stages, deployments } = use(StorageStack);
   const { vpc, buildFunction } = use(BuildServerStack);
 
   const Client_ID = config.Client_ID ? config.Client_ID : "undefined";
@@ -13,11 +13,12 @@ export function ApiStack({ stack, app }: StackContext) {
   const api = new Api(stack, "Api", {
     defaults: {
       function: {
-        permissions: [users, apps, stages, buildFunction],
+        permissions: [users, apps, stages, deployments, buildFunction],
         environment: {
           USERS_TABLE_NAME: users.tableName,
           APPS_TABLE_NAME: apps.tableName,
           STAGES_TABLE_NAME: stages.tableName,
+          DEPLOYMENTS_TABLE_NAME: deployments.tableName,
           Client_ID,
           Client_secret,
           DEPLOY_LAMBDA_NAME: buildFunction.functionName,
