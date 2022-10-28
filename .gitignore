@@ -13,3 +13,6 @@ cdk.context.json
 # local env files
 .env*.local
 .env
+
+# Test File
+test.js
