@@ -5,10 +5,12 @@ import APICalls from "../services/APICalls";
 import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { PlusCircle } from "react-bootstrap-icons";
+import { useAppContext } from "../Lib/AppContext";
 
 const Applications = ({ authUser, userId }) => {
   const [applications, setApplications] = useState([]);
   const navigate = useNavigate();
+  const setApp = useAppContext().setApp;
 
   useEffect(() => {
     const getApps = async () => {
@@ -28,9 +30,10 @@ const Applications = ({ authUser, userId }) => {
     navigate("/create-app");
   };
 
-  const handleAppClick = (e, appName) => {
+  const handleAppClick = (e, application) => {
     e.preventDefault();
-    navigate(`/application/${appName}`);
+    setApp(application);
+    navigate(`/application/${application.appName}`);
   };
 
   return (
@@ -54,7 +57,7 @@ const Applications = ({ authUser, userId }) => {
                 <div className="card-face">
                   <Card
                     key={application.appId}
-                    onClick={(e) => handleAppClick(e, application.appName)}
+                    onClick={(e) => handleAppClick(e, application)}
                   >
                     <div className="row mx-2 ps-2">
                       <div

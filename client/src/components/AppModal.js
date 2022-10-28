@@ -1,13 +1,14 @@
 import "../stylesheets/AppModal.css";
-import MiniNavBar from "./Header/MiniNavBar";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import APICalls from "../services/APICalls";
 import Stage from "./AppMainPage/Stage";
+import { useAppContext } from "../Lib/AppContext";
 
 const AppModal = ({ authUser, userId }) => {
   const [stages, setStages] = useState([]);
   const appName = useParams().appName;
+  const app = useAppContext().app;
 
   useEffect(() => {
     const getStages = async () => {
@@ -20,9 +21,6 @@ const AppModal = ({ authUser, userId }) => {
 
   return (
     <div>
-      <div className="px-3">
-        <MiniNavBar></MiniNavBar>
-      </div>
       <div className="container">
         <div className="card p-2 pipes mt-3 mid-wide-card">
           <div className="container">

@@ -6,15 +6,13 @@ import GitRedirect from "./GitRedirect";
 import Applications from "./Applications";
 import CreateApp from "./CreateApp";
 import AppModal from "./AppModal";
+import AppActivity from "./ActivityPages/AppActivity";
+import { useAppContext } from "../Lib/AppContext";
 
-
-export default function RoutesComp({
-  authUser,
-  setAuthUser,
-  setUserId,
-  userId
-}) {
+export default function RoutesComp() {
+  const { authUser, setAuthUser, userId, setUserId } = useAppContext();
   return (
+
     <Routes>
       <Route path="/" element={<Main authUser={authUser} />} />
       <Route
@@ -27,10 +25,12 @@ export default function RoutesComp({
           )
         }
       />
+
       <Route
         path="/gitRedirect"
         element={<GitRedirect setAuthUser={setAuthUser} setUserId={setUserId}/>}
       />
+
       <Route
         path="/apps"
         element={
@@ -41,17 +41,31 @@ export default function RoutesComp({
           )
         }
       />
+
       <Route
         path={`/application/:appName`}
         element={
           authUser ? (
-            <AppModal authUser={authUser} userId={userId}/>
+            <AppModal authUser={authUser} userId={userId} />
           ) : (
             <Navigate to="/?redirect=apps" />
           )
         }
       />
+
+      <Route
+        path={`/application/:appName/activity`}
+        element={
+          authUser ? (
+            <AppActivity />
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      />
+
       <Route path="*" element={<NotFound />} />;
+
     </Routes>
   );
 }
