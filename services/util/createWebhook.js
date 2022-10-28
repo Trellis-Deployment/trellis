@@ -9,7 +9,6 @@ const createWebhook = async ({webhookUrl, login, userId, repo}) => {
     console.log(e.message);
     return "failed to create webhook";
   }
-  
 }
 
 export default createWebhook;
