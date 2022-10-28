@@ -1,8 +1,8 @@
-import "../stylesheets/AppModal.css";
+// import "../stylesheets/AppModal.css";
 import { useEffect, useState } from "react";
-import APICalls from "../services/APICalls";
-import Stage from "./AppMainPage/Stage";
-import { useAppContext } from "../Lib/AppContext";
+import APICalls from "../../services/APICalls";
+import Stage from "./AppStage";
+import { useAppContext } from "../../Lib/AppContext";
 
 const AppModal = () => {
   const [stages, setStages] = useState([]);
