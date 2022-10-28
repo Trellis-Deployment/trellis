@@ -7,7 +7,7 @@ const SUBNETS = JSON.parse(process.env.SUBNETS);
 const SECURITY_GROUP = process.env.SECURITY_GROUP;
 const CONTAINER = process.env.CONTAINER;
 
-export const main = handler((event, context) => {
+export const main = handler(async (event, context) => {
   const { data } = event;
   var params = {
     cluster: CLUSTER,
@@ -56,7 +56,7 @@ export const main = handler((event, context) => {
             {
               name: "APP_NAME",
               value: data.APP_NAME,
-            }
+            },
           ],
           name: CONTAINER,
         },
@@ -64,11 +64,16 @@ export const main = handler((event, context) => {
     },
   };
 
-  ecs.runTask(params, (err) => {
-    if (err) {
-      console.warn("error: ", "Error while starting task: " + err);
-    }
+  let taskPromise = new Promise((resolve, reject) => {
+    ecs.runTask(params, (err, taskData) => {
+      if (err) {
+        console.warn("error: ", "Error while starting task: " + err);
+        reject();
+      } else {
+        console.log(taskData);
+        resolve();
+      }
+    });
   });
-
-  return "Build Task Commenced";
+  return taskPromise;
 });
