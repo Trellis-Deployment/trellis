@@ -1,11 +1,7 @@
 import "../../App.css";
 import "./MiniNavBar.css";
-
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-// import { LinkContainer } from "react-router-bootstrap";
-// import Dobby from "../../resources/favicon-32x32.png";
-// import { Container } from 'react-bootstrap';
 
 function miniNavigationBar() {
   return (

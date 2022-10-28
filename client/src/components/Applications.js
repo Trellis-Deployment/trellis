@@ -39,11 +39,12 @@ const Applications = ({ authUser, userId }) => {
         <div className="col col-auto">
           <h3 className="text-start">Welcome {authUser}</h3>
         </div>
-        <div className="col d-flex justify-content-end sush">
-          <Button onClick={handleNewAppClick} size="sm" variant="light">
+        <div className="col d-flex justify-content-end">
+          <Button onClick={handleNewAppClick} size="sm" variant="success">
             <PlusCircle size={20} /> New App
           </Button>
         </div>
+        <div></div>
       </div>
       <div className="row mt-3">
         <ul className="container p-0">
@@ -60,7 +61,11 @@ const Applications = ({ authUser, userId }) => {
                         className="col col-auto
                       align-self-center"
                       >
-                        {<span class="badge bg-info">{application.appName[0]}</span>}
+                        {
+                          <span className="badge bg-info">
+                            {application.appName[0]}
+                          </span>
+                        }
                       </div>
                       <div className="col">
                         <Card.Body className="py-2">

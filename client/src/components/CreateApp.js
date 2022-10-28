@@ -1,7 +1,7 @@
+import "../stylesheets/CreateApp.css";
 import { Form, Button } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 import APICalls from "../services/APICalls";
-import "../stylesheets/CreateApp.css";
 import { useNavigate } from "react-router-dom";
 import { Container, Nav } from "react-bootstrap";
 
@@ -96,7 +96,7 @@ const CreateApp = ({ authUser, userId }) => {
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
             <p className="text-start pt-3">IAM Access Key:</p>
             <Form.Control
-              type="string"
+              type="password"
               placeholder="IAM Access Key"
               required
               onChange={(e) => setAccessKey(e.target.value)}
@@ -105,7 +105,7 @@ const CreateApp = ({ authUser, userId }) => {
           <Form.Group className="mb-3" controlid="formBasicSecretKey">
             <p className="text-start">IAM Access Secret:</p>
             <Form.Control
-              type="string"
+              type="password"
               placeholder="IAM Secret Key"
               required
               onChange={(e) => setSecretKey(e.target.value)}

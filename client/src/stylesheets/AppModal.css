@@ -43,8 +43,6 @@ img {
   border: 0;
 }
 
-
-
 /* second box */
 .SectionHeader {
   margin-top: 0;
@@ -53,16 +51,8 @@ img {
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #908c99;
+  color: #233F5C;
 }
-
-a {
-  color: #337ab7;
-  text-decoration: none;
-  background-color: transparent;
-
-}
-
 
 ol, ul {
   margin-top: 0;
@@ -70,10 +60,6 @@ ol, ul {
 }
 
 
-.small-font {
-  font-size: 12px;
-  color: #67b3f6;
-}
 
 .pipeline-title {
   font-size: 16px;
@@ -109,13 +95,19 @@ ol, ul {
 }
 
 .btn-sm {
-  font-size: 11px;
+  font-size: 13px;
   color: white;
-  background: rgb(13, 13, 13);
   font-weight: 600;
-
+  border-radius: 50px;
 }
 
-.btn {
-  font-size: 10px;
+
+
+.small-font {
+  font-size: 12px;
+  color: #67b3f6;
+}
+
+.small-font :hover {
+  color: white;
 }

@@ -50,7 +50,7 @@ const GitRedirect = ({ setAuthUser, setUserId }) => {
           <Image src={Waiting} className="App-logo" alt="logo" fluid="true" />
         </div>
       </header>
-      <div class="text-center">
+      <div className="text-center">
         <div className="spinner-border text-center spin">
           <strong>{`<`}</strong>
         </div>
