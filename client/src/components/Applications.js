@@ -7,10 +7,10 @@ import Card from "react-bootstrap/Card";
 import { PlusCircle } from "react-bootstrap-icons";
 import { useAppContext } from "../Lib/AppContext";
 
-const Applications = ({ authUser, userId }) => {
+const Applications = () => {
   const [applications, setApplications] = useState([]);
   const navigate = useNavigate();
-  const setApp = useAppContext().setApp;
+  const { authUser, userId, setAppName, setAppId } = useAppContext();
 
   useEffect(() => {
     const getApps = async () => {
@@ -32,7 +32,10 @@ const Applications = ({ authUser, userId }) => {
 
   const handleAppClick = (e, application) => {
     e.preventDefault();
-    setApp(application);
+    setAppName(application.appName);
+    setAppId(application.appId);
+    window.sessionStorage.setItem("trellisAppName", application.appName);
+    window.sessionStorage.setItem("trellisAppId", application.appId);
     navigate(`/application/${application.appName}`);
   };
 

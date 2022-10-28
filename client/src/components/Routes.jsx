@@ -14,30 +14,31 @@ export default function RoutesComp() {
   return (
 
     <Routes>
-      <Route path="/" element={<Main authUser={authUser} />} />
-      <Route
-        path="/create-app"
-        element={
-          authUser ? (
-            <CreateApp authUser={authUser} userId={userId}/>
-          ) : (
-            <Navigate to="/?redirect=create-app" />
-          )
-        }
-      />
+      <Route path="/" element={<Main />} />
 
       <Route
         path="/gitRedirect"
-        element={<GitRedirect setAuthUser={setAuthUser} setUserId={setUserId}/>}
+        element={<GitRedirect />}
       />
 
       <Route
         path="/apps"
         element={
           authUser ? (
-            <Applications authUser={authUser} userId={userId}/>
+            <Applications />
           ) : (
             <Navigate to="/?redirect=apps" />
+          )
+        }
+      />
+
+      <Route
+        path="/create-app"
+        element={
+          authUser ? (
+            <CreateApp />
+          ) : (
+            <Navigate to="/?redirect=create-app" />
           )
         }
       />
@@ -46,7 +47,7 @@ export default function RoutesComp() {
         path={`/application/:appName`}
         element={
           authUser ? (
-            <AppModal authUser={authUser} userId={userId} />
+            <AppModal />
           ) : (
             <Navigate to="/?redirect=apps" />
           )

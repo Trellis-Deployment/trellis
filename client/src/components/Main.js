@@ -4,11 +4,13 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Trellis from "../Resources/trellis_ph_clear900.png";
 import Image from "react-bootstrap/Image";
+import { useAppContext } from "../Lib/AppContext";
 
-const Main = ({ authUser}) => {
+const Main = () => {
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get("redirect");
   const navigate = useNavigate();
+  const { authUser } = useAppContext();
   useEffect(() => {
     if (!authUser) {
       return;

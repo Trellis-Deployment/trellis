@@ -4,13 +4,16 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import APICalls from "../services/APICalls";
 import Waiting from "../Resources/Trellis_house.jpg";
 import Image from "react-bootstrap/Image";
+import { useAppContext } from "../Lib/AppContext";
 
-const GitRedirect = ({ setAuthUser, setUserId }) => {
+const GitRedirect = () => {
   const [searchParams] = useSearchParams();
   const [authenticated, setAuthenticated] = useState(false);
   const code = searchParams.get("code");
   const application = searchParams.get("installation_id");
   const navigate = useNavigate();
+  const { setAuthUser, setUserId } = useAppContext();
+  
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -20,7 +23,7 @@ const GitRedirect = ({ setAuthUser, setUserId }) => {
           setAuthUser(data.user.githubLogin);
           setUserId(data.user.userId)
           setAuthenticated(true);
-          window.sessionStorage.setItem("authUser", data.user.githubLogin);
+          window.sessionStorage.setItem("trellisAuthUser", data.user.githubLogin);
           window.sessionStorage.setItem("trellisUserId", data.user.userId);
           navigate("/apps");
         } else {
@@ -32,7 +35,7 @@ const GitRedirect = ({ setAuthUser, setUserId }) => {
           setAuthUser(data.user.githubLogin);
           setUserId(data.user.userId);
           setAuthenticated(true);
-          window.sessionStorage.setItem("authUser", data.user.githubLogin);
+          window.sessionStorage.setItem("trellisAuthUser", data.user.githubLogin);
           window.sessionStorage.setItem("trellisUserId", data.user.userId);
           navigate("/apps");
         }

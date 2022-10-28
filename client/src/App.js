@@ -9,13 +9,16 @@ import MiniNavBar from "./components/Header/MiniNavBar";
 import { AppContext } from "./Lib/AppContext";
 
 function App() {
-  const [ authUser, setAuthUser ] = useState(window.sessionStorage.getItem("authUser"));
+  const [ authUser, setAuthUser ] = useState(window.sessionStorage.getItem("trellisAuthUser"));
   const [ userId, setUserId ] = useState(window.sessionStorage.getItem("trellisUserId"));
-  const [ app, setApp ] = useState({});
+  const [ appName, setAppName ] = useState(window.sessionStorage.getItem("trellisAppName"));
+  const [ appId, setAppId ] = useState(window.sessionStorage.getItem("trellisAppId"));
   
   const contextValue = {
-    app,
-    setApp,
+    appName,
+    setAppName,
+    appId,
+    setAppId,
     authUser,
     setAuthUser,
     userId,
@@ -24,25 +27,26 @@ function App() {
 
   const handleLogoutClick = (e) => {
     e.preventDefault();
-    window.sessionStorage.removeItem("authUser");
+    window.sessionStorage.removeItem("trellisAuthUser");
     window.sessionStorage.removeItem("trellisUserId");
+    window.sessionStorage.removeItem("trellisAppName");
+    window.sessionStorage.removeItem("trellisAppId");
     setAuthUser(undefined);
     setUserId(undefined);
+    setAppId(undefined);
+    setAppName(undefined);
   };
 
   return (
     <AppContext.Provider value={contextValue}>
       <div className="App">
         <Router>
-          <NavigationBar authUser={authUser} setAuthUser={setAuthUser} handleLogoutClick={handleLogoutClick}></NavigationBar>
-          {Object.keys(app).length !== 0 ? 
+          <NavigationBar handleLogoutClick={handleLogoutClick}></NavigationBar>
+          {appName ? 
             <MiniNavBar></MiniNavBar> :
             null
           }
           <Routes
-            userId={userId} setUserId={setUserId}
-            authUser={authUser} setAuthUser={setAuthUser}
-            handleLogoutClick={handleLogoutClick}
           ></Routes>
         </Router>
       </div>

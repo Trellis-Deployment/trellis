@@ -4,14 +4,16 @@ import React, { useState, useEffect } from "react";
 import APICalls from "../services/APICalls";
 import { useNavigate } from "react-router-dom";
 import { Container, Nav } from "react-bootstrap";
+import { useAppContext } from "../Lib/AppContext";
 
-const CreateApp = ({ authUser, userId }) => {
+const CreateApp = () => {
   const [repos, setRepos] = useState([]);
   const [appName, setAppName] = useState("Application name");
   const [description, setDescription] = useState("Description");
   const [accessKey, setAccessKey] = useState("IAM Access Key");
   const [secretKey, setSecretKey] = useState("IAM Secret Key");
   const [repo, setRepo] = useState(undefined);
+  const { authUser, userId } = useAppContext();
 
   const navigate = useNavigate();
   useEffect(() => {
