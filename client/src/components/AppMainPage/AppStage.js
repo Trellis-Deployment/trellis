@@ -17,19 +17,28 @@ const Stage = ({ stage, setStages, stages }) => {
     setStages(data);
   };
 
-  //TODO  - button should be disabled if we are deploying
-  const handlePromoteClick = async (e, stageId) => {
+  //need to properly debounce this - when are promotions valid to do?
+  const handlePromoteClick = async (e) => {
     e.preventDefault();
-    const prodStageId = stages.filter((s) => s.stageName === "prod").stageId;
+    e.currentTarget.disabled = true;
+    const prodStageId = stages.find((s) => s.stageName === "prod").stageId;
+    console.log({
+      targetStageId: prodStageId,
+      userId,
+      appName,
+      sourceCommitId: stage.commitId,
+    });
     await APICalls.promoteStage({
       targetStageId: prodStageId,
       userId,
       appName,
-      sourceCommitId: stageId.lastCommitId,
+      sourceCommitId: stage.commitId,
     });
     const data = await APICalls.getStages(userId, appName);
+    e.currentTarget.disabled = false;
     setStages(data);
   };
+
   const callNewInterval = async () => {
     if (intervalId) {
       clearInterval(intervalId);
@@ -83,14 +92,16 @@ const Stage = ({ stage, setStages, stages }) => {
           >
             Manually Deploy Stage
           </Button>
-
-          <Button
-            size="sm"
-            variant="success"
-            onClick={(e) => handlePromoteClick(e, stage.stageId)}
-          >
-            Promote to Production
-          </Button>
+          {stage.stageName !== "prod" ? (
+            <Button
+              disabled={stage.stageState === "deployed" ? false : true}
+              size="sm"
+              variant="success"
+              onClick={handlePromoteClick}
+            >
+              Promote to Production
+            </Button>
+          ) : null}
         </div>
       </Row>
     </Col>
