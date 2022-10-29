@@ -10,6 +10,7 @@ import { useAppContext } from "../../Lib/AppContext";
 const Stage = ({ stage, setStages, stages }) => {
   const { appName, userId, appId } = useAppContext();
   const intervalId = useRef(0);
+
   const handleDeployClick = async (e, stageId) => {
     e.preventDefault();
     await APICalls.buildStage({ userId, appName, stageId });
@@ -17,25 +18,16 @@ const Stage = ({ stage, setStages, stages }) => {
     setStages(data);
   };
 
-  //need to properly debounce this - when are promotions valid to do?
-  const handlePromoteClick = async (e) => {
+  const handlePromoteClick = async (e, stageId) => {
     e.preventDefault();
-    e.currentTarget.disabled = true;
-    const prodStageId = stages.find((s) => s.stageName === "prod").stageId;
-    console.log({
-      targetStageId: prodStageId,
-      userId,
-      appName,
-      sourceCommitId: stage.commitId,
-    });
+    const prodStageId = stages.filter((s) => s.stageName === "prod").stageId;
     await APICalls.promoteStage({
       targetStageId: prodStageId,
       userId,
       appName,
       sourceCommitId: stage.commitId,
     });
-    const data = await APICalls.getStages(userId, appName);
-    e.currentTarget.disabled = false;
+    const data = await APICalls.getStages(appId);
     setStages(data);
   };
 
@@ -78,29 +70,32 @@ const Stage = ({ stage, setStages, stages }) => {
         Stage Name:{" "}
         <Link to={`/application/${appName}/activity`}>{stage.stageName}</Link>
       </Card.Title>
-      <Row  className="stage-branch ps-2">
+      <Row className="stage-branch ps-2">
         Stage Branch:{" "}
         {stage.stageBranch !== "undefined" ? stage.stageBranch : "no branch"}{" "}
         <Col className="lh-0">{<Stages stage={stage}></Stages>}</Col>
       </Row>
       <Row>
         <div className="d-flex">
-          <Button
-            size="sm"
-            variant="success"
-            onClick={(e) => handleDeployClick(e, stage.stageId)}
-          >
-            Manually Deploy Stage
-          </Button>
           {stage.stageName !== "prod" ? (
-            <Button
-              disabled={stage.stageState === "deployed" ? false : true}
-              size="sm"
-              variant="success"
-              onClick={handlePromoteClick}
-            >
-              Promote to Production
-            </Button>
+            <>
+              <Button
+                // size="sm"
+                className="btn-sm"
+                variant="success"
+                onClick={(e) => handleDeployClick(e, stage.stageId)}
+              >
+                Manually Deploy Stage
+              </Button>
+              <Button
+                disabled={stage.stageState === "deployed" ? false : true}
+                size="sm"
+                variant="success"
+                onClick={handlePromoteClick}
+              >
+                Promote to Production
+              </Button>
+            </>
           ) : null}
         </div>
       </Row>

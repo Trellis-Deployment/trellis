@@ -57,7 +57,6 @@ const buildStage = async (build) => {
 };
 
 const promoteStage = async (build) => {
-  console.log(build);
   const response = await axios.post(`${API_URL}/promote`, build);
   return response.data;
 };
