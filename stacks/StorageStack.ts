@@ -10,7 +10,7 @@ export function StorageStack({ stack, app }: StackContext) {
   const users = createUsersTable(stack);
   const apps = createAppsTable(stack);
   const stages = createStagesTable(stack);
-  const deployments = createDeploymentsTable(stack); 
+  const deployments = createDeploymentsTable(stack);
 
   return {
     users,

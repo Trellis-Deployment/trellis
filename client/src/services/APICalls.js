@@ -38,10 +38,15 @@ const postApps = async(app) => {
   return response.data;
 };
 
-const getStages = async(userId, appName) => {
-  const response = await axios.get(`${API_URL}/stages?user=${userId}&appName=${appName}`);
+const getStages = async(appId) => {
+  const response = await axios.get(`${API_URL}/stages?appId=${appId}`);
   return response.data;
 };
+
+const getDeployments = async(stageId) => {
+  const response = await axios.get(`${API_URL}/deployments?stageId=${stageId}`);
+  return response.data;
+}
 
 const buildStage = async(build) => {
   const response = await axios.post(`${API_URL}/build`, build);
@@ -66,7 +71,7 @@ const APICalls = {
   getStages,
   buildStage,
   getStageStatus,
-
+  getDeployments,
 }
 
 export default APICalls;

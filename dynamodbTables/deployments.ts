@@ -13,7 +13,7 @@ export const createDeploymentsTable = (stack) => {
     },
     primaryIndex: { partitionKey: "deploymentId" },
     globalIndexes: {
-      "branchIndex": { partitionKey: "stageId" },
+      "stageIndex": { partitionKey: "stageId" },
     },
   });
 
