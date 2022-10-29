@@ -33,6 +33,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "GET /apps": "functions/apps.main",
       "GET /stages": "functions/stages.main",
       "GET /stageStatus": "functions/getStageStatus.main",
+      "GET /deployments": "functions/deployments.main",
       "POST /apps": "functions/createApp.main",
       "POST /webhook": "functions/webhook.main",
       "POST /build": "functions/manualBuild.main",

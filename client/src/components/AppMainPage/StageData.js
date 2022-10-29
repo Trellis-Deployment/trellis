@@ -35,7 +35,7 @@ const stages = ({ stage }) => {
                 rel="noopener noreferrer"
                 href={stage.stageId}
               >
-                Last Deployed: {stage.lastDeploymentTime}
+                Last Deployed: {String(new Date(stage.lastDeploymentTime))}
               </a>
               App ID: {stage.appId.split('-')[0]}
             </Row>

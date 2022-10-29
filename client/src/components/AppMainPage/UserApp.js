@@ -6,16 +6,16 @@ import { useAppContext } from "../../Lib/AppContext";
 
 const AppModal = () => {
   const [stages, setStages] = useState([]);
-  const { userId, appName } = useAppContext();
+  const { appId } = useAppContext();
 
   useEffect(() => {
     const getStages = async () => {
-      const data = await APICalls.getStages(userId, appName);
+      const data = await APICalls.getStages(appId);
       setStages(data);
     };
 
     getStages();
-  }, [userId, appName]);
+  }, [appId]);
 
   return (
     <div>

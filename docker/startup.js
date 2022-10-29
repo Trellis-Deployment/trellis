@@ -1,4 +1,6 @@
 const { execSync } = require('child_process');
+const {readdirSync, existsSync, readFileSync, promises: fsPromises} = require("fs");
+
 const GITHUB_X_ACCESS_TOKEN = process.env.GITHUB_X_ACCESS_TOKEN;
 const GITHUB_USER = process.env.GITHUB_USER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
@@ -15,6 +17,18 @@ const buildStatusData = {
   APP_NAME,
   DEPLOYMENT_ID,
 };
+
+function syncReadFile(filename) {
+  const contents = readFileSync(filename, 'utf-8');
+  let contentsArr = contents.split(/\r?\n/);
+   contentsArr = contentsArr.filter(line => {
+     return (line.includes('[INFO]') || line.includes('[DEBUG]') || line.includes('✅') || line.includes('❌')) && 
+      !line.includes('PROGRESS') && !line.includes('Checking') &&
+      !line.includes("Fetching"); 
+   });
+
+  return contentsArr.join("\r\n");
+}
 
 try {
   const awsCredentialCommands = [
@@ -52,11 +66,17 @@ try {
   execSync(deployCommands.join(' && '), { stdio: 'inherit' });
   
   buildStatusData.STATE = "deployed";
+  buildStatusData.LOGS = syncReadFile(`/root/repos/${GITHUB_REPO}/.build/sst-debug.log`);
 
   console.log('SUCCESS: APP DEPLOYED!');
 } catch(e) {
+
+  if(existsSync(`/root/repos/${GITHUB_REPO}/.build/sst-debug.log`)) {
+    buildStatusData.LOGS = syncReadFile(`/root/repos/${GITHUB_REPO}/.build/sst-debug.log`);
+  } else {
+    buildStatusData.LOGS = e.message;
+  }
   buildStatusData.STATE = "error";
-  buildStatusData.ERROR = e.message;
 }
 
 fetch(SET_STATUS_URL, {

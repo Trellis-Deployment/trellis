@@ -1,12 +1,11 @@
 import handler from "../util/templates/handler";
-import getStagesByOwnerAndApp from "../util/stagesTableUtils/getStagesByOwnerAndApp";
+import getStagesByAppId from "../util/stagesTableUtils/getStagesByAppId";
 
 
 export const main = handler(async (event) => {
-  const userId = await event['queryStringParameters']['user'];
-  const app = await event['queryStringParameters']['appName'];
+  const appId = await event['queryStringParameters']['appId'];
   try {
-    const stages = await getStagesByOwnerAndApp({userId: userId, appName: app});
+    const stages = await getStagesByAppId(appId);
     return(stages);
   } catch(e) {
     console.log(e.message);

@@ -8,12 +8,12 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../../Lib/AppContext";
 
 const Stage = ({ stage, setStages, stages }) => {
-  const { appName, userId } = useAppContext();
+  const { appName, userId, appId } = useAppContext();
   const intervalId = useRef(0);
   const handleDeployClick = async (e, stageId) => {
     e.preventDefault();
     await APICalls.buildStage({ userId, appName, stageId });
-    const data = await APICalls.getStages(userId, appName);
+    const data = await APICalls.getStages(appId);
     setStages(data);
   };
 
@@ -55,13 +55,11 @@ const Stage = ({ stage, setStages, stages }) => {
       <Card.Title className="SectionHeader m-1">
         Stage Name: <Link to={`/application/${appName}/activity`} >{stage.stageName}</Link>
       </Card.Title>
-      <Card.Text className="stage-branch ps-2">
-        <Row>
-          Stage Branch:{" "}
-          {stage.stageBranch !== "undefined" ? stage.stageBranch : "no branch"}{" "}
-          <Col className="lh-0">{<Stages stage={stage}></Stages>}</Col>
-        </Row>
-      </Card.Text>
+      <Row  className="stage-branch ps-2">
+        Stage Branch:{" "}
+        {stage.stageBranch !== "undefined" ? stage.stageBranch : "no branch"}{" "}
+        <Col className="lh-0">{<Stages stage={stage}></Stages>}</Col>
+      </Row>
       <Row>
         <div className="d-flex">
           <Button

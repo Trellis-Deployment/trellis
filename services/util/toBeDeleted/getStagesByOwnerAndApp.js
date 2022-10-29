@@ -27,6 +27,7 @@ const getStagesByOwnerAndApp = async ({userId, appName}) => {
       ":appId": app.appId,
     },
   };
+  
   let result;
   try {
     result = await dynamodb.query(stagesParams);
