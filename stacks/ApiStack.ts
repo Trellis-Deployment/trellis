@@ -38,7 +38,8 @@ export function ApiStack({ stack, app }: StackContext) {
       "POST /webhook": "functions/webhook.main",
       "POST /build": "functions/manualBuild.main",
       "POST /setStatus": "functions/setDeploymentStatus.main",
-    }
+      "POST /promote": "functions/promote.main",
+    },
   });
 
   stack.addOutputs({
@@ -47,5 +48,6 @@ export function ApiStack({ stack, app }: StackContext) {
 
   return {
     api,
-  }
+  };
 }
+
