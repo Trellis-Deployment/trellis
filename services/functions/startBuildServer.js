@@ -60,7 +60,11 @@ export const main = handler(async (event, context) => {
             {
               name: "DEPLOYMENT_ID",
               value: data.DEPLOYMENT_ID,
-            }
+            },
+            {
+              name: "COMMIT_ID",
+              value: data.COMMIT_ID,
+            },
           ],
           name: CONTAINER,
         },
