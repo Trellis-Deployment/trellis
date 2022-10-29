@@ -18,9 +18,17 @@ const Stage = ({ stage, setStages, stages }) => {
     setStages(data);
   };
 
-  const handlePromoteClick = async (e, stageId) => {
+  //need to properly debounce this - when are promotions valid to do?
+  const handlePromoteClick = async (e) => {
     e.preventDefault();
-    const prodStageId = stages.filter((s) => s.stageName === "prod").stageId;
+    e.currentTarget.disabled = true;
+    const prodStageId = stages.find((s) => s.stageName === "prod").stageId;
+    console.log({
+      targetStageId: prodStageId,
+      userId,
+      appName,
+      sourceCommitId: stage.commitId,
+    });
     await APICalls.promoteStage({
       targetStageId: prodStageId,
       userId,
