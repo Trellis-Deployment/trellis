@@ -1,17 +1,19 @@
 import dynamodb from "../templates/dynamodb";
 
-const updateDeploymentStateById = async ({ deploymentId, state }) => {
+const updateDeploymentStateById = async ({ deploymentId, state, logs }) => {
   const time = (new Date()).getTime();
+  logs = logs || '';
   const updateParams = {
     TableName: process.env.DEPLOYMENTS_TABLE_NAME,
     Key: {
       deploymentId: deploymentId,
     },
-    UpdateExpression: "SET deploymentState = :deploymentState, deployedTime = :deployedTime",
+    UpdateExpression: "SET deploymentState = :deploymentState, deployedTime = :deployedTime, logs = :logs ",
     ExpressionAttributeValues:
       {
         ":deploymentState": state,
         ":deployedTime": time,
+        ":logs": logs,
       }
   };
 

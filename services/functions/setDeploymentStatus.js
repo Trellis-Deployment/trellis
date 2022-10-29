@@ -15,7 +15,7 @@ export const main = handler(async (event) => {
     const app = await getAppByUserAndAppName({ userId: user.userId, appName: data.APP_NAME });
     console.log({app});
     const stage = await getStageByAppIdAndStageName({ appId: app.appId, stageName: data.STAGE_NAME });
-    await updateDeploymentStateById({ deploymentId: data.DEPLOYMENT_ID, state: data.STATE });
+    await updateDeploymentStateById({ deploymentId: data.DEPLOYMENT_ID, state: data.STATE, logs: data.LOGS });
     const deployment = await getDeploymentById(data.DEPLOYMENT_ID);
 
     console.log({deployment});
