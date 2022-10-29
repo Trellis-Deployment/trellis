@@ -17,6 +17,19 @@ const Stage = ({ stage, setStages, stages }) => {
     setStages(data);
   };
 
+  //TODO  - button should be disabled if we are deploying
+  const handlePromoteClick = async (e, stageId) => {
+    e.preventDefault();
+    const prodStageId = stages.filter((s) => s.stageName === "prod").stageId;
+    await APICalls.promoteStage({
+      targetStageId: prodStageId,
+      userId,
+      appName,
+      sourceCommitId: stageId.lastCommitId,
+    });
+    const data = await APICalls.getStages(userId, appName);
+    setStages(data);
+  };
   const callNewInterval = async () => {
     if (intervalId) {
       clearInterval(intervalId);
@@ -53,7 +66,8 @@ const Stage = ({ stage, setStages, stages }) => {
   return (
     <Col key={stage.stageId} className="stage-row m-1">
       <Card.Title className="SectionHeader m-1">
-        Stage Name: <Link to={`/application/${appName}/activity`} >{stage.stageName}</Link>
+        Stage Name:{" "}
+        <Link to={`/application/${appName}/activity`}>{stage.stageName}</Link>
       </Card.Title>
       <Row  className="stage-branch ps-2">
         Stage Branch:{" "}
@@ -69,7 +83,15 @@ const Stage = ({ stage, setStages, stages }) => {
           >
             Manually Deploy Stage
           </Button>
-         </div>
+
+          <Button
+            size="sm"
+            variant="success"
+            onClick={(e) => handlePromoteClick(e, stage.stageId)}
+          >
+            Promote to Production
+          </Button>
+        </div>
       </Row>
     </Col>
   );

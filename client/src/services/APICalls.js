@@ -22,41 +22,48 @@ const getRepos = async (user) => {
   return response.data;
 };
 
-const buildRepo = async(user, repo) => {
-  const response = await axios.get(`${API_URL}/repos/build?user=${user}&repo=${repo}`);
+const buildRepo = async (user, repo) => {
+  const response = await axios.get(
+    `${API_URL}/repos/build?user=${user}&repo=${repo}`
+  );
   return response.data;
 };
 
-const getApps = async(userId) => {
+const getApps = async (userId) => {
   const response = await axios.get(`${API_URL}/apps?user=${userId}`);
   return response.data;
 };
 
-const postApps = async(app) => {
+const postApps = async (app) => {
   const response = await axios.post(`${API_URL}/apps`, app);
   console.log(response);
   return response.data;
 };
 
-const getStages = async(appId) => {
+const getStages = async (appId) => {
   const response = await axios.get(`${API_URL}/stages?appId=${appId}`);
   return response.data;
 };
 
-const getDeployments = async(stageId) => {
+const getDeployments = async (stageId) => {
   const response = await axios.get(`${API_URL}/deployments?stageId=${stageId}`);
   return response.data;
-}
+};
 
-const buildStage = async(build) => {
+const buildStage = async (build) => {
   const response = await axios.post(`${API_URL}/build`, build);
 
   return response.data;
 };
 
-const getStageStatus = async({ stageId }) => {
+const promoteStage = async (targetStageId, build) => {
+  const response = await axios.post(`${API_URL}/promote`, build);
+  return response.data;
+};
+
+const getStageStatus = async ({ stageId }) => {
   const response = await axios.get(`${API_URL}/stageStatus?stageId=${stageId}`);
-  console.log({response});
+  console.log({ response });
   return response.data;
 };
 
@@ -72,6 +79,7 @@ const APICalls = {
   buildStage,
   getStageStatus,
   getDeployments,
-}
+  promoteStage,
+};
 
 export default APICalls;
