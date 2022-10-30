@@ -1,19 +1,27 @@
 import React from "react";
-import './index.css'
-import './App.css';
+import "./index.css";
+import "./App.css";
 import NavigationBar from "./components/Header/NavigationBar";
 import { useState } from "react";
 import Routes from "./components/Routes";
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import MiniNavBar from "./components/Header/MiniNavBar";
 import { AppContext } from "./Lib/AppContext";
 
 function App() {
-  const [ authUser, setAuthUser ] = useState(window.sessionStorage.getItem("trellisAuthUser"));
-  const [ userId, setUserId ] = useState(window.sessionStorage.getItem("trellisUserId"));
-  const [ appName, setAppName ] = useState(window.sessionStorage.getItem("trellisAppName"));
-  const [ appId, setAppId ] = useState(window.sessionStorage.getItem("trellisAppId"));
-  
+  const [authUser, setAuthUser] = useState(
+    window.sessionStorage.getItem("trellisAuthUser")
+  );
+  const [userId, setUserId] = useState(
+    window.sessionStorage.getItem("trellisUserId")
+  );
+  const [appName, setAppName] = useState(
+    window.sessionStorage.getItem("trellisAppName")
+  );
+  const [appId, setAppId] = useState(
+    window.sessionStorage.getItem("trellisAppId")
+  );
+
   const contextValue = {
     appName,
     setAppName,
@@ -22,7 +30,7 @@ function App() {
     authUser,
     setAuthUser,
     userId,
-    setUserId
+    setUserId,
   };
 
   const handleLogoutClick = (e) => {
@@ -42,17 +50,12 @@ function App() {
       <div className="App">
         <Router>
           <NavigationBar handleLogoutClick={handleLogoutClick}></NavigationBar>
-          {appName ? 
-            <MiniNavBar></MiniNavBar> :
-            null
-          }
-          <Routes
-          ></Routes>
+          {appName ? <MiniNavBar></MiniNavBar> : null}
+          <Routes></Routes>
         </Router>
       </div>
     </AppContext.Provider>
   );
 }
-
 
 export default App;

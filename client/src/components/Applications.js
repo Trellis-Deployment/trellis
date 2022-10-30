@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { PlusCircle } from "react-bootstrap-icons";
 import { useAppContext } from "../Lib/AppContext";
+import Shapes from './Development/Shapes';
+import HollowLogo from "./Development/trellis_border_black.svg"
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
@@ -41,14 +43,15 @@ const Applications = () => {
 
   return (
     <div className="app-list-home container">
+      <Shapes Shape={HollowLogo}></Shapes>
       <div className="row pb-2">
-        <div className="col col-auto">
-          <h3 className="text-start">Welcome {authUser}</h3>
-        </div>
-        <div className="col d-flex justify-content-end">
+        <div className="col">
           <Button onClick={handleNewAppClick} size="sm" variant="success">
             <PlusCircle size={20} /> New App
           </Button>
+        </div>
+        <div className="col col-auto">
+          <h3 className="text-start">Welcome {authUser}</h3>
         </div>
         <div></div>
       </div>

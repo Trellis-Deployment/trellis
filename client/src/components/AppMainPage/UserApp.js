@@ -1,10 +1,10 @@
-// import "../stylesheets/AppModal.css";
+import '../../stylesheets/AppStage.css'
 import { useEffect, useState } from "react";
 import APICalls from "../../services/APICalls";
-import Stage from "./AppStage";
+import AppStage from "./AppStage";
 import { useAppContext } from "../../Lib/AppContext";
 
-const AppModal = () => {
+const UserApp = () => {
   const [stages, setStages] = useState([]);
   const { appId } = useAppContext();
 
@@ -19,16 +19,16 @@ const AppModal = () => {
 
   return (
     <div>
-      <div className="card p-2 pipes mt-3 mid-wide-card container">
-        <div className="row">
-            <div className="col pipeline-title">
+      <div className="card px-3 pt-1 pipes mt-3 mid-wide-card container lips">
+        <div className="row ">
+            <div className="col pipeline-title mb-1">
               Pipeline
               <a className="ps-2 small-font" href="/apps">
                 edit
               </a>
             </div>
-            <div className="d-flex col pe-0 justify-content-end align-items-end small-font">
-              <a href="/apps">View Full Pipeline</a>
+            <div className="d-flex col pe-0 justify-content-end align-items-end">
+              <a href="/apps" className='small-font'>View Full Pipeline</a>
             </div>
         </div>
 
@@ -36,7 +36,7 @@ const AppModal = () => {
           <div className="col  bg-white">
             <div className="row ">
               {stages.map((stage) => (
-                <Stage 
+                <AppStage 
                   key={stage.stageId}
                   stage={stage}
                   setStages={setStages} 
@@ -55,4 +55,4 @@ const AppModal = () => {
   );
 };
 
-export default AppModal;
+export default UserApp;

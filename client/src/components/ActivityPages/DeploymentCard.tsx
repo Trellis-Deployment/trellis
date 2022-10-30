@@ -1,27 +1,18 @@
-import { Row, Card, Col } from "react-bootstrap";
+import "../../stylesheets/AppStage.css";
+import { Row, Card } from "react-bootstrap";
 
-const DeploymentCard = ({deployment, version}) => {
-  console.log(deployment);
+const DeploymentCard = ({deployment}) => {
   return (
-    <Col className="stage-row m-1 row bg-white">
+    <Row className="stage-row m-1">
       <Card.Title className="SectionHeader m-1">
-        V{version}
+        Deployment ID: {deployment.deploymentId}
       </Card.Title>
-      <Row>
-        Deployment State: {deployment.deploymentState}
-      </Row>
-      <Row>
-        CommitId: {deployment.commitId}
-      </Row>
-      <Row>
-        Deployment time: {String(new Date(deployment.time))}
-      </Row>
-      <Row >
-        Logs:
-        <textarea readOnly className='bg-light text-light' placeholder={deployment.logs}>
-        </textarea>
-      </Row> 
-    </Col>
+      <Card.Text className="stage-branch ps-2">
+        <Row className="stage-info">
+          Deployment State:{deployment.deploymentState}
+        </Row>
+      </Card.Text>
+    </Row>
   )
 };
 

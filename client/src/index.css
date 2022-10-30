@@ -24,12 +24,14 @@ code {
     monospace;
 }
 
+@import "suitcss";
+@import "suitcss-components-grid";
+@import "suitcss-utils-size";
 
-select.form-control,
-textarea.form-control,
-input.form-control {
-  font-size: 1rem;
-}
-input[type="file"] {
-  width: 100%;
+@custom-media --sm-viewport (min-width: 320px) and (max-width: 640px);
+@custom-media --md-viewport (min-width: 640px) and (max-width: 960px);
+@custom-media --lg-viewport (min-width: 960px);
+
+:root {
+  --Grid-gutterSize: 25px;
 }

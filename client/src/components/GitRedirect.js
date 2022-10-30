@@ -13,7 +13,6 @@ const GitRedirect = () => {
   const application = searchParams.get("installation_id");
   const navigate = useNavigate();
   const { setAuthUser, setUserId } = useAppContext();
-  
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -47,22 +46,25 @@ const GitRedirect = () => {
   }, [code, navigate, setAuthUser, application, setUserId]);
 
   return (
-    <div className="position-absolute top-50 start-50 translate-middle wait pb-1 px-2">
-      <header className="App-header pt-3 pb-2">
-        <div className="container">
-          <Image src={Waiting} className="App-logo" alt="logo" fluid="true" />
+    <div>
+      <div className="position-absolute top-50 start-50 translate-middle wait pb-1 px-2">
+        <header className="App-header pt-3 pb-2">
+          <div className="container">
+            <Image src={Waiting} className="App-logo" alt="logo" fluid="true" />
+          </div>
+        </header>
+        <div className="text-center">
+          <div className="spinner-border text-center spin">
+            <strong>{`<`}</strong>
+          </div>
+          <h3 className="box text-dark p-1">
+            {authenticated
+              ? `Congratulations you signed in`
+              : `Waiting for Authentication`}
+          </h3>
         </div>
-      </header>
-      <div className="text-center">
-        <div className="spinner-border text-center spin">
-          <strong>{`<`}</strong>
-        </div>
-        <h3 className="box text-dark p-1">
-          {authenticated
-            ? `Congratulations you signed in`
-            : `Waiting for Authentication`}
-        </h3>
       </div>
+      <div> </div>
     </div>
   );
 };

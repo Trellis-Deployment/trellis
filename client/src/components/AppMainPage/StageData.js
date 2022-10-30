@@ -1,4 +1,5 @@
 import "../../App.css";
+import "../../stylesheets/AppStage.css";
 import { Col, Row } from "react-bootstrap";
 
 import {
@@ -8,11 +9,11 @@ import {
   Gear
 } from "react-bootstrap-icons";
 
-const stages = ({ stage }) => {
+const StageData = ({ stage }) => {
 
   if (stage.stageBranch === 'main') {
     return (
-      <div>
+      <div className="stage-info">
         <Row>
           {" "}
           <div className="line-2">
@@ -31,7 +32,7 @@ const stages = ({ stage }) => {
             <Row>
               <a
                 target="_blank"
-                className="commit ps-1"
+                className="commit ps-1 stage-info"
                 rel="noopener noreferrer"
                 href={stage.stageId}
               >
@@ -59,7 +60,7 @@ const stages = ({ stage }) => {
   }
 }
 
-export default stages;
+export default StageData;
 
 
 
