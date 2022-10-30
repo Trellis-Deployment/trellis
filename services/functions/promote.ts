@@ -11,12 +11,8 @@ interface eventData {
 }
 
 export const main = handler(async (event: APIGatewayProxyEventV2) => {
-  console.log("event", event);
-  console.log("===============================================");
-  console.log("event.body", event.body);
   const parsedEvent: eventData = JSON.parse(event.body);
   const { targetStageId, userId, appName, sourceCommitId } = parsedEvent;
-  console.log("targetStageId", targetStageId);
   const {
     stage,
     token,
@@ -31,6 +27,10 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
     targetStageId,
   });
 
+  if (stage.state === "deploying") {
+    return "Cannot deploy to production right now";
+  }
+
   try {
     const data = {
       AWS_ACCESS_KEY_ID: IAMAccessKey,
@@ -44,7 +44,6 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
       APP_NAME: appName,
     };
 
-    console.log(data);
     await invokeBuildFunction(data, stage, sourceCommitId);
     return "success";
   } catch (e) {

@@ -21,7 +21,6 @@ const Stage = ({ stage, setStages, stages }) => {
   //need to properly debounce this - when are promotions valid to do?
   const handlePromoteClick = async (e) => {
     e.preventDefault();
-    e.currentTarget.disabled = true;
     const prodStageId = stages.find((s) => s.stageName === "prod").stageId;
     console.log({
       targetStageId: prodStageId,
@@ -87,16 +86,22 @@ const Stage = ({ stage, setStages, stages }) => {
         <div className="d-flex">
           {stage.stageName !== "prod" ? (
             <>
+              {" "}
               <Button
-                // size="sm"
-                className="btn-sm"
+                size="sm"
                 variant="success"
                 onClick={(e) => handleDeployClick(e, stage.stageId)}
               >
                 Manually Deploy Stage
               </Button>
               <Button
-                disabled={stage.stageState === "deployed" ? false : true}
+                disabled={
+                  stage.stageState === "deployed" &&
+                  stages.find((s) => s.stageName === "prod").stageStage !==
+                    "deploying"
+                    ? false
+                    : true
+                }
                 size="sm"
                 variant="success"
                 onClick={handlePromoteClick}
