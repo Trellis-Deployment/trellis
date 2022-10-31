@@ -1,8 +1,6 @@
 import axios from "axios";
 import { Octokit } from "octokit";
 
-
-
 const getAccessToken = async (code) => {
   try {
     const response = await axios.post(`https://github.com/login/oauth/access_token?client_id=${process.env.Client_ID}&client_secret=${process.env.Client_secret}&code=${code}`);
@@ -88,12 +86,34 @@ const getCommits = async ({token, userLogin, repo}) => {
     console.log(e.message);
   }
 }
+const getBranches = async (token, fullRepo) => {
+  const octokit = new Octokit({
+    auth: token
+  });
+  let [owner, repo] = fullRepo.split("/");
+  
+  try {
+    const response = await octokit.request('GET /repos/{owner}/{repo}/branches', {
+      owner: owner,
+      repo: repo,
+    });
+    console.log("Github branch request response: ", response);
+    const branches = response.data;
+
+    return branches
+  } catch(e) {
+    console.log({githubFailed: e.message});
+    throw new Error(`{githubFailed: ${e.message}}`);
+  }
+}
+
 const githubCalls = {
   getAccessToken,
   getUserInfo,
   getReposByToken,
   createWebhook,
-  getCommits
+  getCommits,
+  getBranches,
 };
 
 export default githubCalls;

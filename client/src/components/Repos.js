@@ -17,8 +17,7 @@ const Repos = ({ authUser }) => {
 
   const handleBuildRepoClick = async (e) => {
     try {
-      const data = await APICalls.buildRepo(authUser, repo);
-      console.log(data);
+      await APICalls.buildRepo(authUser, repo);
     } catch (e) {
       console.log(e.message);
     }
