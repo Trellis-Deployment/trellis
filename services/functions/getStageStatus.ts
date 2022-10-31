@@ -5,10 +5,9 @@ export const main = handler(async (event) => {
   const stageId = event["queryStringParameters"]['stageId'];
   try {
     const stage = await getStageById(stageId);
-    return ({state: stage.stageState});
+    return ({ state: stage.stageState, lastCommitId: stage.lastCommitId });
   } catch(e) {
     console.log(e.message);
     return({error: e.message});
   }
-
 });

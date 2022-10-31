@@ -23,6 +23,7 @@ const buildStatusData = {
   BRANCH_NAME,
   APP_NAME,
   DEPLOYMENT_ID,
+
 };
 
 function syncReadFile(filename) {
@@ -103,5 +104,5 @@ let postStatusResultPromise = fetch(SET_STATUS_URL, {
 });
 
 postStatusResultPromise.then((val) => {
-  console.log("Posted to deployment database");
+  console.log("Deployment Data Stored");
 });

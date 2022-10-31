@@ -1,38 +1,53 @@
-import "../../App.css";
+import { useState } from 'react';
+import BranchSettings from './BranchSettings';
+import CommitId from './CommitId';
 import { Col, Row } from "react-bootstrap";
+import "../../App.css";
 
 import {
   CloudCheck,
-  Code,
   ExclamationCircle,
   Gear,
 } from "react-bootstrap-icons";
 
-const StageData = ({ stage }) => {
+const StageData = ({ stage, stages, setStages }) => {
+  const [branchSettingsVisible, setBranchSettingsVisible] = useState(false)
+
+  const handleBranchNameClick = (e) => {
+    e.preventDefault();
+    setBranchSettingsVisible(true);
+  }
+
   return (
     <div className="stage-info">
       <Row>
         {" "}
         <div className="line-2">
+        { stage.stageBranch !== 'undefined' ? 
+        <>
           <a
             target="_blank"
             className="branch px-1"
             rel="noopener noreferrer"
             href="/"
+            onClick={handleBranchNameClick}
           >
             <i aria-hidden="true" className="fa  fa-code-fork "></i>
-            main
+            {stage.stageBranch}
           </a>
+          </> :
+          <span>N/A</span>
+        }
           <Row>
-            <a
+            <span
               target="_blank"
               className="commit ps-1 stage-info"
               rel="noopener noreferrer"
               href={stage.stageId}
             >
-              Last Deployed: {String(new Date(stage.lastDeploymentTime))}
-            </a>
-            App ID: {stage.appId.split("-")[0]}
+              Last Deployed: {stage.lastDeploymentTime ? String(new Date(stage.lastDeploymentTime)) : "Not Deployed"}
+            </span>
+              <span>Commit ID: {stage.lastCommitId ? <CommitId value={stage.lastCommitId} /> : "N/A"}</span>
           </Row>
         </div>
       </Row>
@@ -62,6 +77,10 @@ const StageData = ({ stage }) => {
           <ExclamationCircle color="red" size={28} />
         </Col>
       )}
+
+      {
+        branchSettingsVisible ? <BranchSettings stage={stage} setBranchSettingsVisible={setBranchSettingsVisible} stages={stages} setStages={setStages}/> : null
+      }
     </div>
   );
 };

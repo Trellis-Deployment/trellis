@@ -57,7 +57,7 @@ const BranchSettings = ({ stage, setBranchSettingsVisible, stages, setStages }) 
             <Form onSubmit={handleBranchChangeSubmit}>
               <Form.Select aria-label='branch select' value={selectedBranch} onChange={(e) => setSelectedBranch(e.target.value)}>
                 {
-                  repoBranches.map(branch => <option value={branch.name}>{branch.name}</option>)
+                  repoBranches.map(branch => <option key={branch.name} value={branch.name}>{branch.name}</option>)
                 }
               </Form.Select>
               <Button variant='primary' type='submit'>Submit</Button>

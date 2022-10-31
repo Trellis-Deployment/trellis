@@ -112,7 +112,7 @@ const githubCalls = {
   getUserInfo,
   getReposByToken,
   createWebhook,
-  getCommits
+  getCommits,
   getBranches,
 };
 

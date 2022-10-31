@@ -37,10 +37,9 @@ const Stage = ({ stage, setStages, stages }) => {
       clearInterval(intervalId);
     }
 
-    const duration = stage.state === "deploying" ? 15000 : 30000;
+    const duration = stage.state === "deploying" ? 10000 : 20000;
 
     const id = setInterval(async () => {
-      console.log("poll");
       const data = await APICalls.getStageStatus(stage);
       if (data.state === stage.stageState) {
         return;
@@ -48,7 +47,7 @@ const Stage = ({ stage, setStages, stages }) => {
 
       setStages(
         stages.map((s) =>
-          s.stageId === stage.stageId ? { ...s, stageState: data.state } : s
+          s.stageId === stage.stageId ? { ...s, stageState: data.state, lastCommitId: data.lastCommitId } : s
         )
       );
     }, duration);
@@ -73,8 +72,7 @@ const Stage = ({ stage, setStages, stages }) => {
       </Card.Title>
       <Row className="stage-branch ps-2">
         Stage Branch:{" "}
-        {stage.stageBranch !== "undefined" ? stage.stageBranch : "no branch"}{" "}
-        <Col className="lh-0">{<Stages stage={stage}></Stages>}</Col>
+        <Col className="lh-0">{<Stages stage={stage} stages={stages} setStages={setStages}></Stages>}</Col>
       </Row>
       <Row>
         <div className="d-flex">

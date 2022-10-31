@@ -31,6 +31,8 @@ export const main = handler(async (event, context) => {
       SET_STATUS_URL: `https://${event.headers.host}/setStatus`,
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,
+      COMMIT_ID: commitId,
+      
     }
 
     await invokeBuildFunction(buildData, stage, commitId);
