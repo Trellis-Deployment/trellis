@@ -7,16 +7,16 @@ const DeploymentCard = ({deployment, version}) => {
       <Card.Title className="SectionHeader m-1">
         V{version}
       </Card.Title>
-      <Row>
+      <Row className="fw-lighter">
         Deployment State: {deployment.deploymentState}
       </Row>
-      <Row>
+      <Row className="fs-6">
         CommitId: {deployment.commitId}
       </Row>
-      <Row>
+      <Row className="fs-6">
         Deployment time: {String(new Date(deployment.time))}
       </Row>
-      <Row >
+      <Row>
         Logs:
         <textarea readOnly className='bg-light text-light' placeholder={deployment.logs}>
         </textarea>
