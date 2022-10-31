@@ -22,12 +22,6 @@ const Stage = ({ stage, setStages, stages }) => {
   const handlePromoteClick = async (e) => {
     e.preventDefault();
     const prodStageId = stages.find((s) => s.stageName === "prod").stageId;
-    console.log({
-      targetStageId: prodStageId,
-      userId,
-      appName,
-      sourceCommitId: stage.commitId,
-    });
     await APICalls.promoteStage({
       targetStageId: prodStageId,
       userId,
@@ -97,7 +91,7 @@ const Stage = ({ stage, setStages, stages }) => {
               <Button
                 disabled={
                   stage.stageState === "deployed" &&
-                  stages.find((s) => s.stageName === "prod").stageStage !==
+                  stages.find((s) => s.stageName === "prod").stageState !==
                     "deploying"
                     ? false
                     : true
