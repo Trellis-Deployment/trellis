@@ -26,7 +26,7 @@ const Stage = ({ stage, setStages, stages }) => {
       targetStageId: prodStageId,
       userId,
       appName,
-      sourceCommitId: stage.commitId,
+      sourceCommitId: stage.lastCommitId,
     });
     const data = await APICalls.getStages(appId);
     setStages(data);
