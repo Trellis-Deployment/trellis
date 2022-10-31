@@ -19,7 +19,6 @@ const CreateApp = () => {
   useEffect(() => {
     const getRepos = async () => {
       try {
-        console.log({userId});
         const data = await APICalls.getRepos(userId);
         setRepos(data);
       } catch (e) {

@@ -40,8 +40,7 @@ const CreateApp = ({ authUser }) => {
       secretKey,
     };
     try {
-      const data = await APICalls.postApps(app);
-      console.log(data);
+      await APICalls.postApps(app);
       navigate(`/application/${appName}`);
     } catch (e) {
       console.log(e.message);
