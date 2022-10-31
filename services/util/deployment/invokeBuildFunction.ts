@@ -5,16 +5,17 @@ const invokeBuildFunction = async (data, stage, commitId) => {
   const lambda = new AWS.Lambda();
   const params = {
     FunctionName: process.env.DEPLOY_LAMBDA_NAME,
-    InvocationType: 'RequestResponse',
-    LogType: 'Tail',
+    InvocationType: "RequestResponse",
+    LogType: "Tail",
     Payload: JSON.stringify({ data: data }),
   };
   const lambdaResponse = await lambda.invoke(params).promise();
-  await updateStageState({stage, state: "deploying", commitId });
+  await updateStageState({ stage, state: "deploying", commitId });
 
-  console.log("after invokation");
+  console.log("after invocation");
 
   return "success";
-}
+};
 
 export default invokeBuildFunction;
+
