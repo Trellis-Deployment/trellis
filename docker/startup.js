@@ -72,6 +72,14 @@ try {
 
   const dependencyCommands = [`cd ~/repos/${GITHUB_REPO}`, "npm install"];
   execSync(dependencyCommands.join(" && "), { stdio: "inherit" });
+  
+  try {
+    const postInstallCommands = [`cd ~/repos/${GITHUB_REPO}`, "npm run postinstall"];
+    execSync(postInstallCommands.join(" && "), { stdio: "inherit" });
+  } catch(e) {
+    console.log(e.message);
+  }
+  
   console.log("SUCCESS: NODE PACKAGE DEPENDENCIES INSTALLED");
 
   const deployCommands = [
