@@ -1,6 +1,6 @@
 body {
-  background: #161e26;
-  background-image: url("./Resources/trellis_pattern.jpg");
+  background: #161e26 !important;
+  background-image: url("./Resources/trellis_pattern.jpg") !important;
   background-repeat: repeat;
 }
 

@@ -19,7 +19,7 @@ const StageDeploymentCard = ({stage}) => {
       <Card.Title className="SectionHeader m-1">
         {stage.stageName} Deployments:
         {deployments.map((deployment, idx) => (
-          <DeploymentCard key={deployment.deploymentId} deployment={deployment} /* version={deployments.length - idx} */></DeploymentCard>
+          <DeploymentCard key={deployment.deploymentId} deployment={deployment} version={deployments.length - idx}></DeploymentCard>
         ))}
       </Card.Title>
     </Col>

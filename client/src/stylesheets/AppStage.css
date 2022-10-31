@@ -2,7 +2,6 @@ body {
   font-size: 05.em;
 }
 
-
 .card-top {
   background-color: #25415F;
   /* color: darkgray; */
@@ -61,6 +60,7 @@ ol, ul {
 }
 
 
+
 .pipeline-title {
   font-size: 16px;
 }
@@ -91,12 +91,9 @@ ol, ul {
 }
 
 .stage-branch {
-  font-size: 13px;
+  font-size: 12px;
 }
 
-.stage-info-branch {
-  color:#25415F
-}
 .btn-sm {
   font-size: 13px;
   color: white;
@@ -104,20 +101,13 @@ ol, ul {
   border-radius: 50px;
 }
 
-.btn {
-  background-color: #336497;
-}
 
-.small-font  {
+
+.small-font {
   font-size: 12px;
-  color: #549dea;
+  color: #67b3f6;
 }
 
-.small-font:hover {
+.small-font :hover {
   color: white;
-  font-weight: 600;
-}
-
-.stage-info {
-  color: #4d710f;
 }
