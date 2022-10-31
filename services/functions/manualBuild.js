@@ -5,10 +5,15 @@ import githubCalls from "util/github/githubCalls";
 import createDeployment from "../util/deploymentsTableUtils/createDeployment";
 
 export const main = handler(async (event) => {
-  const { userId, appName, stageId } = JSON.parse(event.body);
+  let { userId, appName, stageId, commitId } = JSON.parse(event.body);
   const { stage, token, user, stageName, repoName, IAMAccessKey, IAMSecretKey } = await getDataForManualDeployment({ userId, appName, stageId });
-  const commits = await githubCalls.getCommits({ token, userLogin: user, repo: repoName });
-  const deployment = await createDeployment({stageId: stage.stageId, commitId: commits[0].sha});
+  console.log({commitId});
+
+  if (!commitId) {
+    const commits = await githubCalls.getCommits({ token, userLogin: user, repo: repoName });
+    commitId = commits[0].sha;
+  }
+  const deployment = await createDeployment({stageId: stage.stageId, commitId});
 
   try {
     const data = {
@@ -21,10 +26,11 @@ export const main = handler(async (event) => {
       SET_STATUS_URL: `https://${event.headers.host}/setStatus`,
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,
+      COMMIT_ID: commitId,
     };
     
     console.log(data);
-    await invokeBuildFunction(data, stage, commits[0].sha);
+    await invokeBuildFunction(data, stage, commitId);
     return "success";
   } catch(e) {
     console.log(e.message);

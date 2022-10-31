@@ -13,13 +13,21 @@ const StageDeploymentCard = ({stage}) => {
     }
     getDeployments();
   }, [stage.stageId]);
+
   console.log({deployments});
   return (
     <Col className="stage-row m-1">
       <Card.Title className="SectionHeader m-1">
         {stage.stageName} Deployments:
         {deployments.map((deployment, idx) => (
-          <DeploymentCard key={deployment.deploymentId} deployment={deployment} version={deployments.length - idx}></DeploymentCard>
+          <DeploymentCard
+            key={deployment.deploymentId}
+            deployment={deployment}
+            version={deployments.length - idx}
+            idx={idx}
+            stageId={stage.stageId}
+            setDeployments={setDeployments}>
+          </DeploymentCard>
         ))}
       </Card.Title>
     </Col>
