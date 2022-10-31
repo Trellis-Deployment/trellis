@@ -30,6 +30,8 @@ function syncReadFile(filename) {
     return (
       (line.includes("[INFO]") ||
         line.includes("[DEBUG]") ||
+        line.includes("ERROR") ||
+        line.includes("Error") ||
         line.includes("✅") ||
         line.includes("❌")) &&
       !line.includes("PROGRESS") &&
