@@ -2,6 +2,9 @@ import handler from "../util/templates/handler";
 import invokeBuildFunction from "../util/deployment/invokeBuildFunction";
 import getDataForPromotion from "../util/deployment/getDataForPromotion";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
+import createDeployment, {
+  NewDeployment,
+} from "../util/deploymentsTableUtils/createDeployment";
 
 interface eventData {
   targetStageId: "string";
@@ -32,6 +35,15 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
   }
 
   try {
+    const deployment = (await createDeployment({
+      stageId: targetStageId,
+      commitId: sourceCommitId,
+    })) as NewDeployment;
+
+    if (deployment.error) {
+      throw new Error("failed to create deployment prior to promotion");
+    }
+
     const data = {
       AWS_ACCESS_KEY_ID: IAMAccessKey,
       AWS_SECRET_ACCESS_KEY: IAMSecretKey,
@@ -42,6 +54,7 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
       SET_STATUS_URL: `https://${event.headers.host}/setStatus`,
       COMMIT_ID: sourceCommitId,
       APP_NAME: appName,
+      DEPLOYMENT_ID: deployment.deploymentId,
     };
 
     await invokeBuildFunction(data, stage, sourceCommitId);
