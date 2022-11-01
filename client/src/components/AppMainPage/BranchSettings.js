@@ -1,9 +1,9 @@
+import '../../App.css';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useAppContext } from '../../Lib/AppContext';
 import APICalls from '../../services/APICalls';
-import '../../App.css';
 
 const BranchSettings = ({ stage, setBranchSettingsVisible, stages, setStages }) => {
   const { appName, userId } = useAppContext();

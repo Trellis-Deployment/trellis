@@ -1,0 +1,180 @@
+
+/*Google fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600;700&display=swap');
+
+*{
+	margin: 0;
+	box-sizing: border-box;
+	outline: none;
+}
+body{
+	font-family: 'Dosis', sans-serif;
+	font-weight: 400;
+	color: #fff;
+	overflow-x: hidden;
+	overflow: hidden;
+	background-color: #071F30;
+}
+
+
+h1,h2,h3,h4,h5,h6{
+	font-weight: normal;
+}
+
+.blockade {
+  background-color: #50e7bf54;
+  /* position: relative; */
+  padding: 50px;
+  display: flex;
+  /* align-items: end; */
+  justify-content: center;
+}
+
+
+.header-inner{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	/* max-width: 1140px; */
+	margin: 0 auto;
+}
+
+.albert {
+  display: flex;
+  padding: 20px 0 20px 0;
+  max-width: 360px;
+}
+
+.common {
+	padding: 50px 0;
+	min-height: 100vh;
+	position: relative;
+}
+.home-inner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.home .text{
+	max-width: 250px;
+	text-align: left;
+	margin-right: 60px;
+  /* margin-top: 40px; */
+}
+.home h5{
+	font-size: 18px;
+	text-transform: uppercase;
+	position: relative;
+}
+.home h5:before{
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 0;
+	width: 60px;
+	height: 1px;
+	background-color: #fff;
+}
+.home h1{
+	font-size: 64px;
+	text-transform: uppercase;
+}
+.home p{
+	font-size: 18px;
+	line-height: 30px;
+	color: #dde0e2;
+	margin: 10px 10px 20px 0;
+  font-weight: 500;
+}
+
+/*top right  bottom left */
+.home .btn{
+	font-size: 18px;
+	color: #fff;
+  background-color: #15755b00;
+	text-decoration: none;
+	padding: 15px 20px;
+	border:  1px solid #ffffff40;
+}
+.home .btn:hover{
+	background-color: #50E7BE;
+  color: black;
+}
+
+.bttn {
+  margin-bottom: 10px;
+}
+/* SHAPES */
+
+.shape img{
+	position: absolute;
+	width: 100%;
+	z-index: -9;
+}
+.shape .shape1{
+	right: -160px;
+	top: -50px;
+	width: 350px;
+	opacity: .5;
+	transform-origin: center;
+	animation: shape linear 30s infinite reverse;
+}
+.shape .shape2{
+	left: -70px;
+	bottom: -50px;
+	width: 450px;
+	opacity: .5;
+	transform-origin: center;
+	animation: shape linear 30s infinite reverse;
+}
+@keyframes shape{
+	100%{
+		transform:  rotate(360deg);
+	}
+}
+
+.shape .shape3{
+	top: 0;
+	left: 0;
+	width: 250px;
+	opacity: .4;
+	transform-origin: center;
+	animation: shape3 linear 20s infinite;
+	transform: translate(-200px, -100px) rotate(0deg);
+}
+@keyframes shape3{
+	100%{
+		transform: translate(1300px, 600px) rotate(360deg);
+	}	
+}
+
+.shape .shape4{
+	left: 0;
+	bottom: 0;
+	width: 150px;
+	opacity: .4;
+	transform-origin: center;
+	animation: shape4 linear 20s infinite 5s;
+	transform: translate(700px, 80px) rotate(0deg);
+}
+@keyframes shape4{
+	100%{
+		transform: translate(1200px, -800px) rotate(360deg);
+	}
+}
+
+.shape .shape5{
+	left: 500px;
+	top: 0;
+	width: 100px;
+	opacity: 0;
+	transform-origin: center;
+	animation: shape5 linear 25s infinite;
+	transform: translate(0, -150px) rotate(0deg);
+}
+@keyframes shape5{
+	100%{
+		opacity: 1;
+		transform: translate(0, 800px) rotate(720deg);
+	}
+}

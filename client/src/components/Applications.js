@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { PlusCircle } from "react-bootstrap-icons";
 import { useAppContext } from "../Lib/AppContext";
+import Shapes from './Development/Shapes';
+import HollowLogo from "./Development/trellis_border_black.svg"
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
@@ -41,24 +43,26 @@ const Applications = () => {
 
   return (
     <div className="app-list-home container">
+      <Shapes Shape={HollowLogo}></Shapes>
       <div className="row pb-2">
-        <div className="col col-auto">
-          <h3 className="text-start">Welcome {authUser}</h3>
-        </div>
-        <div className="col d-flex justify-content-end">
+        <div className="col">
           <Button onClick={handleNewAppClick} size="sm" variant="success">
             <PlusCircle size={20} /> New App
           </Button>
         </div>
+        <div className="col col-auto">
+          <h3 className="text-start">Welcome {authUser}</h3>
+        </div>
         <div></div>
       </div>
+      
       <div className="row mt-3">
         <ul className="container p-0">
           {applications.map((application) => (
             <div key={application.appId} className="row">
               <li className="my-1">
-                <div className="card-face">
-                  <Card
+                <div className="oam">
+                  <div className="button"
                     key={application.appId}
                     onClick={(e) => handleAppClick(e, application)}
                   >
@@ -68,18 +72,18 @@ const Applications = () => {
                       align-self-center"
                       >
                         {
-                          <span className="badge bg-info">
-                            {application.appName[0]}
+                          <span className="badge badge-text">
+                            {application.appName[0].toUpperCase()}
                           </span>
                         }
                       </div>
                       <div className="col">
                         <Card.Body className="py-2">
-                          <Card.Title className="text-start c-title">
+                          <Card.Title className="text-start">
                             App: {application.appName}
                           </Card.Title>
-                          <Card.Subtitle className="text-start c-subtitle">
-                            Repo: {application.repo}
+                          <Card.Subtitle className="text-start">
+                            Repo: {application.repoName}
                           </Card.Subtitle>
                         </Card.Body>
                       </div>
@@ -92,10 +96,10 @@ const Applications = () => {
                         <div className="row dep d-flex justify-content-end">
                           Last Deployed
                         </div>
-                        <div className="row date">Oct 25, 2022 2:00pm</div>
+                        <div className="row date">-</div>
                       </div>
                     </div>
-                  </Card>
+                  </div>
                 </div>
               </li>
             </div>

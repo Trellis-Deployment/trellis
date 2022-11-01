@@ -25,11 +25,6 @@ code {
 }
 
 
-select.form-control,
-textarea.form-control,
-input.form-control {
-  font-size: 1rem;
-}
-input[type="file"] {
-  width: 100%;
+:root {
+  --Grid-gutterSize: 25px;
 }
