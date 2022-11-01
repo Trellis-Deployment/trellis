@@ -1,4 +1,4 @@
-import { Api, use, Function, StackContext } from "@serverless-stack/resources";
+import { Api, use, Function, StackContext, WebSocketApi } from "@serverless-stack/resources";
 import { StorageStack } from "./StorageStack";
 import { BuildServerStack } from "./BuildServerStack";
 import config from "../util/config";
@@ -10,10 +10,21 @@ export function ApiStack({ stack, app }: StackContext) {
   const Client_ID = config.Client_ID ? config.Client_ID : "undefined";
   const Client_secret = config.Client_secret || "undefined";
 
+  const webSocketMessage = new Function(stack, "WebSocketFunction", {
+    handler: "websocket/sendMessage.handler",
+    permissions: [users, apps, stages, deployments],
+      environment: {
+        USERS_TABLE_NAME: users.tableName,
+        APPS_TABLE_NAME: apps.tableName,
+        STAGES_TABLE_NAME: stages.tableName,
+        DEPLOYMENTS_TABLE_NAME: deployments.tableName,
+      },
+  });
+
   const api = new Api(stack, "Api", {
     defaults: {
       function: {
-        permissions: [users, apps, stages, deployments, buildFunction],
+        permissions: [users, apps, stages, deployments, buildFunction, webSocketMessage],
         environment: {
           USERS_TABLE_NAME: users.tableName,
           APPS_TABLE_NAME: apps.tableName,
@@ -40,14 +51,63 @@ export function ApiStack({ stack, app }: StackContext) {
       "POST /setStatus": "functions/setDeploymentStatus.main",
       "POST /promote": "functions/promote.main",
     },
+    accessLog: false,
+  });
+
+
+  // Create the WebSocket API
+  const webSocketApi = new WebSocketApi(stack, "webSocketApi", {
+    // defaults: {
+    //   function: {
+    //     permissions: [users, apps, stages, deployments],
+    //     environment: {
+    //       USERS_TABLE_NAME: users.tableName,
+    //       APPS_TABLE_NAME: apps.tableName,
+    //       STAGES_TABLE_NAME: stages.tableName,
+    //       DEPLOYMENTS_TABLE_NAME: deployments.tableName,
+    //     },
+    //   },
+    // },
+    routes: {
+      $connect: {
+        function: {
+          permissions: [users, apps, stages, deployments],
+          environment: {
+            USERS_TABLE_NAME: users.tableName,
+            APPS_TABLE_NAME: apps.tableName,
+            STAGES_TABLE_NAME: stages.tableName,
+            DEPLOYMENTS_TABLE_NAME: deployments.tableName,
+          },
+          handler: "websocket/connect.handler",
+        }
+      },
+      $disconnect: {
+        function: {
+          permissions: [users, apps, stages, deployments],
+          environment: {
+            USERS_TABLE_NAME: users.tableName,
+            APPS_TABLE_NAME: apps.tableName,
+            STAGES_TABLE_NAME: stages.tableName,
+            DEPLOYMENTS_TABLE_NAME: deployments.tableName,
+          },
+          handler: "websocket/disconnect.handler",
+        }
+      },
+      sendMessage: {
+        function: webSocketMessage,
+      }
+    },
+    accessLog: false,
   });
 
   stack.addOutputs({
     ApiEndpoint: api.url,
+    WebSocketEndPoint: webSocketApi.url,
   });
 
   return {
     api,
+    webSocketApi
   };
 }
 

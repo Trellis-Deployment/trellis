@@ -1,6 +1,7 @@
 import githubCalls from "../github/githubCalls";
 import dynamodb from "../templates/dynamodb";
 import { v4 as uuidv4 } from "uuid";
+import getUserByLogin from "./getUserByLogin";
 
 const saveUser = async (tokenObject) => {
   const data = await githubCalls.getUserInfo(tokenObject.access_token);
@@ -17,7 +18,12 @@ const saveUser = async (tokenObject) => {
     githubAvatarUrl: data['avatar_url'],
   }
   console.log({newUser});
-  
+  const userExists = await getUserByLogin(data.login);
+  console.log({userExists});
+  if (userExists) {
+    userExists.new = false;
+    return userExists;
+  }
   const params = {
     TableName: process.env.USERS_TABLE_NAME,
     Item: newUser,

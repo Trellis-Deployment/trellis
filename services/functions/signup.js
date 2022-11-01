@@ -21,6 +21,7 @@ export const main = handler(async (event) => {
     return "unable to authenticate with github";
   } else {
     const user = await saveUser(objectData);
+    console.log({user});
     return ({ user });
   }
 });

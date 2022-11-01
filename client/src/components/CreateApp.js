@@ -43,6 +43,10 @@ const CreateApp = () => {
     };
     try {
       const data = await APICalls.postApps(app);
+      if(data.message) {
+        alert(data.message);
+        return;
+      }
       console.log(data);
       navigate(`/Apps`);
     } catch (e) {
