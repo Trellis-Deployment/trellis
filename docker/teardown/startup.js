@@ -5,7 +5,6 @@ const {
   readFileSync,
   promises: fsPromises,
 } = require("fs");
-
 const GITHUB_X_ACCESS_TOKEN = process.env.GITHUB_X_ACCESS_TOKEN;
 const GITHUB_USER = process.env.GITHUB_USER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
