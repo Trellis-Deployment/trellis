@@ -33,6 +33,7 @@ export function ApiStack({ stack, app }: StackContext) {
           Client_ID,
           Client_secret,
           DEPLOY_LAMBDA_NAME: buildFunction.functionName,
+          WEB_SOCKET_LAMBDA_NAME: webSocketMessage.functionName,
         },
       },
     },
