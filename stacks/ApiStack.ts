@@ -103,6 +103,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "POST /build": "functions/manualBuild.main",
       "POST /setStatus": "functions/setDeploymentStatus.main",
       "POST /stageCredentials": "functions/setStageCredentials.main",
+      "PUT /stageStatus": "functions/setStageStatus.main",
       "POST /promote": "functions/promote.main",
       "GET /repoBranches": "functions/getRepoBranches.main",
       "PUT /stageBranch": "functions/setStageBranch.main",

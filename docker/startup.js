@@ -1,4 +1,4 @@
-const { execSync } = require("child_process");
+const { execSync } = require('child_process');
 const {
   readdirSync,
   existsSync,
@@ -7,6 +7,7 @@ const {
 } = require("fs");
 const AWS = require("aws-sdk");
 
+const ACTION = process.env.ACTION;
 const GITHUB_X_ACCESS_TOKEN = process.env.GITHUB_X_ACCESS_TOKEN;
 const GITHUB_USER = process.env.GITHUB_USER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
@@ -47,11 +48,14 @@ function processDeploy(err, data) {
   const AWS_ACCESS_KEY_ID = parsed["iam-number"];
   const AWS_SECRET_ACCESS_KEY = parsed["iam-code"];
 
-  const buildStatusData = {
+  const statusData = {
+    ACTION,
     GITHUB_USER,
     STAGE_NAME,
+    BRANCH_NAME,
     APP_NAME,
     DEPLOYMENT_ID,
+    COMMIT_ID,
   };
 
   function syncReadFile(filename) {
@@ -104,28 +108,33 @@ function processDeploy(err, data) {
       `cd ~/repos/${GITHUB_REPO}`,
       `npx sst deploy --stage ${STAGE_NAME}`,
     ];
-    execSync(deployCommands.join(" && "), { stdio: "inherit" });
-
-    buildStatusData.STATE = "deployed";
-    buildStatusData.LOGS = syncReadFile(
+    const teardownCommands = [
+      `cd ~/repos/${GITHUB_REPO}`,
+      `npx sst remove --stage ${STAGE_NAME}`,
+    ]
+    const actionCommands = ACTION === 'deploy' ? deployCommands : teardownCommands;
+    execSync(actionCommands.join(' && '), { stdio: 'inherit' });
+  
+    statusData.STATE = ACTION === 'deploy' ? 'deployed' : 'created';
+    statusData.LOGS = syncReadFile(
       `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
     );
-
-    console.log("SUCCESS: APP DEPLOYED!");
+  
+    console.log(ACTION === 'deploy' ? 'SUCCESS: APP DEPLOYED!' : 'SUCCESS: APP TEARDOWN COMPLETE!');
   } catch (e) {
     if (existsSync(`/root/repos/${GITHUB_REPO}/.build/sst-debug.log`)) {
-      buildStatusData.LOGS = syncReadFile(
+      statusData.LOGS = syncReadFile(
         `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
       );
     } else {
-      buildStatusData.LOGS = e.message;
+      statusData.LOGS = e.message;
     }
-    buildStatusData.STATE = "error";
+    statusData.STATE = 'error';
   }
 
   let postStatusResultPromise = fetch(SET_STATUS_URL, {
-    method: "POST",
-    body: JSON.stringify(buildStatusData),
+    method: "PUT",
+    body: JSON.stringify(statusData),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
@@ -141,3 +150,4 @@ const client = new AWS.SecretsManager({
 });
 
 client.getSecretValue({ SecretId: AWS_SSM_KEY }, processDeploy);
+
