@@ -19,6 +19,7 @@ const AWS_SSM_KEY = process.env.AWS_SSM_KEY;
 const REGION = process.env.REGION;
 
 function processDeploy(err, data) {
+  console.log({DEPLOYMENT_ID});
   if (err) {
     console.log(err);
     if (err.code === "DecryptionFailureException")
