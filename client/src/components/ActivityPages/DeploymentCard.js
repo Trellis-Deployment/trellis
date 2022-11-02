@@ -53,14 +53,14 @@ const DeploymentCard = ({
       </Col>
 
       <div className="row m-1 form-floating">
-          <div className="text-start ps-0 pt-1 presenter">Logs:</div>
-          <textarea
-            readOnly
-            className="logs my-1"
-            placeholder={deployment.logs}
-            id="floatingTextarea"
-          ></textarea>
-        </div>
+        <div className="text-start ps-0 pt-1 presenter">Logs:</div>
+        <textarea
+          className="logs my-1"
+          id="floatingTextarea"
+          value={deployment.logs}
+          readOnly
+        ></textarea>
+      </div>
     </Row>
   );
 };
