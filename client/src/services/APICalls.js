@@ -72,6 +72,11 @@ const getRepoBranches = async ({ userId, appName }) => {
   return response.data;
 };
 
+const teardown = async({ userId, appName, stageId, commitId }) => {
+  const response = await axios.post(`${API_URL}/teardown`, { userId, appName, stageId, commitId });
+  return response
+}
+
 const setStageBranch = async ({ stageId, branchName }) => {
   const response = await axios.put(`${API_URL}/stageBranch`, {
     stageId,
@@ -93,11 +98,6 @@ const setStageIamCredentials = async ({
   return response;
 };
 
-const teardown = async({ userId, appName, stageId, commitId }) => {
-  const response = await axios.post(`${API_URL}/teardown`, { userId, appName, stageId, commitId });
-  return response;
-}
-
 const APICalls = {
   authenticate,
   getRepos,
@@ -115,6 +115,8 @@ const APICalls = {
   setStageBranch,
   setStageIamCredentials,
   teardown,
-
+  setStageIamCredentials,
+  
 };
+
 export default APICalls;
