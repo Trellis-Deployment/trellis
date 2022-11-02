@@ -2,10 +2,11 @@ import handler from "../util/templates/handler";
 import getDataForAutoDeployment from "../util/deployment/getDataForAutoDeployment";
 import invokeBuildFunction from "../util/deployment/invokeBuildFunction";
 import createDeployment from "util/deploymentsTableUtils/createDeployment";
+import getStagesByAppId from "../util/stagesTableUtils/getStagesByAppId";
+import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 
 export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
-  console.log({data});
   const commitId = data.after;
   const refArray = (data.ref.split("/"));
   let branch = refArray[refArray.length - 1];
@@ -15,7 +16,7 @@ export const main = handler(async (event, context) => {
   }
   
   try {
-    const { stage, appName, stageName, token, IAMAccessKey, IAMSecretKey } = await getDataForAutoDeployment({ repoName, branch });
+    const { userId, stage, appName, stageName, token, IAMAccessKey, IAMSecretKey } = await getDataForAutoDeployment({ repoName, branch });
     const deployment = await createDeployment({stageId: stage.stageId, commitId });
     const buildData = {
       AWS_ACCESS_KEY_ID: IAMAccessKey,
@@ -29,8 +30,9 @@ export const main = handler(async (event, context) => {
       DEPLOYMENT_ID: deployment.deploymentId,
     }
 
-    console.log({buildData});
     await invokeBuildFunction(buildData, stage, commitId);
+    const updatedStages = await getStagesByAppId(stage.appId);
+    await invokeWebSocketMessage({userId, updatedStages});
     return "success";
   } catch(e) {
     console.log(e.message);

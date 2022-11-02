@@ -1,7 +1,7 @@
 import { Row, Card, Col, Button } from "react-bootstrap";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
-const DeploymentCard = ({deployment, version, idx, stageId, setDeployments}) => {
+const DeploymentCard = ({deployment, version, idx, stageId, setDeployments, setStages}) => {
   const { userId, appName } = useAppContext();
   const handleRollBackClick = async (e) => {
     e.preventDefault();

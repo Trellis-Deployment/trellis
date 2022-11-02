@@ -32,38 +32,6 @@ const Stage = ({ stage, setStages, stages }) => {
     setStages(data);
   };
 
-  const callNewInterval = async () => {
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-
-    const duration = stage.state === "deploying" ? 15000 : 30000;
-
-    const id = setInterval(async () => {
-      console.log("poll");
-      const data = await APICalls.getStageStatus(stage);
-      if (data.state === stage.stageState) {
-        return;
-      }
-
-      setStages(
-        stages.map((s) =>
-          s.stageId === stage.stageId ? { ...s, stageState: data.state } : s
-        )
-      );
-    }, duration);
-    console.log({ id });
-    intervalId.current = id;
-  };
-
-  useEffect(() => {
-    callNewInterval();
-    return () => {
-      console.log("cleared ", intervalId.current);
-      clearInterval(intervalId.current);
-    };
-  }, [stage.stageState]);
-
   console.log({ stage });
   return (
     <Col key={stage.stageId} className="stage-row m-1">

@@ -3,19 +3,26 @@ import { useEffect, useState } from "react";
 import APICalls from "../../services/APICalls";
 import Stage from "./AppStage";
 import { useAppContext } from "../../Lib/AppContext";
+import WebSocket from "../../services/WebSocket";
+
 
 const AppModal = () => {
   const [stages, setStages] = useState([]);
-  const { appId } = useAppContext();
-
+  const { appId, userId } = useAppContext();
+  
   useEffect(() => {
-    const getStages = async () => {
+    const updateStages = async () => {
       const data = await APICalls.getStages(appId);
       setStages(data);
-    };
+    }
+    updateStages();
 
-    getStages();
-  }, [appId]);
+    const newWebSocket = new WebSocket({userId, setStages, appId});
+
+    return () => {
+      newWebSocket.endConnection(userId);
+    }
+  }, [appId, userId]);
 
   return (
     <div>

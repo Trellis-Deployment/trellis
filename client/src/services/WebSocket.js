@@ -1,12 +1,14 @@
 const { w3cwebsocket } = require("websocket");
 class WebSocket {
-  constructor(userId) {
+  constructor({userId, setStages, appId}) {
     this.userId = userId;
-    this.socketConn = new w3cwebsocket(`wss://6wyd0jst0i.execute-api.us-east-1.amazonaws.com/dev?userId=${userId}`);
+    this.setStages = setStages;
+    this.appId = appId;
+    this.socketConn = new w3cwebsocket(`${process.env.REACT_APP_Websocket_URL}?userId=${userId}`);
     this.socketConn.addEventListener('open', this.connectionOpened);
     this.socketConn.addEventListener('close', this.connectionClosed);
     this.socketConn.addEventListener('error', this.connectionErrored);
-    this.socketConn.addEventListener('message', this.messageReceived);
+    this.socketConn.addEventListener('message', this.messageReceived(this));
   }
 
   connectionOpened(e) {
@@ -22,18 +24,23 @@ class WebSocket {
     console.error('WebSocket Connection is in error', e)
   }
 
-  messageReceived(e) {
-    console.log(e.data);
+  messageReceived(currentClass) {
+    return (e) => {
+      console.log("messaged received");
+      const updatedStages = JSON.parse(e.data);
+      if (currentClass.appId !== updatedStages[0].appId) {
+        console.log({currentAppID: currentClass.appId});
+        console.log({receivedAppId: updatedStages[0].appId});
+        return;
+      }
+      currentClass.setStages(updatedStages);
+    }
+   
   }
-  
+
   endConnection() {
-    this.socketConn.close(1001, this.userId);
+    this.socketConn.close();
   }
 }
 
-const mySocket = new WebSocket('hello');
-setTimeout(() => {
-  mySocket.endConnection();
-}, 5000);
-
-//export default WebSocket;
+export default WebSocket;

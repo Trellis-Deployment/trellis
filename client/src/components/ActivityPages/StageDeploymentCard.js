@@ -12,9 +12,8 @@ const StageDeploymentCard = ({stage}) => {
       setDeployments(data);
     }
     getDeployments();
-  }, [stage.stageId]);
+  }, [stage.stageState, stage.stageId]);
 
-  console.log({deployments});
   return (
     <Col className="stage-row m-1">
       <Card.Title className="SectionHeader m-1">
@@ -26,7 +25,8 @@ const StageDeploymentCard = ({stage}) => {
             version={deployments.length - idx}
             idx={idx}
             stageId={stage.stageId}
-            setDeployments={setDeployments}>
+            setDeployments={setDeployments}
+          >
           </DeploymentCard>
         ))}
       </Card.Title>

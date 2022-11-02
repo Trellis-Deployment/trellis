@@ -5,6 +5,9 @@ import { APIGatewayProxyEventV2 } from "aws-lambda";
 import createDeployment, {
   NewDeployment,
 } from "../util/deploymentsTableUtils/createDeployment";
+import getStageByAppIdAndStageName from "util/stagesTableUtils/getStageByAppIdAndStageName";
+import getStagesByAppId from "../util/stagesTableUtils/getStagesByAppId";
+import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 
 interface eventData {
   targetStageId: "string";
@@ -58,6 +61,8 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
     };
 
     await invokeBuildFunction(data, stage, sourceCommitId);
+    const updatedStages = await getStagesByAppId(stage.appId);
+    await invokeWebSocketMessage({userId, updatedStages});
     return "success";
   } catch (e) {
     console.log(e.message);

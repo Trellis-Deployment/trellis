@@ -18,6 +18,7 @@ const updateStageState = async ({ stage, state, commitId }) => {
 
   try {
     const stage = await dynamodb.update(updateParams);
+    
     return stage;
   } catch(e) {
     console.log({err: e.message});

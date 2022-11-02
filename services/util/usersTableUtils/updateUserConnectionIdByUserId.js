@@ -1,4 +1,3 @@
-import githubCalls from "../github/githubCalls.js";
 import dynamodb from "../templates/dynamodb";
 
 const updateUser = async ({userId, connectionId}) => {

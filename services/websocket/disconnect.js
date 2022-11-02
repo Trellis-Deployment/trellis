@@ -1,9 +1,7 @@
-import updateUserConnectionIdByUserId from "../util/usersTableUtils/updateUserConnectionIdByUserId";
+import updateUserConnectionIdByConnectionId from "../util/usersTableUtils/updateUserConnectionIdByConnectionId";
 export const handler = async (event) => {
-  const userId = event.requestContext.disconnectReason;
   const connectionId = event.requestContext.connectionId;
-  console.log({userId});
-  console.log({connectionId});
-  updateUserConnectionIdByUserId({userId, connectionId: "<null>"});
+  console.log(`websocket connection closed with ${connectionId}`);
+  await updateUserConnectionIdByConnectionId(connectionId);
   return { statusCode: 200, body: "Disconnected" };
 };
