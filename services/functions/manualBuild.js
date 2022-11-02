@@ -3,11 +3,12 @@ import getDataForManualDeployment from "../util/deployment/getDataForManualDeplo
 import invokeBuildFunction from "../util/deployment/invokeBuildFunction";
 import githubCalls from "util/github/githubCalls";
 import createDeployment from "../util/deploymentsTableUtils/createDeployment";
+import getStagesByAppId from "../util/stagesTableUtils/getStagesByAppId";
+import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 
 export const main = handler(async (event) => {
   let { userId, appName, stageId, commitId } = JSON.parse(event.body);
   const { stage, token, user, stageName, repoName, IAMAccessKey, IAMSecretKey } = await getDataForManualDeployment({ userId, appName, stageId });
-  console.log({commitId});
 
   if (!commitId) {
     const commits = await githubCalls.getCommits({ token, userLogin: user, repo: repoName });
@@ -29,8 +30,9 @@ export const main = handler(async (event) => {
       COMMIT_ID: commitId,
     };
     
-    console.log(data);
     await invokeBuildFunction(data, stage, commitId);
+    const updatedStages = await getStagesByAppId(stage.appId);
+    await invokeWebSocketMessage({userId, updatedStages });
     return "success";
   } catch(e) {
     console.log(e.message);

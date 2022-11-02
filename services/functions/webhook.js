@@ -2,17 +2,18 @@ import handler from "../util/templates/handler";
 import getDataForAutoDeployment from "../util/deployment/getDataForAutoDeployment";
 import invokeBuildFunction from "../util/deployment/invokeBuildFunction";
 import createDeployment from "util/deploymentsTableUtils/createDeployment";
+import getStagesByAppId from "../util/stagesTableUtils/getStagesByAppId";
+import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 
 export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
-  console.log({data});
   const commitId = data.after;
   const refArray = (data.ref.split("/"));
   let branch = refArray[refArray.length - 1];
   const repoName = data.repository["full_name"];
   
   try {
-    const { stage, appName, stageName, token, IAMAccessKey, IAMSecretKey } = await getDataForAutoDeployment({ repoName, branch });
+    const { userId, stage, appName, stageName, token, IAMAccessKey, IAMSecretKey } = await getDataForAutoDeployment({ repoName, branch });
     
     if (!stage) {
       return
@@ -35,7 +36,10 @@ export const main = handler(async (event, context) => {
       
     }
 
+    console.log({buildData});
     await invokeBuildFunction(buildData, stage, commitId);
+    const updatedStages = await getStagesByAppId(stage.appId);
+    await invokeWebSocketMessage({userId, updatedStages});
     return "success";
   } catch(e) {
     console.log(e.message);

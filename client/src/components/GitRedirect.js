@@ -25,6 +25,9 @@ const GitRedirect = () => {
           setAuthenticated(true);
           window.sessionStorage.setItem("trellisAuthUser", data.user.githubLogin);
           window.sessionStorage.setItem("trellisUserId", data.user.userId);
+          if (data.user.new === false) {
+            alert(`${data.user.githubLogin} is already signed up, retrieving your information`);
+          }
           navigate("/apps");
         } else {
           const data = await APICalls.signin(code);

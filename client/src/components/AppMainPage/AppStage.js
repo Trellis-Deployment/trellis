@@ -1,6 +1,5 @@
 import "../../stylesheets/AppStage.css";
 import { Col, Card, Row } from "react-bootstrap";
-import { useEffect, useRef } from "react";
 import APICalls from "../../services/APICalls";
 import StageData from "./StageData";
 import { Button } from "react-bootstrap";
@@ -10,7 +9,6 @@ import { CartDash } from "react-bootstrap-icons";
 
 const AppStage = ({ stage, setStages, stages }) => {
   const { appName, userId, appId } = useAppContext();
-  const intervalId = useRef(0);
 
   const handleDeployClick = async (e, stageId) => {
     e.preventDefault();
@@ -32,39 +30,6 @@ const AppStage = ({ stage, setStages, stages }) => {
     const data = await APICalls.getStages(appId);
     setStages(data);
   };
-
-  const callNewInterval = async () => {
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-
-    const duration = stage.state === "deploying" ? 10000 : 20000;
-
-    const id = setInterval(async () => {
-      const data = await APICalls.getStageStatus(stage);
-      if (data.state === stage.stageState) {
-        return;
-      }
-
-      setStages(
-        stages.map((s) =>
-          s.stageId === stage.stageId
-            ? { ...s, stageState: data.state, lastCommitId: data.lastCommitId }
-            : s
-        )
-      );
-    }, duration);
-    console.log({ id });
-    intervalId.current = id;
-  };
-
-  useEffect(() => {
-    callNewInterval();
-    return () => {
-      console.log("cleared ", intervalId.current);
-      clearInterval(intervalId.current);
-    };
-  }, [stage.stageState]);
 
   console.log({ stage });
   return (

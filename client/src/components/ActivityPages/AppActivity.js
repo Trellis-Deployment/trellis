@@ -3,38 +3,24 @@ import { useState, useEffect } from "react";
 import StageDeploymentCard from "./StageDeploymentCard";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
+import WebSocket from "../../services/WebSocket";
 
 const AppActivity = () => {
   const [stages, setStages] = useState([]);
-  // const [deployments, setDeployments] = useState([
-  //   {
-  //     deploymentId: "sfjfkj3jkjsf3",
-  //     stageId: "sdfklkj38923",
-  //     commitId: "3456",
-  //     logs: "Very Long String",
-  //     deploymentState: "deployed",
-  //     time: "349898s98998",
-  //   },
-  //   {
-  //     deploymentId: "sfjfkj3jkjsf",
-  //     stageId: "sdfklkj38923",
-  //     commitId: "3456",
-  //     logs: "Very Long String",
-  //     deploymentState: "deployed",
-  //     time: "349898s98998",
-  //   },
-  // ]);
 
-  const { appId } = useAppContext();
+  const { appId, userId } = useAppContext();
   useEffect(() => {
-     const getStages = async () => {
+    const updateStages = async () => {
       const data = await APICalls.getStages(appId);
       setStages(data);
-    };
+    }
+    updateStages();
+    const newWebSocket = new WebSocket({userId, setStages, appId});
 
-    getStages();
-  }, [appId]);
-
+    return () => {
+      newWebSocket.endConnection(userId);
+    }
+  }, [appId, userId]);
   return (
     <div className="container pipes mt-3 mid-card lips">
               <div className="row">

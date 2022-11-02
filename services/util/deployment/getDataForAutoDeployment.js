@@ -7,7 +7,7 @@ const getDataForAutoDeployment = async ({repoName, branch}) => {
   const stage = await getStageByAppIdAndBranch({ appId: app.appId, stageBranch: branch });
 
   const token = await getTokenByUserId(app.userId);
-  return { stage, appName: app.appName, stageName: stage.stageName, token, IAMAccessKey: stage.IAMAccessKey, IAMSecretKey: stage.IAMSecretKey };
+  return { stage, appName: app.appName, stageName: stage.stageName, token, IAMAccessKey: stage.IAMAccessKey, IAMSecretKey: stage.IAMSecretKey, userId: app.userId };
 };
 
 export default getDataForAutoDeployment;

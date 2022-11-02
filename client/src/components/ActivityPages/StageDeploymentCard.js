@@ -12,9 +12,8 @@ const StageDeploymentCard = ({stage}) => {
       setDeployments(data);
     }
     getDeployments();
-  }, [stage.stageId]);
+  }, [stage.stageState, stage.stageId]);
 
-  console.log({deployments});
   return (
     <Col className="py-1 stage-row my-2 bh-bla">
       <Card.Title className="SectionHeader text-start">

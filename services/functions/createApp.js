@@ -9,6 +9,9 @@ export const main = handler(async (event) => {
   const { appName, userLogin, userId, repoName} = data;
   try {
     app = await createAppFromData(data);
+    if (app.message) {
+      return { ...app }
+    }
   } catch(e) {
     console.log(e.message);
     return {error: e.message};

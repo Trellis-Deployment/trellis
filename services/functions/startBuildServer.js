@@ -78,7 +78,6 @@ export const main = handler(async (event, context) => {
         console.warn("error: ", "Error while starting task: " + err);
         reject();
       } else {
-        console.log(taskData);
         resolve();
       }
     });
