@@ -25,14 +25,13 @@ const createAppFromData = async (data) => {
       userId: data.userId,
       description: data.description,
       repoName: data.repoName,
-      defaultIAMAccessKey: data.defaultIAMAccessKey,
-      defaultIAMSecretKey: data.defaultIAMSecretKey,
-    }
+      defaultIAMCredentialsLocation: data.defaultIAMCredentialsLocation,
+    },
   };
-
 
   const result = await dynamodb.put(params);
   return params.Item;
-}
+};
 
 export default createAppFromData;
+
