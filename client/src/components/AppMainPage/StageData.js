@@ -5,16 +5,12 @@ import BranchSettings from "./BranchSettings";
 import CommitId from "./CommitId";
 import { Col, Row } from "react-bootstrap";
 
-import {
-  CloudCheck,
-  ExclamationCircle,
-  Gear,
-} from "react-bootstrap-icons";
+import { CloudCheck, ExclamationCircle, Gear } from "react-bootstrap-icons";
 
 const StageData = ({ stage, stages, setStages }) => {
   const [branchSettingsVisible, setBranchSettingsVisible] = useState(false);
 
-  const handleBranchNameClick = (e) => {
+  const handleSettingsClick = (e) => {
     e.preventDefault();
     setBranchSettingsVisible(true);
   };
@@ -24,21 +20,34 @@ const StageData = ({ stage, stages, setStages }) => {
       <Row className="line-2 stage-info">
         {" "}
         {stage.stageBranch !== "undefined" ? (
-          <Col>
-            <a
-              target="_blank"
-              className="branch text-white px-1"
-              rel="noopener noreferrer"
-              href="/"
-              onClick={handleBranchNameClick}
-            >
-              <i aria-hidden="true" className="fa  fa-code-fork bg-1h"></i>
-              {stage.stageBranch}
-            </a>
-          </Col>
+          <>
+            <Col>
+              <a
+                target="_blank"
+                className="branch text-white px-1"
+                rel="noopener noreferrer"
+                href="/"
+                onClick={handleSettingsClick}
+              >
+                <i aria-hidden="true" className="fa  fa-code-fork bg-1h"></i>
+                {stage.stageBranch}
+              </a>
+            </Col>
+          </>
         ) : (
           <span>N/A</span>
         )}
+        <Col>
+          <a
+            target="_blank"
+            className="branch text-white px-1"
+            rel="noopener noreferrer"
+            href="/"
+            onClick={handleSettingsClick}
+          >
+            settings
+          </a>
+        </Col>
         <Row>
           <span
             target="_blank"
