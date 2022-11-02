@@ -30,7 +30,6 @@ const AppStage = ({ stage, setStages, stages }) => {
     setStages(data);
   };
 
-  console.log({ stage });
   return (
     <Col key={stage.stageId} className="stage-row m-1 py-1 pb-2">
       <Card.Title className="SectionHeader text-center">
