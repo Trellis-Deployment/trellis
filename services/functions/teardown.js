@@ -30,9 +30,8 @@ export const main = handler(async (event) => {
       COMMIT_ID: commitId,
     };
     
-    console.log(data);
     await invokeBuildFunction(data, stage, commitId);
-    return "success";
+    return JSON.stringify({ stageState: 'tearingDown' });
   } catch(e) {
     console.log(e.message);
     return e.message;
