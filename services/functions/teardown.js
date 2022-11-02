@@ -1,19 +1,19 @@
 import handler from "../util/templates/handler";
 import getDataForManualDeployment from "../util/deployment/getDataForManualDeployment";
 import invokeBuildFunction from "../util/deployment/invokeBuildFunction";
+import createDeployment from "util/deploymentsTableUtils/createDeployment";
 import githubCalls from "util/github/githubCalls";
-import createDeployment from "../util/deploymentsTableUtils/createDeployment";
 
 export const main = handler(async (event) => {
   let { userId, appName, stageId, commitId } = JSON.parse(event.body);
   const { stage, token, user, stageName, repoName, IAMAccessKey, IAMSecretKey } = await getDataForManualDeployment({ userId, appName, stageId });
-  console.log({commitId});
 
   if (!commitId) {
-    const commits = await githubCalls.getCommits({ token, userLogin: user, repo: repoName });
-    commitId = commits[0].sha;
+    const lastCommit = await githubCalls.getLastBranchCommit({ token, userLogin: user, repo: repoName, branch: stage.stageBranch });
+    commitId = lastCommit.sha;
   }
-  const deployment = await createDeployment({stageId: stage.stageId, commitId});
+
+  const deployment = await createDeployment ({ stageId, commitId, state: 'tearingDown' })
 
   try {
     const data = {
@@ -30,9 +30,8 @@ export const main = handler(async (event) => {
       COMMIT_ID: commitId,
     };
     
-    console.log(data);
     await invokeBuildFunction(data, stage, commitId);
-    return "success";
+    return JSON.stringify({ stageState: 'tearingDown' });
   } catch(e) {
     console.log(e.message);
     return e.message;

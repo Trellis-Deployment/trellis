@@ -13,12 +13,8 @@ export const main = handler(async (event) => {
     await getDataForManualDeployment({ userId, appName, stageId });
 
   if (!commitId) {
-    const commits = await githubCalls.getCommits({
-      token,
-      userLogin: user,
-      repo: repoName,
-    });
-    commitId = commits[0].sha;
+    const lastCommit = await githubCalls.getLastBranchCommit({ token, userLogin: user, repo: repoName, branch: stage.stageBranch });
+    commitId = lastCommit.sha;
   }
 
   const deployment = await createDeployment({
@@ -42,7 +38,7 @@ export const main = handler(async (event) => {
     await invokeBuildFunction(data, stage, commitId);
     const updatedStages = await getStagesByAppId(stage.appId);
     await invokeWebSocketMessage({ userId, updatedStages });
-    return "success";
+    return "success"
   } catch (e) {
     console.log(e.message);
     return e.message;

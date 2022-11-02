@@ -10,7 +10,9 @@ const invokeBuildFunction = async (data, stage, commitId) => {
     Payload: JSON.stringify({ data: data }),
   };
   const lambdaResponse = await lambda.invoke(params).promise();
-  await updateStageState({ stage, state: "deploying", commitId });
+
+  const state = data.ACTION === 'deploy' ? 'deploying' : 'tearingDown';
+  await updateStageState({ stage, state, commitId });
 
   console.log("after invocation");
 

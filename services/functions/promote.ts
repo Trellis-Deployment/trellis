@@ -35,6 +35,7 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
     const deployment = (await createDeployment({
       stageId: targetStageId,
       commitId: sourceCommitId,
+      state: 'deploying',
     })) as NewDeployment;
 
     if (deployment.error) {
@@ -43,11 +44,12 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
 
     const data = {
       AWS_SSM_KEY: stage.IAMCredentialsLocation,
+      ACTION: 'deploy',
       GITHUB_X_ACCESS_TOKEN: token,
       GITHUB_USER: user,
       GITHUB_REPO: repoName,
       STAGE_NAME: stageName,
-      SET_STATUS_URL: `https://${event.headers.host}/setStatus`,
+      SET_STATUS_URL: `https://${event.headers.host}/stageStatus`,
       COMMIT_ID: sourceCommitId,
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,

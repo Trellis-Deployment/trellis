@@ -2,6 +2,7 @@ import "../../App.css";
 import "../../stylesheets/AppStage.css";
 import { useState } from "react";
 import BranchSettings from "./BranchSettings";
+import TeardownModal from "./TeardownModal";
 import CommitId from "./CommitId";
 import { Col, Row } from "react-bootstrap";
 
@@ -9,11 +10,17 @@ import { CloudCheck, ExclamationCircle, Gear } from "react-bootstrap-icons";
 
 const StageData = ({ stage, stages, setStages }) => {
   const [branchSettingsVisible, setBranchSettingsVisible] = useState(false);
+  const [teardownVisible, setTeardownVisible] = useState(false);
 
   const handleSettingsClick = (e) => {
     e.preventDefault();
     setBranchSettingsVisible(true);
   };
+
+  const handleTeardownClick = (e) => {
+    e.preventDefault();
+    setTeardownVisible(true);
+  }
 
   return (
     <>
@@ -68,29 +75,34 @@ const StageData = ({ stage, stages, setStages }) => {
               "N/A"
             )}
           </span>
+          {
+            stage.stageState !== 'created' && stage.stageState !== 'tearingDown' && stage.stageState !== 'deploying' ? 
+            <span><a href="/" onClick={handleTeardownClick}>Teardown</a></span> :
+            null
+          }
         </Row>
       </Row>
-
-      {stage.stageStage === "created" && (
+      {stage.stageState === "created" && (
         <Row>
           <Col className="text-center">
             <CloudCheck color="yellow" className="my-2" size={28} />
           </Col>
         </Row>
       )}
-
       {stage.stageState === "deployed" && (
         <Col className="text-center">
           {" "}
           <CloudCheck color="green" className="my-2" size={28} />
         </Col>
       )}
-      {stage.stageState === "deploying" && (
-        <Row>
-          <Col className="text-center py-1">
-            <Gear className="spinner-border my-2" color="white" size={29} />
-          </Col>
-        </Row>
+      {(stage.stageState === "deploying" || stage.stageState === "tearingDown") && (
+        <Col>
+          <Gear
+            className="text-center text-light spinner-border"
+            color="dark"
+            size={29}
+          />
+        </Col>
       )}
       {stage.stageState === "error" && (
         <Col className="text-center my-2">
@@ -98,15 +110,12 @@ const StageData = ({ stage, stages, setStages }) => {
           <ExclamationCircle color="red" size={28} />
         </Col>
       )}
-
-      {branchSettingsVisible ? (
-        <BranchSettings
-          stage={stage}
-          setBranchSettingsVisible={setBranchSettingsVisible}
-          stages={stages}
-          setStages={setStages}
-        />
-      ) : null}
+      {
+        branchSettingsVisible ? <BranchSettings stage={stage} setBranchSettingsVisible={setBranchSettingsVisible} stages={stages} setStages={setStages}/> : null
+      }
+      {
+        teardownVisible ? <TeardownModal stage={stage} setTeardownVisible={setTeardownVisible} stages={stages} setStages={setStages}/> : null
+      }
     </>
   );
 };

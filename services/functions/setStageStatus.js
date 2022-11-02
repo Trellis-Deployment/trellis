@@ -15,15 +15,12 @@ export const main = handler(async (event) => {
     const user = await getUserByLogin(data.GITHUB_USER);
     const app = await getAppByUserAndAppName({ userId: user.userId, appName: data.APP_NAME });
     const stage = await getStageByAppIdAndStageName({ appId: app.appId, stageName: data.STAGE_NAME });
-    if (data.ACTION === 'deploy') {
-      await updateDeploymentStateById({ deploymentId: data.DEPLOYMENT_ID, state: data.STATE, logs: data.LOGS });
-    }
+
+    const deploymentState = data.STATE === 'created' ? 'removed' : data.STATE;
+    await updateDeploymentStateById({ deploymentId: data.DEPLOYMENT_ID, state: deploymentState, logs: data.LOGS });
     const deployment = await getDeploymentById(data.DEPLOYMENT_ID);
-    await updateStageState({
-      stage,
-      state: data.STATE,
-      commitId: deployment.commitId,
-    });
+    const commitId = deployment.commitId || data.COMMIT_ID
+    await updateStageState({ stage, state: data.STATE, commitId });
     const updatedStages = await getStagesByAppId(stage.appId);
     await invokeWebSocketMessage({ userId: user.userId, updatedStages });
     return "received";
