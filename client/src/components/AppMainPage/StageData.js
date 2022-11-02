@@ -1,67 +1,109 @@
 import "../../App.css";
+import "../../stylesheets/AppStage.css";
+import { useState } from "react";
+import BranchSettings from "./BranchSettings";
+import CommitId from "./CommitId";
 import { Col, Row } from "react-bootstrap";
 
 import {
   CloudCheck,
   Code,
   ExclamationCircle,
+  FileEarmarkBinary,
   Gear,
 } from "react-bootstrap-icons";
 
-const StageData = ({ stage }) => {
+const StageData = ({ stage, stages, setStages }) => {
+  const [branchSettingsVisible, setBranchSettingsVisible] = useState(false);
+
+  const handleBranchNameClick = (e) => {
+    e.preventDefault();
+    setBranchSettingsVisible(true);
+  };
+
   return (
     <div className="stage-info">
       <Row>
         {" "}
         <div className="line-2">
-          <a
-            target="_blank"
-            className="branch px-1"
-            rel="noopener noreferrer"
-            href="/"
-          >
-            <i aria-hidden="true" className="fa  fa-code-fork "></i>
-            main
-          </a>
+          {stage.stageBranch !== "undefined" ? (
+            <Col>
+              <a
+                target="_blank"
+                className="branch text-white px-1"
+                rel="noopener noreferrer"
+                href="/"
+                onClick={handleBranchNameClick}
+              >
+                <i aria-hidden="true" className="fa  fa-code-fork bg-1h"></i>
+                {stage.stageBranch}
+              </a>
+            </Col>
+          ) : (
+            <span>N/A</span>
+          )}
           <Row>
-            <a
+            <span
               target="_blank"
               className="commit ps-1 stage-info"
               rel="noopener noreferrer"
               href={stage.stageId}
             >
-              Last Deployed: {String(new Date(stage.lastDeploymentTime))}
-            </a>
-            App ID: {stage.appId.split("-")[0]}
+              <strong>Last Deployed: </strong>
+              {stage.lastDeploymentTime
+                ? String(new Date(stage.lastDeploymentTime))
+                : "Not Deployed"}
+            </span>
+            {/* <div className="text-center app-id"> */}
+            <span className="text-center app-id">
+              Commit ID:{" "}
+              {stage.lastCommitId ? (
+                <CommitId value={stage.lastCommitId} />
+              ) : (
+                "N/A"
+              )}
+            </span>
+            {/* </div> */}
           </Row>
         </div>
       </Row>
+
       {stage.stageStage === "created" && (
-        <Col className="text-center">
-          <CloudCheck color="yellow" size={28} />
-        </Col>
+        <Row>
+          <Col className="text-center">
+            <CloudCheck color="yellow" className="my-2" size={28} />
+          </Col>
+        </Row>
       )}
+
       {stage.stageState === "deployed" && (
         <Col className="text-center">
           {" "}
-          <CloudCheck color="green" size={28} />
+          <CloudCheck color="green" className="my-2" size={28} />
         </Col>
       )}
       {stage.stageState === "deploying" && (
-        <Col>
-          <Gear
-            className="text-center text-light spinner-border"
-            color="dark"
-            size={29}
-          />
-        </Col>
+        <Row>
+          <Col className="text-center py-1">
+            <Gear className="spinner-border my-2" color="white" size={29} />
+          </Col>
+        </Row>
       )}
       {stage.stageState === "error" && (
-        <Col className="text-center">
+        <Col className="text-center my-2">
           {" "}
           <ExclamationCircle color="red" size={28} />
         </Col>
       )}
+
+      {branchSettingsVisible ? (
+        <BranchSettings
+          stage={stage}
+          setBranchSettingsVisible={setBranchSettingsVisible}
+          stages={stages}
+          setStages={setStages}
+        />
+      ) : null}
     </div>
   );
 };

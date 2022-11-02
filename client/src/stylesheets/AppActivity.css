@@ -1,0 +1,30 @@
+.badge-version {
+  font-size: 20px;
+  border-radius: 30px;
+  margin: 5px;
+  padding: 10px;
+  background-color: #7a7c7d;
+}
+
+.rollback {
+  padding: 6px;
+  border-radius: 30px;
+  font-size: 14px;
+}
+
+.activity-row {  
+  color: rgb(0, 225, 255);
+}
+
+.logs {
+  background-color: black;
+  color: white;
+  min-height: 80px;
+  margin: auto;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+.presenter {
+  font-size: 16px;
+}

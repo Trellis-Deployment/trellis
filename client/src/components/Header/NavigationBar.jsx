@@ -13,7 +13,6 @@ function NavigationBar({ handleLogoutClick}) {
   const { authUser, appName, setAppName, setAppId } = useAppContext(); 
   const navigate = useNavigate();
 
-  console.log({appName});
   const handleMainPageClick = (e) => {
     e.preventDefault();
     window.sessionStorage.removeItem("trellisAppName");

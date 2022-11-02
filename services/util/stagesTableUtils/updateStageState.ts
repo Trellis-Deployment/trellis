@@ -7,12 +7,12 @@ const updateStageState = async ({ stage, state, commitId }) => {
     Key: {
       stageId: stage.stageId,
     },
-    UpdateExpression:"SET stageState = :stageState, lastDeploymentTime = :lastDeploymentTime, commitId = :commitId",
+    UpdateExpression:"SET stageState = :stageState, lastDeploymentTime = :lastDeploymentTime, lastCommitId = :lastCommitId",
     ExpressionAttributeValues:
       {
         ":stageState": state,
         ":lastDeploymentTime": time,
-        ":commitId": commitId,
+        ":lastCommitId": commitId,
       }
   };
 

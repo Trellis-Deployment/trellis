@@ -1,15 +1,14 @@
 import "../../stylesheets/AppStage.css";
 import { Col, Card, Row } from "react-bootstrap";
-import { useEffect, useRef } from "react";
 import APICalls from "../../services/APICalls";
-import Stages from "./StageData";
+import StageData from "./StageData";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../Lib/AppContext";
+import { CartDash } from "react-bootstrap-icons";
 
-const Stage = ({ stage, setStages, stages }) => {
+const AppStage = ({ stage, setStages, stages }) => {
   const { appName, userId, appId } = useAppContext();
-  const intervalId = useRef(0);
 
   const handleDeployClick = async (e, stageId) => {
     e.preventDefault();
@@ -26,7 +25,7 @@ const Stage = ({ stage, setStages, stages }) => {
       targetStageId: prodStageId,
       userId,
       appName,
-      sourceCommitId: stage.commitId,
+      sourceCommitId: stage.lastCommitId,
     });
     const data = await APICalls.getStages(appId);
     setStages(data);
@@ -34,16 +33,29 @@ const Stage = ({ stage, setStages, stages }) => {
 
   console.log({ stage });
   return (
-    <Col key={stage.stageId} className="stage-row m-1">
-      <Card.Title className="SectionHeader m-1">
+    <Col key={stage.stageId} className="stage-row m-1 py-1 pb-2">
+      <Card.Title className="SectionHeader text-center">
         Stage Name:{" "}
-        <Link to={`/application/${appName}/activity`}>{stage.stageName}</Link>
+        <Link to={`/application/${appName}/activity`} className="links">
+          {stage.stageName}
+        </Link>
       </Card.Title>
-      <Row className="stage-branch ps-2">
-        Stage Branch:{" "}
-        {stage.stageBranch !== "undefined" ? stage.stageBranch : "no branch"}{" "}
-        <Col className="lh-0">{<Stages stage={stage}></Stages>}</Col>
-      </Row>
+
+      <Card.Text className="stage-branch ps-1">
+        <Row className="stage-info-branch">
+          Stage Branch:{" "}
+          <Col>
+          {/* going to stage data */}
+            {
+              <StageData
+                stage={stage}
+                stages={stages}
+                setStages={setStages}
+              ></StageData>
+            }
+          </Col>
+        </Row>
+      </Card.Text>
       <Row>
         <div className="d-flex">
           {stage.stageName !== "prod" ? (
@@ -78,4 +90,4 @@ const Stage = ({ stage, setStages, stages }) => {
   );
 };
 
-export default Stage;
+export default AppStage;

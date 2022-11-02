@@ -4,6 +4,12 @@
 }
 
 .spin {
-  color: #A0F1DB;
+  color: darkgray;
   /* background: bisque; */
+}
+
+img {
+  object-fit: cover;
+  /* width: 230px;
+  height: 230px; */
 }

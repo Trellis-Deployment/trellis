@@ -1,6 +1,6 @@
 import "../stylesheets/CreateApp.css";
 import { Form, Button } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import APICalls from "../services/APICalls";
 import { useNavigate } from "react-router-dom";
 import { Container, Nav } from "react-bootstrap";
@@ -19,7 +19,6 @@ const CreateApp = () => {
   useEffect(() => {
     const getRepos = async () => {
       try {
-        console.log({userId});
         const data = await APICalls.getRepos(userId);
         setRepos(data);
       } catch (e) {
@@ -57,7 +56,7 @@ const CreateApp = () => {
   const CONFIGURE = `https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`;
 
   return (
-    <div className="Login">
+    <div className="Login form-layout">
       <Container className="form-container">
         <Form onSubmit={handleFormSubmit}>
           <Form.Group className="mb-3" controlid="formBasicName">
@@ -86,6 +85,7 @@ const CreateApp = () => {
               onChange={(e) => setRepo(e.target.value)}
               required
             >
+              <option selected>Click here to select a repo</option>
               {repos.map((repo, idx) => (
                 <option key={idx}>{repo}</option>
               ))}
@@ -93,16 +93,20 @@ const CreateApp = () => {
             <p className="text-center  pb-0 text-light fw-light">
               <em>Don't see your repo? configure github</em>
             </p>
+
+            
             <Nav.Link href={CONFIGURE}>
-              <Button variant="success" size="sm">
+            <div className="row d-flex pt-1">
+            <div className="col">
+              <Button className="d-flex configure-git" variant="dark" size="dark">
                 Configure Github
-              </Button>
+              </Button></div></div>
             </Nav.Link>
           </Form.Group>
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
-            <p className="text-start pt-3">IAM Access Key:</p>
+            <p className="text-start pt-1">IAM Access Key:</p>
             <Form.Control
-              type="string"
+              type="password"
               placeholder="IAM Access Key"
               required
               onChange={(e) => setAccessKey(e.target.value)}
@@ -117,7 +121,8 @@ const CreateApp = () => {
               onChange={(e) => setSecretKey(e.target.value)}
             />
           </Form.Group>
-          <div className="container">
+          <div className="container row">
+          <div className="col">
             <Button
               variant="outline-light"
               size="md"
@@ -125,12 +130,12 @@ const CreateApp = () => {
               className="submit"
             >
               Submit
-            </Button>
-            <Button href="/apps" variant="outline-danger" size="md">
+            </Button></div>
+            <div className="col text-center">
+            <Button href="/apps" className="cancel-button"size="md" variant="danger">
               Cancel
-            </Button>
+            </Button></div>
           </div>
-          {/* </div> */}
         </Form>
       </Container>
     </div>

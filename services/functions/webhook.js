@@ -11,13 +11,16 @@ export const main = handler(async (event, context) => {
   const refArray = (data.ref.split("/"));
   let branch = refArray[refArray.length - 1];
   const repoName = data.repository["full_name"];
-  if(branch !== "main" && branch !== "master") {
-     return "Not important";
-  }
   
   try {
     const { userId, stage, appName, stageName, token, IAMAccessKey, IAMSecretKey } = await getDataForAutoDeployment({ repoName, branch });
+    
+    if (!stage) {
+      return
+    }
+
     const deployment = await createDeployment({stageId: stage.stageId, commitId });
+
     const buildData = {
       AWS_ACCESS_KEY_ID: IAMAccessKey,
       AWS_SECRET_ACCESS_KEY: IAMSecretKey,
@@ -25,11 +28,15 @@ export const main = handler(async (event, context) => {
       GITHUB_USER: repoName.split("/")[0],
       GITHUB_REPO: repoName.split("/")[1],
       STAGE_NAME: stageName,
+      BRANCH_NAME: stage.stageBranch,
       SET_STATUS_URL: `https://${event.headers.host}/setStatus`,
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,
+      COMMIT_ID: commitId,
+      
     }
 
+    console.log({buildData});
     await invokeBuildFunction(buildData, stage, commitId);
     const updatedStages = await getStagesByAppId(stage.appId);
     await invokeWebSocketMessage({userId, updatedStages});

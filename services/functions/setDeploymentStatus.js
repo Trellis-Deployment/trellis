@@ -17,8 +17,6 @@ export const main = handler(async (event) => {
     const stage = await getStageByAppIdAndStageName({ appId: app.appId, stageName: data.STAGE_NAME });
     await updateDeploymentStateById({ deploymentId: data.DEPLOYMENT_ID, state: data.STATE, logs: data.LOGS });
     const deployment = await getDeploymentById(data.DEPLOYMENT_ID);
-
-    console.log({ deployment });
     await updateStageState({ stage, state: data.STATE, commitId: deployment.commitId });
     const updatedStages = await getStagesByAppId(stage.appId);
     await invokeWebSocketMessage({userId: user.userId, updatedStages});

@@ -13,6 +13,7 @@ const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const STAGE_NAME = process.env.STAGE_NAME;
 const APP_NAME = process.env.APP_NAME;
+const BRANCH_NAME = process.env.BRANCH_NAME;
 const SET_STATUS_URL = process.env.SET_STATUS_URL;
 const DEPLOYMENT_ID = process.env.DEPLOYMENT_ID;
 const COMMIT_ID = process.env.COMMIT_ID || "";
@@ -20,8 +21,10 @@ const COMMIT_ID = process.env.COMMIT_ID || "";
 const buildStatusData = {
   GITHUB_USER,
   STAGE_NAME,
+  BRANCH_NAME,
   APP_NAME,
   DEPLOYMENT_ID,
+
 };
 
 function syncReadFile(filename) {
@@ -51,15 +54,14 @@ try {
     "echo [default] >> ~/.aws/credentials",
     `echo AWS_ACCESS_KEY_ID = ${AWS_ACCESS_KEY_ID} >> ~/.aws/credentials`,
     `echo AWS_SECRET_ACCESS_KEY = ${AWS_SECRET_ACCESS_KEY} >> ~/.aws/credentials`,
-    "cat ~/.aws/credentials",
   ];
   execSync(awsCredentialCommands.join(" && "), { stdio: "inherit" });
   console.log("SUCCESS: AWS CREDENTIALS STORED");
 
   const cloneRepoCommands = [
-    "apk add git",
-    "mkdir -p ~/repos",
-    "cd ~/repos",
+    'apk add git',
+    'mkdir -p ~/repos',
+    'cd ~/repos',
     `git clone https://x-access-token:${GITHUB_X_ACCESS_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git`,
     `cd ${GITHUB_REPO}`,
   ];
@@ -71,6 +73,14 @@ try {
 
   const dependencyCommands = [`cd ~/repos/${GITHUB_REPO}`, "npm install"];
   execSync(dependencyCommands.join(" && "), { stdio: "inherit" });
+  
+  try {
+    const postInstallCommands = [`cd ~/repos/${GITHUB_REPO}`, "npm run postinstall"];
+    execSync(postInstallCommands.join(" && "), { stdio: "inherit" });
+  } catch(e) {
+    console.log(e.message);
+  }
+  
   console.log("SUCCESS: NODE PACKAGE DEPENDENCIES INSTALLED");
 
   const deployCommands = [
@@ -105,5 +115,5 @@ let postStatusResultPromise = fetch(SET_STATUS_URL, {
 });
 
 postStatusResultPromise.then((val) => {
-  console.log("Posted to deployment database");
+  console.log("Deployment Data Stored");
 });

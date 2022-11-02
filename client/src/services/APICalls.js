@@ -52,7 +52,6 @@ const getDeployments = async (stageId) => {
 
 const buildStage = async (build) => {
   const response = await axios.post(`${API_URL}/build`, build);
-
   return response.data;
 };
 
@@ -63,9 +62,18 @@ const promoteStage = async (build) => {
 
 const getStageStatus = async ({ stageId }) => {
   const response = await axios.get(`${API_URL}/stageStatus?stageId=${stageId}`);
-  console.log({ response });
   return response.data;
 };
+
+const getRepoBranches = async({ userId, appName }) => {
+  const response = await axios.get(`${API_URL}/repoBranches?userId=${userId}&appName=${appName}`);
+  return response.data;
+}
+
+const setStageBranch = async({ stageId, branchName }) => {
+  const response = await axios.put(`${API_URL}/stageBranch`, { stageId, branchName });
+  return response;
+}
 
 const APICalls = {
   authenticate,
@@ -80,6 +88,7 @@ const APICalls = {
   getStageStatus,
   getDeployments,
   promoteStage,
+  getRepoBranches,
+  setStageBranch,
 };
-
 export default APICalls;

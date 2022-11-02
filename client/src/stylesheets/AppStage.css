@@ -4,14 +4,19 @@ body {
 
 .card-top {
   background-color: #25415F;
-  /* color: darkgray; */
   padding: 1px;
   font-weight: 500;
   font-size: 0.9em;
 }
 
+.card-back {
+  background: #161819;
+  border-radius: 5px;
+  border: 1px solid #232627;
+}
+
 .card-body {
-  background-color: white;
+  /* background-color: white; */
   font-weight: 300;
 }
 
@@ -20,12 +25,14 @@ body {
 }
 
 .stage-row {
-  background-color:rgb(237, 235, 235);
-  margin: 0.5%;
+  background-color: #232627;
+  /* margin: 0.5%; */
+  border-radius: 5px;
+  border: 1px solid gray;
 }
 
 .gear {
-  background: rgb(237, 235, 235);
+  color: white;
 }
 
 .cols {
@@ -43,15 +50,41 @@ img {
   border: 0;
 }
 
+.lips {
+  background: #246b58c0 !important;
+}
+
+.spinner-border {
+  color: #1eb99000;
+}
+
+.mini-card {
+  background: #232627;
+}
+
+/* 
+black
+#232627
+
+name text
+#A3C2DC
+
+link text
+#C7EF83
+
+dark
+#A3C2DC
+*/
+
 /* second box */
 .SectionHeader {
   margin-top: 0;
   font-family: "Exo 2",sans-serif;
-  letter-spacing: 1px;
-  font-size: 12px;
+  letter-spacing: px;
+  font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #233F5C;
+  color: #A3C2DC;
 }
 
 ol, ul {
@@ -60,14 +93,13 @@ ol, ul {
 }
 
 
-
 .pipeline-title {
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .stage-title {
   font-size: 14px;
-  color:#69710f;
+  color:#246b58;
   padding-left: 4px;
   border-bottom: #2980B9;
   border-width: 2px;
@@ -76,6 +108,10 @@ ol, ul {
 
 .mid-wide-card {
   font-weight: 500;
+}
+
+.mid-card {
+  border-radius: 8px;
 }
 
 .mini-card {
@@ -91,7 +127,13 @@ ol, ul {
 }
 
 .stage-branch {
-  font-size: 12px;
+  font-size: 13px;
+}
+
+.stage-info-branch {
+  color: #A3C2DC;
+  font-size: 15px;
+  padding-left: 1px;
 }
 
 .btn-sm {
@@ -101,13 +143,69 @@ ol, ul {
   border-radius: 50px;
 }
 
+.btn {
+  background-color: #1eb98f;
+}
 
-
-.small-font {
+.small-font  {
   font-size: 12px;
-  color: #67b3f6;
+  color: #A3C2DC;
+  font-weight: 500;
 }
 
-.small-font :hover {
+.small-font:hover {
   color: white;
+  font-weight: 600;
 }
+
+.stage-info {
+  color: #1eb98f;
+  font-size: 13px;
+}
+
+.app-id {
+  font-weight: 600;
+  font-size: 15px;
+  color: aliceblue;
+}
+
+.links {
+  color: #eafff9;
+}
+
+.badge-text {
+  font-size: 20px;
+  background-color: #1eb98f;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+.badge-text:hover {
+  font-size: 20px;
+  background-color: white;
+  border-radius: 30px;
+  color: #1eb98f;
+  transition: 0.3s;
+}
+
+.screen {
+  position: fixed;
+  background-color: black;
+  opacity: 0.3;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  }
+  
+  .modal {
+  position: fixed;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 1);
+  z-index: 10;
+  top: 20%;
+  left: 30%;
+  height: 200px;
+  width: 500px;
+  }
