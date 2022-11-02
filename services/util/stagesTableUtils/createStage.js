@@ -1,6 +1,6 @@
 import { v4 as UUIDV4 } from "uuid";
 import dynamodb from "../templates/dynamodb";
-const createStage = async ({app, branch, stageName}) => {
+const createStage = async ({ app, branch, stageName }) => {
   if (!branch) {
     branch = "undefined";
   }
@@ -11,13 +11,12 @@ const createStage = async ({app, branch, stageName}) => {
     stageId,
     stageName,
     appId: app.appId,
-    IAMAccessKey: app.defaultIAMAccessKey,
-    IAMSecretKey: app.defaultIAMSecretKey,
     stageBranch: branch,
+    IAMCredentialsLocation: app.defaultIAMCredentialsLocation,
     stageState: "created",
-    lastCommitId: ""
+    lastCommitId: "",
   };
-  
+
   const params = {
     TableName: process.env.STAGES_TABLE_NAME,
     Item: newStage,
@@ -25,9 +24,10 @@ const createStage = async ({app, branch, stageName}) => {
   try {
     await dynamodb.put(params);
     return params.Item;
-  } catch(e) {
-    return {error: e.message};
+  } catch (e) {
+    return { error: e.message };
   }
-}
+};
 
 export default createStage;
+

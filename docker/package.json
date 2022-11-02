@@ -1,0 +1,14 @@
+{
+  "name": "build-server-script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "startup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1244.0"
+  }
+}

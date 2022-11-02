@@ -16,8 +16,6 @@ const getDataForPromotion = async ({ userId, appName, targetStageId }) => {
     token,
     user,
     repoName,
-    IAMAccessKey: stage.IAMAccessKey,
-    IAMSecretKey: stage.IAMSecretKey,
   };
 };
 
