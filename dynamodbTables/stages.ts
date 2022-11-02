@@ -7,8 +7,7 @@ export const createStagesTable = (stack) => {
       stageId: "string",
       appId: "string",
       stageName: "string",
-      IAMAccessKey: "string",
-      IAMSecretKey: "string",
+      IAMCredentialsLocation: "string",
       stageBranch: "string",
       stageState: "string",
       lastDeploymentTime: "number",
@@ -16,10 +15,11 @@ export const createStagesTable = (stack) => {
     },
     primaryIndex: { partitionKey: "stageId" },
     globalIndexes: {
-      "branchIndex": { partitionKey: "appId", sortKey: 'stageBranch'},
-      "nameIndex": { partitionKey: "appId", sortKey: "stageName" },
+      branchIndex: { partitionKey: "appId", sortKey: "stageBranch" },
+      nameIndex: { partitionKey: "appId", sortKey: "stageName" },
     },
   });
 
   return stages;
-}
+};
+

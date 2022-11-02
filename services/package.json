@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {},
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.200.0",
     "aws-sdk": "^2.1239.0"
   },
   "devDependencies": {

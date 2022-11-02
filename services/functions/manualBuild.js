@@ -8,18 +8,27 @@ import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 
 export const main = handler(async (event) => {
   let { userId, appName, stageId, commitId } = JSON.parse(event.body);
-  const { stage, token, user, stageName, repoName, IAMAccessKey, IAMSecretKey } = await getDataForManualDeployment({ userId, appName, stageId });
+
+  const { stage, token, user, stageName, repoName, IAMCredentialsLocation } =
+    await getDataForManualDeployment({ userId, appName, stageId });
 
   if (!commitId) {
-    const commits = await githubCalls.getCommits({ token, userLogin: user, repo: repoName });
+    const commits = await githubCalls.getCommits({
+      token,
+      userLogin: user,
+      repo: repoName,
+    });
     commitId = commits[0].sha;
   }
-  const deployment = await createDeployment({stageId: stage.stageId, commitId});
+
+  const deployment = await createDeployment({
+    stageId: stage.stageId,
+    commitId,
+  });
 
   try {
     const data = {
-      AWS_ACCESS_KEY_ID: IAMAccessKey, 
-      AWS_SECRET_ACCESS_KEY: IAMSecretKey,
+      AWS_SSM_KEY: IAMCredentialsLocation,
       GITHUB_X_ACCESS_TOKEN: token,
       GITHUB_USER: user,
       GITHUB_REPO: repoName,
@@ -29,12 +38,11 @@ export const main = handler(async (event) => {
       DEPLOYMENT_ID: deployment.deploymentId,
       COMMIT_ID: commitId,
     };
-    
     await invokeBuildFunction(data, stage, commitId);
     const updatedStages = await getStagesByAppId(stage.appId);
-    await invokeWebSocketMessage({userId, updatedStages });
+    await invokeWebSocketMessage({ userId, updatedStages });
     return "success";
-  } catch(e) {
+  } catch (e) {
     console.log(e.message);
     return e.message;
   }

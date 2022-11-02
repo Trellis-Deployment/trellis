@@ -3,11 +3,11 @@ import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as logs from "aws-cdk-lib/aws-logs";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as ecr from "aws-cdk-lib/aws-ecr";
-import { Function, StackContext }from "@serverless-stack/resources";
+import { Function, StackContext } from "@serverless-stack/resources";
 
-const REPOSITORY_NAME = 'build-server';
+const REPOSITORY_NAME = "build-server";
 
-export function BuildServerStack({ stack }: StackContext ) {
+export function BuildServerStack({ stack }: StackContext) {
   const vpc = new ec2.Vpc(stack, "app", {
     cidr: "10.0.0.0/16",
     maxAzs: 1,
@@ -28,6 +28,22 @@ export function BuildServerStack({ stack }: StackContext ) {
   const fargateRole = new iam.Role(stack, "FargateContainerRole", {
     assumedBy: new iam.ServicePrincipal("ecs-tasks.amazonaws.com"),
   });
+
+  const ssmGetParametersPolicy = new iam.PolicyStatement({
+    actions: ["ssm:GetParameters"],
+    resources: ["*"],
+  });
+
+  const ssmGetSecretsPolicy = new iam.PolicyStatement({
+    actions: ["secretsmanager:GetSecretValue"],
+    resources: [
+      `arn:aws:secretsmanager:${stack.region}:${stack.account}:secret:trellis/*`,
+    ],
+  });
+
+  fargateRole.addToPolicy(ssmGetSecretsPolicy);
+  fargateRole.addToPolicy(ssmGetParametersPolicy);
+
   const cluster = new ecs.Cluster(stack, "FargateCluster", {
     vpc,
   });
@@ -64,6 +80,7 @@ export function BuildServerStack({ stack }: StackContext ) {
       CLUSTER: cluster.clusterName,
       TASK_NAME: task.taskDefinitionArn,
       CONTAINER: container.containerName,
+      REGION: stack.region,
       SUBNETS: JSON.stringify(
         vpc.privateSubnets.map((subnet) => subnet.subnetId)
       ),
@@ -75,18 +92,19 @@ export function BuildServerStack({ stack }: StackContext ) {
     actions: ["ecs:RunTask", "iam:PassRole"],
     resources: ["*"],
   });
+
   buildFunction.role?.attachInlinePolicy(
     new iam.Policy(stack, "run-ecs-tasks", {
       statements: [ecsPolicy],
     })
   );
-  
+
   stack.addOutputs({
     function: buildFunction.functionName,
   });
 
   return {
     vpc,
-    buildFunction
-  }
+    buildFunction,
+  };
 }
