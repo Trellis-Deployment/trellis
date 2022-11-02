@@ -19,19 +19,13 @@ interface eventData {
 export const main = handler(async (event: APIGatewayProxyEventV2) => {
   const parsedEvent: eventData = JSON.parse(event.body);
   const { targetStageId, userId, appName, sourceCommitId } = parsedEvent;
-  const {
-    stage,
-    token,
-    user,
-    stageName,
-    repoName,
-    IAMAccessKey,
-    IAMSecretKey,
-  } = await getDataForPromotion({
-    userId,
-    appName,
-    targetStageId,
-  });
+  const { stage, token, user, stageName, repoName } = await getDataForPromotion(
+    {
+      userId,
+      appName,
+      targetStageId,
+    }
+  );
 
   if (stage.state === "deploying") {
     return "Cannot deploy to production right now";
@@ -48,8 +42,7 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
     }
 
     const data = {
-      AWS_ACCESS_KEY_ID: IAMAccessKey,
-      AWS_SECRET_ACCESS_KEY: IAMSecretKey,
+      AWS_SSM_KEY: stage.IAMCredentialsLocation,
       GITHUB_X_ACCESS_TOKEN: token,
       GITHUB_USER: user,
       GITHUB_REPO: repoName,
