@@ -29,14 +29,20 @@ export function BuildServerStack({ stack }: StackContext) {
     assumedBy: new iam.ServicePrincipal("ecs-tasks.amazonaws.com"),
   });
 
-  const ssmGetPolicy = new iam.PolicyStatement({
+  const ssmGetParametersPolicy = new iam.PolicyStatement({
+    actions: ["ssm:GetParameters"],
+    resources: ["*"],
+  });
+
+  const ssmGetSecretsPolicy = new iam.PolicyStatement({
     actions: ["secretsmanager:GetSecretValue"],
     resources: [
-      "arn:aws:secretsmanager:us-east-1:129140779853:secret:trellis/*",
+      `arn:aws:secretsmanager:${stack.region}:${stack.account}:secret:trellis/*`,
     ],
   });
 
-  fargateRole.addToPolicy(ssmGetPolicy);
+  fargateRole.addToPolicy(ssmGetSecretsPolicy);
+  fargateRole.addToPolicy(ssmGetParametersPolicy);
 
   const cluster = new ecs.Cluster(stack, "FargateCluster", {
     vpc,
@@ -74,6 +80,7 @@ export function BuildServerStack({ stack }: StackContext) {
       CLUSTER: cluster.clusterName,
       TASK_NAME: task.taskDefinitionArn,
       CONTAINER: container.containerName,
+      REGION: stack.region,
       SUBNETS: JSON.stringify(
         vpc.privateSubnets.map((subnet) => subnet.subnetId)
       ),
