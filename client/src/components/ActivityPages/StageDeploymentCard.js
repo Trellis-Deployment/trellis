@@ -19,15 +19,16 @@ const StageDeploymentCard = ({stage}) => {
       <Card.Title className="SectionHeader text-start">
         {stage.stageName} Deployments:
         {deployments.map((deployment, idx) => (
-           <Row className="stage-info ps-3">
-          <DeploymentCard
-            key={deployment.deploymentId}
-            deployment={deployment}
-            version={deployments.length - idx}
-            idx={idx}
-            stageId={stage.stageId}
-            setDeployments={setDeployments}>
-          </DeploymentCard></Row>
+          <Row key={deployment.deploymentId} className="stage-info ps-3">
+            <DeploymentCard
+              key={deployment.deploymentId}
+              deployment={deployment}
+              version={deployments.length - idx}
+              idx={idx}
+              stageId={stage.stageId}
+              setDeployments={setDeployments}>
+            </DeploymentCard>
+          </Row>
         ))}
       </Card.Title>
     </Col>

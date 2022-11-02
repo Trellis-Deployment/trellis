@@ -9,8 +9,8 @@ const Header = () => {
   return (
     <div className="home">
       <Shapes></Shapes>
-      <div class="row blockade header-inner">
-            <div class="col"><img src={Trellis} alt="" className="mx-auto d-block albert" /></div>
+      <div className="row blockade header-inner">
+            <div className="col"><img src={Trellis} alt="" className="mx-auto d-block albert" /></div>
         <div className="col home-inner ">
           <div className="text">
             <h3>Welcome to</h3>

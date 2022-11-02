@@ -7,9 +7,7 @@ import { Col, Row } from "react-bootstrap";
 
 import {
   CloudCheck,
-  Code,
   ExclamationCircle,
-  FileEarmarkBinary,
   Gear,
 } from "react-bootstrap-icons";
 
@@ -22,50 +20,48 @@ const StageData = ({ stage, stages, setStages }) => {
   };
 
   return (
-    <div className="stage-info">
-      <Row>
+    <>
+      <Row className="line-2 stage-info">
         {" "}
-        <div className="line-2">
-          {stage.stageBranch !== "undefined" ? (
-            <Col>
-              <a
-                target="_blank"
-                className="branch text-white px-1"
-                rel="noopener noreferrer"
-                href="/"
-                onClick={handleBranchNameClick}
-              >
-                <i aria-hidden="true" className="fa  fa-code-fork bg-1h"></i>
-                {stage.stageBranch}
-              </a>
-            </Col>
-          ) : (
-            <span>N/A</span>
-          )}
-          <Row>
-            <span
+        {stage.stageBranch !== "undefined" ? (
+          <Col>
+            <a
               target="_blank"
-              className="commit ps-1 stage-info"
+              className="branch text-white px-1"
               rel="noopener noreferrer"
-              href={stage.stageId}
+              href="/"
+              onClick={handleBranchNameClick}
             >
-              <strong>Last Deployed: </strong>
-              {stage.lastDeploymentTime
-                ? String(new Date(stage.lastDeploymentTime))
-                : "Not Deployed"}
-            </span>
-            {/* <div className="text-center app-id"> */}
-            <span className="text-center app-id">
-              Commit ID:{" "}
-              {stage.lastCommitId ? (
-                <CommitId value={stage.lastCommitId} />
-              ) : (
-                "N/A"
-              )}
-            </span>
-            {/* </div> */}
-          </Row>
-        </div>
+              <i aria-hidden="true" className="fa  fa-code-fork bg-1h"></i>
+              {stage.stageBranch}
+            </a>
+          </Col>
+        ) : (
+          <span>N/A</span>
+        )}
+        <Row>
+          <span
+            target="_blank"
+            className="commit ps-1 stage-info"
+            rel="noopener noreferrer"
+            href={stage.stageId}
+          >
+            <strong>Last Deployed: </strong>
+            {stage.lastDeploymentTime
+              ? String(new Date(stage.lastDeploymentTime))
+              : "Not Deployed"}
+          </span>
+          {/* <div className="text-center app-id"> */}
+          <span className="text-center app-id">
+            Commit ID:{" "}
+            {stage.lastCommitId ? (
+              <CommitId value={stage.lastCommitId} />
+            ) : (
+              "N/A"
+            )}
+          </span>
+          {/* </div> */}
+        </Row>
       </Row>
 
       {stage.stageStage === "created" && (
@@ -104,7 +100,7 @@ const StageData = ({ stage, stages, setStages }) => {
           setStages={setStages}
         />
       ) : null}
-    </div>
+    </>
   );
 };
 
