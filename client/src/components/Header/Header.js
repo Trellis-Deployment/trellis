@@ -23,13 +23,13 @@ const Header = () => {
               href={`https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`}
               className="btn bttn"
             >
-               Sign Up via Github <Github class="ms-1" size={20}></Github>
+               Sign Up via Github <Github className="ms-1" size={20}></Github>
             </a>
             <a
               href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_Client_ID}`}
               className="btn"
             >
-              Sign In via Github <Github class="ms-1" size={20}></Github>
+              Sign In via Github <Github className="ms-1" size={20}></Github>
             </a>
           </div>
         </div>
