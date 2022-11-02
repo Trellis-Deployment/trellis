@@ -9,15 +9,14 @@ export const createAppsTable = (stack) => {
       userId: "string",
       description: "string",
       repoName: "string",
-      defaultIAMAccessKey: "string",
-      defaultIAMSecretKey: "string",
+      defaultIAMCredentialsLocation: "string",
     },
     primaryIndex: { partitionKey: "userId", sortKey: "appId" },
     globalIndexes: {
-      "repoIndex": { partitionKey: "repoName" },
-      "appNameIndex": { partitionKey: "userId", sortKey: "appName" }
+      repoIndex: { partitionKey: "repoName" },
+      appNameIndex: { partitionKey: "userId", sortKey: "appName" },
     },
   });
 
   return apps;
-}
+};
