@@ -1,6 +1,6 @@
 import "../../stylesheets/Main.css";
 import "../Development/Shapes";
-import DefaultImg from "../../Resources/trellis_border_white.svg";
+import DefaultImg from "../../Resources/trellis_hollow0.svg";
 
 const Shapes = ({Shape}) => {
   if (!Shape) {
@@ -13,6 +13,7 @@ const Shapes = ({Shape}) => {
         <img className="shape3" src={Shape} alt="" />
         <img className="shape4" src={Shape} alt="" />
         <img className="shape5" src={Shape} alt="" />
+        <img className="shape6" src={Shape} alt="" />
       </div>
   );
 };
