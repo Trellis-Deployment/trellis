@@ -68,7 +68,6 @@ export function BuildServerStack({ stack }: StackContext) {
       logRetention: logs.RetentionDays.FIVE_DAYS,
     }),
   });
-
   const buildFunction = new Function(stack, "MyFunction", {
     handler: "functions/startBuildServer.main",
     timeout: 10,
@@ -106,5 +105,8 @@ export function BuildServerStack({ stack }: StackContext) {
   return {
     vpc,
     buildFunction,
+    ssmGetParametersPolicy,
+    ssmGetSecretsPolicy,
+    container
   };
 }

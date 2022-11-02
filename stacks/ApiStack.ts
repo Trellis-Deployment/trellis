@@ -12,19 +12,17 @@ import config from "../util/config";
 export function ApiStack({ stack, app }: StackContext) {
   const { users, apps, stages, deployments, storeAWSCredentialsLambda } =
     use(StorageStack);
-  const { vpc, buildFunction } = use(BuildServerStack);
-
+  const { buildFunction, ssmGetParametersPolicy, ssmGetSecretsPolicy, container } = use(BuildServerStack);
+  console.log({data: container.taskDefinition});
+  console.log({name: container.logDriverConfig.options['awslogs-group']})
   const Client_ID = config.Client_ID ? config.Client_ID : "undefined";
   const Client_secret = config.Client_secret || "undefined";
 
   const webSocketMessage = new Function(stack, "WebSocketFunction", {
     handler: "websocket/sendMessage.handler",
-    permissions: [users, apps, stages, deployments],
+    permissions: [users],
     environment: {
       USERS_TABLE_NAME: users.tableName,
-      APPS_TABLE_NAME: apps.tableName,
-      STAGES_TABLE_NAME: stages.tableName,
-      DEPLOYMENTS_TABLE_NAME: deployments.tableName,
     },
   });
 
@@ -33,24 +31,18 @@ export function ApiStack({ stack, app }: StackContext) {
     routes: {
       $connect: {
         function: {
-          permissions: [users, apps, stages, deployments],
+          permissions: [users],
           environment: {
             USERS_TABLE_NAME: users.tableName,
-            APPS_TABLE_NAME: apps.tableName,
-            STAGES_TABLE_NAME: stages.tableName,
-            DEPLOYMENTS_TABLE_NAME: deployments.tableName,
           },
           handler: "websocket/connect.handler",
         },
       },
       $disconnect: {
         function: {
-          permissions: [users, apps, stages, deployments],
+          permissions: [users],
           environment: {
             USERS_TABLE_NAME: users.tableName,
-            APPS_TABLE_NAME: apps.tableName,
-            STAGES_TABLE_NAME: stages.tableName,
-            DEPLOYMENTS_TABLE_NAME: deployments.tableName,
           },
           handler: "websocket/disconnect.handler",
         },
@@ -86,6 +78,8 @@ export function ApiStack({ stack, app }: StackContext) {
           WEB_SOCKET_URL: webSocketApi.url,
           STORE_AWS_CREDENTIALS_LAMBDA_NAME:
             storeAWSCredentialsLambda.functionName,
+          REGION: config.Region,
+          CONTAINER_LOG_GROUP: container.logDriverConfig.options['awslogs-group'],
         },
       },
     },
@@ -100,7 +94,12 @@ export function ApiStack({ stack, app }: StackContext) {
       "GET /deployments": "functions/deployments.main",
       "POST /apps": "functions/createApp.main",
       "POST /webhook": "functions/webhook.main",
-      "POST /build": "functions/manualBuild.main",
+      "POST /build": {
+        function: {
+          handler: "functions/manualBuild.main",
+          permissions: [ssmGetSecretsPolicy, ssmGetParametersPolicy]
+        }
+      },
       "POST /setStatus": "functions/setDeploymentStatus.main",
       "POST /stageCredentials": "functions/setStageCredentials.main",
       "POST /promote": "functions/promote.main",
