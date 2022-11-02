@@ -2,11 +2,11 @@
 
 - "GET /authenticate" - Not used anymore
 - "GET /signup"
-  - Receives a url paramater named `code`
+  - Receives a url parameter named `code`
   - Adds the github user corresponding to the code to the `users` table
   - Returns the github `login` from the code provided
 - "GET /signin"
-  - Receives a url paramater named `code`
+  - Receives a url parameter named `code`
   - Updates the github user token in the `users` table
   - Return the github `login` from the code provided
 - "GET /repos"
@@ -14,7 +14,7 @@
   - Gets the repos that the user has access to from github that have the Github app downloaded and stores them in the `repos` table
   - Returns the list of repos as an array of repo names in the format `/user/repo/`
 - "GET /apps"
-  - Receives a url paramter named `user`
+  - Receives a url parameter named `user`
   - Gets the list of apps for that user and returns the apps in an array in the format
   ```json
   {
@@ -29,7 +29,7 @@
   }
   ```
 - "GET /stages"
-  - Receives two url paramaters named `user` and `appName`
+  - Receives two url parameters named `user` and `appName`
   - Gets the list of stages for the specific app in an array in teh format
   ```json
   {
@@ -43,7 +43,7 @@
   }
   ```
 - "POST /apps"
-  - Accepts a json format of an a new app in the format
+  - Accepts a `json` format of a new app in the format
   ```json
   {
     "name": "string",

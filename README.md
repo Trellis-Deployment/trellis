@@ -33,12 +33,13 @@
 1. Install the package dependencies - `cd trellis` and `npm install`
 1. Now install packages in the client directory - `cd client` and `npm install`
 1. Next we need to locally build and push a docker image to ECR
-   1. In `docker-container` is a script called `build-and-push-to-aws.sh` build and image and loads it to AWS ECR.
+   1. In the `docker-container` there is a `Dockerfile` in which `Line 1-3` has options for different CPU architectures. By default, it's set to run on an intel CPU. If your CPU Architecture is either AMD or ARM based, please choose the corresponding line and comment out the others.
+   1. In the same `docker-container` there is a script called `build-and-push-to-aws.sh` build and image and loads it to AWS ECR.
    1. The script uses the AWS CLI to get your AWS account number, and defaults to the region 'us-east-1' - change these values in the script if you so desire
    1. Make the `/docker-container/build-and-push-to-aws.sh` executable with `chmod a+rx build-and-push-to-aws.sh`
    1. run `./build-and-push-to-aws.sh`
    1. If you like, go to ECR in the AWS console and verify the container exists
-1. Run `npx sst deploy` from the root directory of the project.
+1. Return to the root directory of the project run `npx sst deploy`
 1. Copy the site URL that is logged during the deploy
    - Copy this url into the Callback URL and append `/gitRedirect`
    - Copy this url into the Setup URL and select `Redirect on update`
