@@ -28,7 +28,7 @@ const AppActivity = () => {
     Activity</div></div>
     <div className="col m-0">
       
-    <div className="px-2 align-items-center">{stages.map(stage => (
+    <div className="px-2 row">{stages.map(stage => (
         <StageDeploymentCard key={stage.stageId} stage={stage}></StageDeploymentCard>
       ))}</div>
     </div>

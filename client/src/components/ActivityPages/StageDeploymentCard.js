@@ -15,7 +15,7 @@ const StageDeploymentCard = ({stage}) => {
   }, [stage.stageState, stage.stageId]);
 
   return (
-    <Col className="py-1 stage-row my-2 bh-bla">
+    <Col className="py-1 stage-row m-1 my-2 bh-bla">
       <Card.Title className="SectionHeader text-start">
         {stage.stageName} Deployments:
         {deployments.map((deployment, idx) => (
