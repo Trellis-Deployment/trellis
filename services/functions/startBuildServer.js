@@ -6,6 +6,7 @@ const TASK_NAME = process.env.TASK_NAME;
 const SUBNETS = JSON.parse(process.env.SUBNETS);
 const SECURITY_GROUP = process.env.SECURITY_GROUP;
 const CONTAINER = process.env.CONTAINER;
+const REGION = process.env.REGION;
 
 export const main = handler(async (event, context) => {
   const { data } = event;
@@ -26,12 +27,12 @@ export const main = handler(async (event, context) => {
         {
           environment: [
             {
-              name: "AWS_ACCESS_KEY_ID",
-              value: data.AWS_ACCESS_KEY_ID,
+              name: "REGION",
+              value: REGION,
             },
             {
-              name: "AWS_SECRET_ACCESS_KEY",
-              value: data.AWS_SECRET_ACCESS_KEY,
+              name: "AWS_SSM_KEY",
+              value: data.AWS_SSM_KEY,
             },
             {
               name: "GITHUB_X_ACCESS_TOKEN",
@@ -54,12 +55,12 @@ export const main = handler(async (event, context) => {
               value: data.SET_STATUS_URL,
             },
             {
-              name: "APP_NAME",
-              value: data.APP_NAME,
-            },
-            {
               name: "DEPLOYMENT_ID",
               value: data.DEPLOYMENT_ID,
+            },
+            {
+              name: "APP_NAME",
+              value: data.APP_NAME,
             },
             {
               name: "COMMIT_ID",
