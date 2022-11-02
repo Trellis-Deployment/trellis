@@ -42,19 +42,15 @@ const UserApp = () => {
           </div>
         </div>
 
-        <div className="row">
-          <div className="col card-back">
-            <div className="row">
-              {stages.map((stage) => (
-                <AppStage
-                  key={stage.stageId}
-                  stage={stage}
-                  setStages={setStages}
-                  stages={stages}
-                />
-              ))}
-            </div>
-          </div>
+        <div className="row col card-back">
+          {stages.map((stage) => (
+            <AppStage
+              key={stage.stageId}
+              stage={stage}
+              setStages={setStages}
+              stages={stages}
+            />
+          ))}
         </div>
       </div>
 

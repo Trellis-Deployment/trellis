@@ -51,7 +51,6 @@ const StageData = ({ stage, stages, setStages }) => {
               ? String(new Date(stage.lastDeploymentTime))
               : "Not Deployed"}
           </span>
-          {/* <div className="text-center app-id"> */}
           <span className="text-center app-id">
             Commit ID:{" "}
             {stage.lastCommitId ? (
@@ -60,7 +59,6 @@ const StageData = ({ stage, stages, setStages }) => {
               "N/A"
             )}
           </span>
-          {/* </div> */}
         </Row>
       </Row>
 

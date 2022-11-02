@@ -9,19 +9,18 @@ const BranchSettings = ({ stage, setBranchSettingsVisible, stages, setStages }) 
   const { appName, userId } = useAppContext();
   const [repoBranches, setRepoBranches] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState(stage.stageBranch);
-
-  const loadBranches = async () => {
-    try {
-      const branches = await APICalls.getRepoBranches({ userId, appName });
-      setRepoBranches(branches);
-    } catch (e) {
-      console.log(`error fetching repo branches for app ${appName}`, e)
-    }
-  }
   
   useEffect(() => {
+    const loadBranches = async () => {
+      try {
+        const branches = await APICalls.getRepoBranches({ userId, appName });
+        setRepoBranches(branches);
+      } catch (e) {
+        console.log(`error fetching repo branches for app ${appName}`, e)
+      }
+    }
     loadBranches();
-  }, []);
+  }, [appName, userId]);
   
   const handleScreenClick = (e) => {
     if (e.target.classList.contains('screen')) {

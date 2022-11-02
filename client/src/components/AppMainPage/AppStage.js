@@ -5,7 +5,6 @@ import StageData from "./StageData";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../Lib/AppContext";
-import { CartDash } from "react-bootstrap-icons";
 
 const AppStage = ({ stage, setStages, stages }) => {
   const { appName, userId, appId } = useAppContext();
@@ -56,36 +55,34 @@ const AppStage = ({ stage, setStages, stages }) => {
           </Col>
         </Row>
       </Card.Text>
-      <Row>
-        <div className="d-flex">
-          {stage.stageName !== "prod" ? (
-            <>
-              {" "}
-              <Button
-                size="sm"
-                variant="success"
-                onClick={(e) => handleDeployClick(e, stage.stageId)}
-              >
-                Manually Deploy Stage
-              </Button>
-              <Button
-                disabled={
-                  stage.stageState === "deployed" &&
-                  stages.find((s) => s.stageName === "prod").stageState !==
-                    "deploying"
-                    ? false
-                    : true
-                }
-                size="sm"
-                variant="success"
-                onClick={handlePromoteClick}
-              >
-                Promote to Production
-              </Button>
-            </>
-          ) : null}
-        </div>
-      </Row>
+      <div className="d-flex">
+        {stage.stageName !== "prod" ? (
+          <>
+            {" "}
+            <Button
+              size="sm"
+              variant="success"
+              onClick={(e) => handleDeployClick(e, stage.stageId)}
+            >
+              Manually Deploy Stage
+            </Button>
+            <Button
+              disabled={
+                stage.stageState === "deployed" &&
+                stages.find((s) => s.stageName === "prod").stageState !==
+                  "deploying"
+                  ? false
+                  : true
+              }
+              size="sm"
+              variant="success"
+              onClick={handlePromoteClick}
+            >
+              Promote to Production
+            </Button>
+          </>
+        ) : null}
+      </div>
     </Col>
   );
 };
