@@ -80,18 +80,18 @@ li {
   font-size: 8px;
 }
 
-.oam {
-  background-color: #86c6fd;
+.oam:hover {
+  background-color: #2D96FF;
   border-radius: 6px;
   border: 1px solid #dce1e0;
   transition: 0.3s;
   border: 1.5px solid white;
 }
 
-.oam:hover {
+.oam {
   background-color: #002050a9;
   border-radius: 6px;
-  border: 1px solid #1f96ff;
+  border: 1px solid #1F96FF;
   transition: 0.3s;
 }
 
