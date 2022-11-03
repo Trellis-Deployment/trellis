@@ -29,6 +29,9 @@ const BranchSettings = ({
       }
     };
     loadBranches();
+    if (stage.stageState === 'deployed') {
+      setTeardownVisible(true);
+    }
   }, [appName, userId]);
 
   const handleScreenClick = (e) => {
@@ -99,11 +102,6 @@ const BranchSettings = ({
 
   return (
     <>
-      {stage.stageState !== "created" &&
-      stage.stageState !== "tearingDown" &&
-      stage.stageState !== "deploying"
-        ? setTeardownVisible(true)
-        : null}
       <div className="screen" onClick={handleScreenClick}></div>
       <div className="modal holder main-modal p-3 m-3">
         {repoBranches.length === 0 ? (

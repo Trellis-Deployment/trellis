@@ -18,7 +18,14 @@ const DEPLOYMENT_ID = process.env.DEPLOYMENT_ID;
 const COMMIT_ID = process.env.COMMIT_ID || "";
 const AWS_SSM_KEY = process.env.AWS_SSM_KEY;
 const REGION = process.env.REGION;
-
+const statusData = {
+  ACTION,
+  GITHUB_USER,
+  STAGE_NAME,
+  APP_NAME,
+  DEPLOYMENT_ID,
+  COMMIT_ID,
+};
 function processDeploy(err, data) {
   try {
     if (err) {
@@ -48,15 +55,6 @@ function processDeploy(err, data) {
     const parsed = JSON.parse(data.SecretString);
     const AWS_ACCESS_KEY_ID = parsed["iam-number"];
     const AWS_SECRET_ACCESS_KEY = parsed["iam-code"];
-
-    const statusData = {
-      ACTION,
-      GITHUB_USER,
-      STAGE_NAME,
-      APP_NAME,
-      DEPLOYMENT_ID,
-      COMMIT_ID,
-    };
 
     function syncReadFile(filename) {
       const contents = readFileSync(filename, "utf-8");
