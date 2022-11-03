@@ -16,7 +16,6 @@ class WebSocket {
   }
 
   connectionClosed(e) {
-    console.log({e});
     console.log('WebSocket Connection is closed')
   }
 

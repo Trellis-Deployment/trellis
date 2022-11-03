@@ -42,6 +42,8 @@ export const main = async (event, context, callback) => {
         state = 'deployed';
       } else if (log.includes('error')) {
         state = 'error';
+      } else if (log.includes('SUCCESS: APP TEARDOWN COMPLETE!')) {
+        state = 'removed';
       }
       logs = logs + `\n[${currentDate}]\n--- ${log}`;
     }
@@ -50,7 +52,10 @@ export const main = async (event, context, callback) => {
     // change this function to use filterExpressions?
     deployment = await getDeploymentByLogStream(logStream);
   }
-
+  if (deployment.state === 'tearingDown' && state === 'deploying') {
+    state = 'tearingDown';
+  }
+  
   const updateDeploymentState = updateDeploymentStateById(
     {
       deploymentId: deployment.deploymentId,

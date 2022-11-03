@@ -1,6 +1,5 @@
 import AWS from "aws-sdk";
 import updateStageState from "../stagesTableUtils/updateStageState";
-import zlib from 'zlib';
 
 const invokeBuildFunction = async (data, stage, commitId) => {
   const lambda = new AWS.Lambda();
