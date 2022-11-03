@@ -4,6 +4,7 @@ import * as logs from "aws-cdk-lib/aws-logs";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as ecr from "aws-cdk-lib/aws-ecr";
 import { Function, StackContext } from "@serverless-stack/resources";
+import config from "../util/config";
 
 const REPOSITORY_NAME = "build-server";
 
@@ -53,7 +54,10 @@ export function BuildServerStack({ stack }: StackContext) {
     executionRole: fargateRole,
     taskRole: fargateRole,
   });
-
+  const logGroup = new logs.LogGroup(this, `${stack['_stackName']}-Build-Container-Log-Group-${config.Version}`, {
+    logGroupName: `${stack['_stackName']}-Build-Container-Log-Group-${config.Version}`,
+    retention: logs.RetentionDays.FIVE_DAYS,
+  });
   const container = task.addContainer("Container", {
     image: ecs.ContainerImage.fromEcrRepository(
       ecr.Repository.fromRepositoryName(
@@ -65,11 +69,10 @@ export function BuildServerStack({ stack }: StackContext) {
     ),
     logging: ecs.LogDrivers.awsLogs({
       streamPrefix: "my-log-group",
-      logRetention: logs.RetentionDays.FIVE_DAYS,
+      logGroup: logGroup,
     }),
   });
-
-  const buildFunction = new Function(stack, "MyFunction", {
+  const buildFunction = new Function(stack, "startBuildServerFunction", {
     handler: "functions/startBuildServer.main",
     timeout: 10,
     vpc,
@@ -106,5 +109,6 @@ export function BuildServerStack({ stack }: StackContext) {
   return {
     vpc,
     buildFunction,
+    logGroup
   };
 }

@@ -19,7 +19,15 @@ const COMMIT_ID = process.env.COMMIT_ID || "";
 const AWS_SSM_KEY = process.env.AWS_SSM_KEY;
 const REGION = process.env.REGION;
 
+console.log({DEPLOYMENT_ID});
+
 function processDeploy(err, data) {
+  const buildStatusData = {
+    GITHUB_USER,
+    STAGE_NAME,
+    APP_NAME,
+    DEPLOYMENT_ID,
+  };
   try {
     if (err) {
       console.log(err);
@@ -44,19 +52,9 @@ function processDeploy(err, data) {
         // Deal with the exception here, and/or rethrow at your discretion.
         throw err;
     }
-
     const parsed = JSON.parse(data.SecretString);
     const AWS_ACCESS_KEY_ID = parsed["iam-number"];
     const AWS_SECRET_ACCESS_KEY = parsed["iam-code"];
-
-    const statusData = {
-      ACTION,
-      GITHUB_USER,
-      STAGE_NAME,
-      APP_NAME,
-      DEPLOYMENT_ID,
-      COMMIT_ID,
-    };
 
     function syncReadFile(filename) {
       const contents = readFileSync(filename, "utf-8");
@@ -128,25 +126,30 @@ function processDeploy(err, data) {
     } else {
       statusData.LOGS = e.message;
     }
-    statusData.STATE = 'error';
+    console.log(`error: ${e.message}`);
+    buildStatusData.STATE = "error";
   }
 
-  let postStatusResultPromise = fetch(SET_STATUS_URL, {
-    method: "PUT",
-    body: JSON.stringify(statusData),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
+  // let postStatusResultPromise = fetch(SET_STATUS_URL, {
+  //   method: "POST",
+  //   body: JSON.stringify(buildStatusData),
+  //   headers: {
+  //     "Content-type": "application/json; charset=UTF-8",
+  //   },
+  // });
 
-  postStatusResultPromise.then((val) => {
-    console.log("Posted to deployment database");
-  });
+  // postStatusResultPromise.then((val) => {
+  //   console.log("Posted to deployment database");
+  // });
 }
 
-const client = new AWS.SecretsManager({
-  region: REGION,
-});
-
-client.getSecretValue({ SecretId: AWS_SSM_KEY }, processDeploy);
+try {
+  const client = new AWS.SecretsManager({
+    region: REGION,
+  });
+  client.getSecretValue({ SecretId: AWS_SSM_KEY }, processDeploy);
+} catch (e) {
+  console.log(`error: ${e.message}`);
+  buildStatusData.STATE = "error";
+}
 

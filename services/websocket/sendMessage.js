@@ -7,7 +7,6 @@ export const handler = async (event) => {
   const apiG = new ApiGatewayManagementApi({
     endpoint: `${withoutWSS}`,
   });
-
   const user = await getUserById(userId);
   if (user.connectionId === '<null>') {
     console.log("no open websocket connection");
@@ -15,10 +14,10 @@ export const handler = async (event) => {
   }
   
   try {
-    console.log("message sent");
     await apiG
       .postToConnection({ ConnectionId: user.connectionId, Data: JSON.stringify(updatedStages) })
       .promise();
+    console.log("message sent");
   } catch (e) {
     console.log(e.message);
     return { statusCode: 401, body: "Message not sent" };
