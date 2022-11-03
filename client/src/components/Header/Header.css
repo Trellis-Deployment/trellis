@@ -95,10 +95,12 @@ h1,h2,h3,h4,h5,h6{
 	text-decoration: none;
 	padding: 15px 20px;
 	border:  1px solid #ffffff40;
+	transition: 0.3s;
 }
 .home .btn:hover{
 	background-color: #1f96ff;
   color: black;
+	transition: 0.3s;
 }
 
 .bttn {
