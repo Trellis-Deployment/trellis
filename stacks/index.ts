@@ -3,6 +3,7 @@ import { StorageStack } from "./StorageStack";
 import { ApiStack } from "./ApiStack";
 import { BuildServerStack } from "./BuildServerStack";
 import { FrontendStack } from "./FrontendStack";
+import { CronJobStack } from "./CronJobStack";
 
 export default function (app: App) {
   app.setDefaultFunctionProps({
@@ -12,5 +13,5 @@ export default function (app: App) {
       format: "esm",
     },
   });
-  app.stack(StorageStack).stack(BuildServerStack).stack(ApiStack).stack(FrontendStack);
+  app.stack(StorageStack).stack(BuildServerStack).stack(ApiStack).stack(FrontendStack).stack(CronJobStack);
 }
