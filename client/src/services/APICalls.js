@@ -77,10 +77,10 @@ const teardown = async({ userId, appName, stageId, commitId }) => {
   return response
 }
 
-const setStageBranch = async ({ stageId, branchName }) => {
+const setStageBranch = async ({ stageId, branch }) => {
   const response = await axios.put(`${API_URL}/stageBranch`, {
     stageId,
-    branchName,
+    branch,
   });
   return response;
 };
@@ -97,7 +97,6 @@ const setStageIamCredentials = async ({
   });
   return response;
 };
-
 
 const APICalls = {
   authenticate,
