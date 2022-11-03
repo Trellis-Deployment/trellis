@@ -28,7 +28,7 @@ export const main = async (event, context, callback) => {
   const logStream = parsed.logStream;
   let deployment;
   let logs = '';
-  let deployed = false;
+  let state = 'deploying';
   const currentDate = new Date().toString();
   for (const logEvent of logEvents) {
     let log = logEvent.message;
@@ -39,19 +39,18 @@ export const main = async (event, context, callback) => {
       await updateDeploymentLogStream(deployment, logStream);
     } else {
       if (log.includes('SUCCESS: APP DEPLOYED!')) {
-        deployed = true;
+        state = 'deployed';
+      } else if (log.includes('error')) {
+        state = 'error';
       }
-      logs = logs + `\n[${currentDate}]\n---${log}`;
+      logs = logs + `\n[${currentDate}]\n--- ${log}`;
     }
   }
   if (!deployment) {
     // change this function to use filterExpressions?
     deployment = await getDeploymentByLogStream(logStream);
   }
-  let state = 'deploying';
-  if (deployed) {
-    state = 'deployed';
-  }
+
   const updateDeploymentState = updateDeploymentStateById(
     {
       deploymentId: deployment.deploymentId,
@@ -59,6 +58,7 @@ export const main = async (event, context, callback) => {
       logs: deployment.logs + logs,
     }
   );
+  
   const stage = await getStageById(deployment.stageId);
   await updateStageState({ stage, state, commitId: deployment.commitId });
   const appPromise = getAppByAppId(stage.appId);

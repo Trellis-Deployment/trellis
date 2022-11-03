@@ -28,7 +28,6 @@ export function ApiStack({ stack, app }: StackContext) {
     },
   });
 
-  // Create the WebSocket API
   const webSocketApi = new WebSocketApi(stack, "webSocketApi", {
     routes: {
       $connect: {
@@ -56,7 +55,7 @@ export function ApiStack({ stack, app }: StackContext) {
     accessLog: false,
   });
 
-  const eventResponseLambda = new Function(stack, "eventLambda", {
+  const logEventResponseLambda = new Function(stack, "logEventLambda", {
     handler: "functions/eventLambda.main",
     permissions: [users, apps, stages, deployments, webSocketMessage],
     environment: {
@@ -72,7 +71,7 @@ export function ApiStack({ stack, app }: StackContext) {
 
   new logs.SubscriptionFilter(this, 'buildContainerSubscription', {
     logGroup,
-    destination: new destinations.LambdaDestination(eventResponseLambda),
+    destination: new destinations.LambdaDestination(logEventResponseLambda),
     filterPattern: logs.FilterPattern.allEvents(),
   });
   
