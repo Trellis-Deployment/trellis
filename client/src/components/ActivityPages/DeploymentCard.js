@@ -32,22 +32,22 @@ const DeploymentCard = ({
     <Row className="d-flex">
       <Col className="activity-row m-1 row col-auto">
         <Col>
-          <Card.Title className="badge badge-version text-center">
-            V{version}
-          </Card.Title>
+          <Card.Title className="badge badge-version text-center">V{version}</Card.Title>
         </Col>
         <Col className="text-start stage-info">
           <Row>Deployment State: {deployment.deploymentState}</Row>
-          <Row className="text-start">CommitId: {deployment.commitId}</Row>{" "}
-          <Row className="#">
-            Deployment time: {String(new Date(deployment.time))}
+          <Row className="text-start">
+            CommitId: {deployment.commitId}
           </Row>{" "}
-        </Col>
-        {idx === 0 || deployment.deploymentState !== "deployed" ? null : (
+       
+        <Row className="#">
+          Deployment time: {String(new Date(deployment.time))}
+        </Row> </Col>
+        {idx === 0 ||  deployment.deploymentState !== 'deployed'? null : (
           <Col className="d-flex pe-0 justify-content-end align-items-start">
-            <Button className="rollback" onClick={handleRollBackClick}>
-              Rollback
-            </Button>
+            <Button 
+            className="rollback"
+            onClick={handleRollBackClick}>Rollback</Button>
           </Col>
         )}
       </Col>
