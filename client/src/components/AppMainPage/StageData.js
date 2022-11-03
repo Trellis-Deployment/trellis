@@ -64,9 +64,7 @@ const StageData = ({ stage, stages, setStages }) => {
               </a>
             </Col>
           </Row>
-          <Row>
-
-          </Row>
+          <Row></Row>
           <Row>
             <span
               target="_blank"
@@ -151,7 +149,6 @@ const StageData = ({ stage, stages, setStages }) => {
             setStages={setStages}
           />
         ) : null}
-        {/* </Row> */}
       </Card.Text>
     </div>
   );
