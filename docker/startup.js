@@ -20,14 +20,15 @@ const AWS_SSM_KEY = process.env.AWS_SSM_KEY;
 const REGION = process.env.REGION;
 
 console.log({DEPLOYMENT_ID});
+const statusData = {
+  GITHUB_USER,
+  STAGE_NAME,
+  APP_NAME,
+  DEPLOYMENT_ID,
+};
 
 function processDeploy(err, data) {
-  const buildStatusData = {
-    GITHUB_USER,
-    STAGE_NAME,
-    APP_NAME,
-    DEPLOYMENT_ID,
-  };
+
   try {
     if (err) {
       console.log(err);
@@ -127,12 +128,12 @@ function processDeploy(err, data) {
       statusData.LOGS = e.message;
     }
     console.log(`error: ${e.message}`);
-    buildStatusData.STATE = "error";
+    statusData.STATE = "error";
   }
 
   // let postStatusResultPromise = fetch(SET_STATUS_URL, {
   //   method: "POST",
-  //   body: JSON.stringify(buildStatusData),
+  //   body: JSON.stringify(statusData),
   //   headers: {
   //     "Content-type": "application/json; charset=UTF-8",
   //   },
@@ -150,6 +151,6 @@ try {
   client.getSecretValue({ SecretId: AWS_SSM_KEY }, processDeploy);
 } catch (e) {
   console.log(`error: ${e.message}`);
-  buildStatusData.STATE = "error";
+  statusData.STATE = "error";
 }
 
