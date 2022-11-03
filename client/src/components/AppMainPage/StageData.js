@@ -25,10 +25,14 @@ const StageData = ({ stage, stages, setStages }) => {
   return (
     <div>
       <Card.Text className="stage-branch ps-1 text-center">
+        <Row>
+        <Row>
+      </Row>
+        </Row>
         <Row className="stage-info-branch">
           <Row>
             Stage Branch:{" "}
-            <Col className="line-2 stage-info">
+            <Col className="line-2 stage-info text-start">
               {" "}
               {stage.stageBranch !== "undefined" ? (
                 <>
@@ -65,6 +69,16 @@ const StageData = ({ stage, stages, setStages }) => {
             </Col>
           </Row>
           <Row></Row>
+          {/* <div class="dropdown mt-3">
+                <button  class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="book-dropdown" data-bs-toggle="drowdown">
+              choose book
+              <ul className="dropdown-menu" aria-labelledby="book-dropdown">
+                <li href="#" class="dropdown-item">sky blue</li>
+              </ul>
+                </button>
+          </div> */}
           <Row>
             <span
               target="_blank"
@@ -107,30 +121,30 @@ const StageData = ({ stage, stages, setStages }) => {
         {stage.stageState === "created" && (
           <Row>
             <Col className="text-center">
-              <CloudCheck color="yellow" className="my-2" size={28} />
+              <CloudCheck color="yellow" className="my-2" size={38} />
             </Col>
           </Row>
         )}
         {stage.stageState === "deployed" && (
           <Col className="text-center">
             {" "}
-            <CloudCheck color="green" className="my-2" size={28} />
+            <CloudCheck color="green" className="my-2" size={38} />
           </Col>
         )}
         {(stage.stageState === "deploying" ||
           stage.stageState === "tearingDown") && (
           <Col>
             <Gear
-              className="text-center text-light spinner-border"
-              color="dark"
-              size={29}
+              className="text-center text-transparent spinner-border"
+              color="white"
+              size={38}
             />
           </Col>
         )}
         {stage.stageState === "error" && (
           <Col className="text-center my-2">
             {" "}
-            <ExclamationCircle color="red" size={28} />
+            <ExclamationCircle color="red" size={38} />
           </Col>
         )}
         {branchSettingsVisible ? (

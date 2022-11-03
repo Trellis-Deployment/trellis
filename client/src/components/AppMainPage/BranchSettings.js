@@ -4,10 +4,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
+import TeardownModal from "./TeardownModal";
+import { Row } from "react-bootstrap";
 
 const BranchSettings = ({
   stage,
-  setBranchSettingsVisible,
   stages,
   setStages,
 }) => {
@@ -16,6 +17,8 @@ const BranchSettings = ({
   const [selectedBranch, setSelectedBranch] = useState(stage.stageBranch);
   const [iamAccessKeyId, setIamAccessKeyId] = useState("");
   const [iamSecretAccessKey, setIamSecretAccessKey] = useState("");
+  const [branchSettingsVisible, setBranchSettingsVisible] = useState(false);
+  const [teardownVisible, setTeardownVisible] = useState(false);
 
   useEffect(() => {
     const loadBranches = async () => {
@@ -70,10 +73,15 @@ const BranchSettings = ({
     }
   };
 
+  const handleTeardownClick = (e) => {
+    e.preventDefault();
+    setTeardownVisible(true);
+  };
+
   return (
     <>
       <div className="screen" onClick={handleScreenClick}></div>
-      <div className="modal">
+      <div className="modal holder main-modal p-3 m-3">
         {repoBranches.length === 0 ? (
           <p>Loading branches</p>
         ) : (
@@ -91,18 +99,18 @@ const BranchSettings = ({
                   </option>
                 ))}
               </Form.Select>
-              <Button variant="primary" type="submit">
+              <Button variant="primary mt-2" type="submit">
                 Submit
               </Button>
             </Form>
           </>
         )}
         <hr></hr>
+        <h3>Set per-stage IAM credentials</h3>
         <Form onSubmit={handleIAMCredentialsSubmit}>
-          <h3>Set per-stage IAM credentials</h3>
-          <p className="text-start">IAM Access Key ID:</p>
+          <p className="text-center">IAM Access Key ID:</p>
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
-            <p className="text-start pt-1">IAM Access Key:</p>
+            <p className="text-start">IAM Access Key:</p>
             <Form.Control
               type="password"
               placeholder="IAM Access Key"
@@ -119,14 +127,45 @@ const BranchSettings = ({
               onChange={(e) => setIamSecretAccessKey(e.target.value)}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary mt-0" type="submit">
             Submit
           </Button>
         </Form>
+        {/* <Row className="text-center">
+            {stage.stageState !== "created" &&
+            stage.stageState !== "tearingDown" &&
+            stage.stageState !== "deploying" ? (
+              <span>
+                <a
+                  href="/"
+                  onClick={handleTeardownClick}
+                  className="stage-info-branch"
+                >
+                  Teardown
+                </a>
+              </span>
+            ) : null}
+                    {branchSettingsVisible ? (
+          <BranchSettings
+            stage={stage}
+            setBranchSettingsVisible={setBranchSettingsVisible}
+            stages={stages}
+            setStages={setStages}
+          />
+        ) : null}
+        {teardownVisible ? (
+          <TeardownModal
+            stage={stage}
+            setTeardownVisible={setTeardownVisible}
+            stages={stages}
+            setStages={setStages}
+          />
+        ) : null}
+        </Row> */}
       </div>
+     
     </>
   );
 };
 
 export default BranchSettings;
-

@@ -28,3 +28,49 @@
   height: 30px;
   margin: 0;
 }
+/* 
+.animate-nav
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    225deg,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: background 5s linear infinite;;
+  display: inline-block;
+      font-size: 20px;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+} */
+
+.animate-nav {
+  background: linear-gradient(-45deg, #002050,#1F96FF, #1F96FF);
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}

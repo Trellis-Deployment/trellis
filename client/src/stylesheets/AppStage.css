@@ -51,10 +51,29 @@ img {
   border: 0;
 }
 
-.holder {
+/* .holder {
   background: rgb(31,150,255);
   background: linear-gradient(180deg, rgba(31,150,255,1) 0%, rgba(3,84,156,1) 73%, rgba(0,78,146,1) 100%);
+} */
+
+.holder {
+  background: linear-gradient(180deg, #002050,#1F96FF, white);
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite;
 }
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
 
 .spinner-border {
   color: #1eb99000;
@@ -210,13 +229,14 @@ color: rgb(242, 255, 192); */
 
 .screen {
   position: fixed;
-  background-color: black;
-  opacity: 0.3;
+  background-color: #002050;
+  opacity: 0.5;
   z-index: 5;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100%;
+  transition: 0.3s;
   }
   
   .modal {
@@ -226,6 +246,13 @@ color: rgb(242, 255, 192); */
   z-index: 10;
   top: 20%;
   left: 30%;
-  height: 200px;
+  height: auto;
   width: 500px;
+  transition: 0.3s;
   }
+
+
+.main-modal {
+  border-radius: 12px;
+  font-size: 16px;
+}

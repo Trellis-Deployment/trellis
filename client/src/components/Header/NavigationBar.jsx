@@ -24,7 +24,7 @@ function NavigationBar({ handleLogoutClick }) {
   }
   return (
     <Navbar collapseOnSelect variant="dark" expand="sm"
-      className="trellis-navigation" sticky="top">
+      className="trellis-navigation animate-nav" sticky="top">
       <Container>
         <LinkContainer to="/" onClick={handleMainPageClick}>
           <Navbar.Brand>

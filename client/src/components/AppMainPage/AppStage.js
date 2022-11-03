@@ -77,6 +77,7 @@ const AppStage = ({ stage, setStages, stages }) => {
           </>
         ) : null}
       </div>
+      
     </Col>
   );
 };

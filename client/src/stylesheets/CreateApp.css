@@ -15,11 +15,10 @@
   transition: 0.3s;
 }
   
-.form-layout:hover {
+/* .form-layout:hover {
   background: rgb(31,150,255);
   background: linear-gradient(225deg, rgba(31,150,255,1) 36%, rgba(4,87,159,1) 100%);
-  transition: 0.3s;
-}
+} */
 
   .Login form {
     margin: 0 auto;
@@ -33,7 +32,6 @@
   }
 
   .form-container {
-
     border-radius: 10px;
     padding-bottom: 20px;
   }
@@ -56,7 +54,7 @@ button {
 
 .cancel-button:hover {
   background-color: rgb(183, 0, 0);
-  border: 1px solid #2EB98F;
+  /* border: 1px solid #2EB98F; */
   transition: 0.3s;
 }
 
