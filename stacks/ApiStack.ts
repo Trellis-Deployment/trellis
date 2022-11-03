@@ -8,13 +8,15 @@ import {
 import { StorageStack } from "./StorageStack";
 import { BuildServerStack } from "./BuildServerStack";
 import config from "../util/config";
-
+import * as events from "aws-cdk-lib/aws-events";
+import * as targets from "aws-cdk-lib/aws-events-targets";
+import * as cdk from "aws-cdk-lib";
 export function ApiStack({ stack, app }: StackContext) {
   const { users, apps, stages, deployments, storeAWSCredentialsLambda } =
     use(StorageStack);
-  const { buildFunction, ssmGetParametersPolicy, ssmGetSecretsPolicy, container } = use(BuildServerStack);
-  console.log({data: container.taskDefinition});
-  console.log({name: container.logDriverConfig.options['awslogs-group']})
+  const { buildFunction, logGroup } = use(BuildServerStack);
+
+
   const Client_ID = config.Client_ID ? config.Client_ID : "undefined";
   const Client_secret = config.Client_secret || "undefined";
 
@@ -26,6 +28,38 @@ export function ApiStack({ stack, app }: StackContext) {
     },
   });
 
+  const eventResponseLambda = new Function(stack, "eventLambda", {
+    handler: "functions/eventLambda.main",
+    permissions: [users, apps, stages, deployments, webSocketMessage],
+    environment: {
+      USERS_TABLE_NAME: users.tableName,
+      APPS_TABLE_NAME: apps.tableName,
+      STAGES_TABLE_NAME: stages.tableName,
+      DEPLOYMENTS_TABLE_NAME: deployments.tableName,
+      WEB_SOCKET_LAMBDA_NAME: webSocketMessage.functionName,
+      REGION: config.Region,
+    }
+  });
+  const bus = new events.EventBus(this, "eventBus", {
+    eventBusName: "eventBusForLambda",
+  });
+  const rule = new events.Rule(this, 'rule', {
+    eventPattern: {
+      resources: [logGroup.logGroupArn]
+    }
+  });
+
+  const testRule = new events.Rule(this, 'testRule', {
+    eventPattern: {
+      source: ["aws.logs", "aws.cloudwatch", "aws.events"]
+    }
+  });
+
+  
+
+  rule.addTarget(new targets.LambdaFunction(eventResponseLambda, {
+    retryAttempts: 2,
+  }));
   // Create the WebSocket API
   const webSocketApi = new WebSocketApi(stack, "webSocketApi", {
     routes: {
@@ -79,7 +113,6 @@ export function ApiStack({ stack, app }: StackContext) {
           STORE_AWS_CREDENTIALS_LAMBDA_NAME:
             storeAWSCredentialsLambda.functionName,
           REGION: config.Region,
-          CONTAINER_LOG_GROUP: container.logDriverConfig.options['awslogs-group'],
         },
       },
     },
@@ -94,12 +127,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "GET /deployments": "functions/deployments.main",
       "POST /apps": "functions/createApp.main",
       "POST /webhook": "functions/webhook.main",
-      "POST /build": {
-        function: {
-          handler: "functions/manualBuild.main",
-          permissions: [ssmGetSecretsPolicy, ssmGetParametersPolicy]
-        }
-      },
+      "POST /build": "functions/manualBuild.main",
       "POST /setStatus": "functions/setDeploymentStatus.main",
       "POST /stageCredentials": "functions/setStageCredentials.main",
       "POST /promote": "functions/promote.main",
@@ -108,6 +136,7 @@ export function ApiStack({ stack, app }: StackContext) {
     },
     accessLog: false,
   });
+
 
   stack.addOutputs({
     ApiEndpoint: api.url,
