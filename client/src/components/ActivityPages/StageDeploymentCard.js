@@ -12,7 +12,7 @@ const StageDeploymentCard = ({stage}) => {
       setDeployments(data);
     }
     getDeployments();
-  }, [stage.stageState, stage.stageId]);
+  }, [stage.stageState, stage.stageId, stage.lastDeploymentTime]);
 
   return (
     <Col className="py-1 stage-row m-1 my-2 bh-bla">

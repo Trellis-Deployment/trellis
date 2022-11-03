@@ -8,8 +8,6 @@ import {
 import { StorageStack } from "./StorageStack";
 import { BuildServerStack } from "./BuildServerStack";
 import config from "../util/config";
-// import * as events from "aws-cdk-lib/aws-events";
-// import * as targets from "aws-cdk-lib/aws-events-targets";
 import * as destinations from 'aws-cdk-lib/aws-logs-destinations';
 import * as logs from 'aws-cdk-lib/aws-logs';
 
@@ -30,43 +28,6 @@ export function ApiStack({ stack, app }: StackContext) {
     },
   });
 
-  const eventResponseLambda = new Function(stack, "eventLambda", {
-    handler: "functions/eventLambda.main",
-    permissions: [users, apps, stages, deployments, webSocketMessage],
-    environment: {
-      USERS_TABLE_NAME: users.tableName,
-      APPS_TABLE_NAME: apps.tableName,
-      STAGES_TABLE_NAME: stages.tableName,
-      DEPLOYMENTS_TABLE_NAME: deployments.tableName,
-      WEB_SOCKET_LAMBDA_NAME: webSocketMessage.functionName,
-      REGION: config.Region,
-    }
-  });
-  new logs.SubscriptionFilter(this, 'buildContainerSubscription', {
-    logGroup,
-    destination: new destinations.LambdaDestination(eventResponseLambda),
-    filterPattern: logs.FilterPattern.allEvents(),
-  });
-  // const bus = new events.EventBus(this, "eventBus", {
-  //   eventBusName: "eventBusForLambda",
-  // });
-  // const rule = new events.Rule(this, 'rule', {
-  //   eventPattern: {
-  //     resources: [logGroup.logGroupArn]
-  //   }
-  // });
-
-  // const testRule = new events.Rule(this, 'testRule', {
-  //   eventPattern: {
-  //     source: ["aws.logs", "aws.cloudwatch", "aws.events"]
-  //   }
-  // });
-
-  
-
-  // rule.addTarget(new targets.LambdaFunction(eventResponseLambda, {
-  //   retryAttempts: 2,
-  // }));
   // Create the WebSocket API
   const webSocketApi = new WebSocketApi(stack, "webSocketApi", {
     routes: {
@@ -95,6 +56,26 @@ export function ApiStack({ stack, app }: StackContext) {
     accessLog: false,
   });
 
+  const eventResponseLambda = new Function(stack, "eventLambda", {
+    handler: "functions/eventLambda.main",
+    permissions: [users, apps, stages, deployments, webSocketMessage],
+    environment: {
+      USERS_TABLE_NAME: users.tableName,
+      APPS_TABLE_NAME: apps.tableName,
+      STAGES_TABLE_NAME: stages.tableName,
+      DEPLOYMENTS_TABLE_NAME: deployments.tableName,
+      WEB_SOCKET_LAMBDA_NAME: webSocketMessage.functionName,
+      REGION: config.Region,
+      WEB_SOCKET_URL: webSocketApi.url,
+    }
+  });
+
+  new logs.SubscriptionFilter(this, 'buildContainerSubscription', {
+    logGroup,
+    destination: new destinations.LambdaDestination(eventResponseLambda),
+    filterPattern: logs.FilterPattern.allEvents(),
+  });
+  
   const api = new Api(stack, "Api", {
     defaults: {
       function: {

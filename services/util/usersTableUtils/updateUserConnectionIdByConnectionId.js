@@ -14,7 +14,7 @@ const updateUserConnectionIdByConnectionId = async (connectionId) => {
     await updateUserConnectionIdByUserId({userId: user.userId, connectionId: "<null>"});
   } catch(e) {
     console.log(e.message);
-    throw new Error(e.message);
+    throw e;
   }
   return "updated";
 }

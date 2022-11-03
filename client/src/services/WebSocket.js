@@ -33,6 +33,7 @@ class WebSocket {
         console.log({receivedAppId: updatedStages[0].appId});
         return;
       }
+      console.log({updatedStages});
       currentClass.setStages(updatedStages);
     }
    
