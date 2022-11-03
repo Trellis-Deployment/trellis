@@ -4,13 +4,13 @@ import DeploymentCard from "./DeploymentCard";
 import APICalls from "../../services/APICalls";
 import { Col, Card, Row } from "react-bootstrap";
 
-const StageDeploymentCard = ({stage}) => {
+const StageDeploymentCard = ({ stage }) => {
   const [deployments, setDeployments] = useState([]);
   useEffect(() => {
-    const getDeployments = async() => {
+    const getDeployments = async () => {
       const data = await APICalls.getDeployments(stage.stageId);
       setDeployments(data);
-    }
+    };
     getDeployments();
   }, [stage.stageState, stage.stageId]);
 
@@ -26,13 +26,13 @@ const StageDeploymentCard = ({stage}) => {
               version={deployments.length - idx}
               idx={idx}
               stageId={stage.stageId}
-              setDeployments={setDeployments}>
-            </DeploymentCard>
+              setDeployments={setDeployments}
+            ></DeploymentCard>
           </Row>
         ))}
       </Card.Title>
     </Col>
-  )
-}
+  );
+};
 
 export default StageDeploymentCard;
