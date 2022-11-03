@@ -18,8 +18,8 @@ function MiniNavigationBar() {
         <LinkContainer to={`/application/${appName}/activity`}>
           <Nav.Link  >Activity</Nav.Link>
         </LinkContainer>
-        <Nav.Link>Issues</Nav.Link>
-        <Nav.Link>Resources</Nav.Link>
+        {/* <Nav.Link>Issues</Nav.Link> */}
+        {/* <Nav.Link>Resources</Nav.Link> */}
         <Nav.Link>Settings</Nav.Link>
       </Nav>
     </Navbar>
