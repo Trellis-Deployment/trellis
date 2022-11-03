@@ -34,7 +34,7 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
     const deployment = (await createDeployment({
       stageId: targetStageId,
       commitId: sourceCommitId,
-      state: 'deploying',
+      state: "deploying",
     })) as NewDeployment;
 
     if (deployment.error) {
@@ -43,7 +43,8 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
 
     const data = {
       AWS_SSM_KEY: stage.IAMCredentialsLocation,
-      ACTION: 'deploy',
+      AWS_SSM_ENV: stage.envLocation,
+      ACTION: "deploy",
       GITHUB_X_ACCESS_TOKEN: token,
       GITHUB_USER: user,
       GITHUB_REPO: repoName,
@@ -56,7 +57,7 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
 
     await invokeBuildFunction(data, stage, sourceCommitId);
     const updatedStages = await getStagesByAppId(stage.appId);
-    await invokeWebSocketMessage({userId, updatedStages});
+    await invokeWebSocketMessage({ userId, updatedStages });
     return "success";
   } catch (e) {
     console.log(e.message);

@@ -70,6 +70,10 @@ export const main = handler(async (event, context) => {
               name: "COMMIT_ID",
               value: data.COMMIT_ID,
             },
+            {
+              name: "AWS_SSM_ENV",
+              value: data.AWS_SSM_ENV,
+            },
           ],
           name: CONTAINER,
         },
