@@ -8,9 +8,11 @@ import {
 import { StorageStack } from "./StorageStack";
 import { BuildServerStack } from "./BuildServerStack";
 import config from "../util/config";
-import * as events from "aws-cdk-lib/aws-events";
-import * as targets from "aws-cdk-lib/aws-events-targets";
-import * as cdk from "aws-cdk-lib";
+// import * as events from "aws-cdk-lib/aws-events";
+// import * as targets from "aws-cdk-lib/aws-events-targets";
+import * as destinations from 'aws-cdk-lib/aws-logs-destinations';
+import * as logs from 'aws-cdk-lib/aws-logs';
+
 export function ApiStack({ stack, app }: StackContext) {
   const { users, apps, stages, deployments, storeAWSCredentialsLambda } =
     use(StorageStack);
@@ -40,26 +42,31 @@ export function ApiStack({ stack, app }: StackContext) {
       REGION: config.Region,
     }
   });
-  const bus = new events.EventBus(this, "eventBus", {
-    eventBusName: "eventBusForLambda",
+  new logs.SubscriptionFilter(this, 'buildContainerSubscription', {
+    logGroup,
+    destination: new destinations.LambdaDestination(eventResponseLambda),
+    filterPattern: logs.FilterPattern.allEvents(),
   });
-  const rule = new events.Rule(this, 'rule', {
-    eventPattern: {
-      resources: [logGroup.logGroupArn]
-    }
-  });
+  // const bus = new events.EventBus(this, "eventBus", {
+  //   eventBusName: "eventBusForLambda",
+  // });
+  // const rule = new events.Rule(this, 'rule', {
+  //   eventPattern: {
+  //     resources: [logGroup.logGroupArn]
+  //   }
+  // });
 
-  const testRule = new events.Rule(this, 'testRule', {
-    eventPattern: {
-      source: ["aws.logs", "aws.cloudwatch", "aws.events"]
-    }
-  });
+  // const testRule = new events.Rule(this, 'testRule', {
+  //   eventPattern: {
+  //     source: ["aws.logs", "aws.cloudwatch", "aws.events"]
+  //   }
+  // });
 
   
 
-  rule.addTarget(new targets.LambdaFunction(eventResponseLambda, {
-    retryAttempts: 2,
-  }));
+  // rule.addTarget(new targets.LambdaFunction(eventResponseLambda, {
+  //   retryAttempts: 2,
+  // }));
   // Create the WebSocket API
   const webSocketApi = new WebSocketApi(stack, "webSocketApi", {
     routes: {
