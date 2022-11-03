@@ -10,17 +10,17 @@ import { CloudCheck, ExclamationCircle, Gear } from "react-bootstrap-icons";
 
 const StageData = ({ stage, stages, setStages }) => {
   const [branchSettingsVisible, setBranchSettingsVisible] = useState(false);
-  const [teardownVisible, setTeardownVisible] = useState(false);
+  // const [teardownVisible, setTeardownVisible] = useState(false);
 
   const handleSettingsClick = (e) => {
     e.preventDefault();
     setBranchSettingsVisible(true);
   };
 
-  const handleTeardownClick = (e) => {
-    e.preventDefault();
-    setTeardownVisible(true);
-  };
+  // const handleTeardownClick = (e) => {
+  //   e.preventDefault();
+  //   setTeardownVisible(true);
+  // };
 
   return (
     <div>
@@ -102,7 +102,7 @@ const StageData = ({ stage, stages, setStages }) => {
               )}
             </span>
           </Row>
-          <Row className="text-center">
+          {/* <Row className="text-center">
             {stage.stageState !== "created" &&
             stage.stageState !== "tearingDown" &&
             stage.stageState !== "deploying" ? (
@@ -116,7 +116,7 @@ const StageData = ({ stage, stages, setStages }) => {
                 </a>
               </span>
             ) : null}
-          </Row>
+          </Row> */}
         </Row>
         {stage.stageState === "created" && (
           <Row>
@@ -155,14 +155,14 @@ const StageData = ({ stage, stages, setStages }) => {
             setStages={setStages}
           />
         ) : null}
-        {teardownVisible ? (
+        {/* {teardownVisible ? (
           <TeardownModal
             stage={stage}
             setTeardownVisible={setTeardownVisible}
             stages={stages}
             setStages={setStages}
           />
-        ) : null}
+        ) : null} */}
       </Card.Text>
     </div>
   );

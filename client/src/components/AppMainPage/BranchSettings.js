@@ -2,6 +2,7 @@ import "../../App.css";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import TeardownModal from "./TeardownModal";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 
@@ -16,6 +17,7 @@ const BranchSettings = ({
   const [selectedBranch, setSelectedBranch] = useState(stage.stageBranch);
   const [iamAccessKeyId, setIamAccessKeyId] = useState("");
   const [iamSecretAccessKey, setIamSecretAccessKey] = useState("");
+  const [teardownVisible, setTeardownVisible] = useState(false);
 
   useEffect(() => {
     const loadBranches = async () => {
@@ -123,6 +125,9 @@ const BranchSettings = ({
             Submit
           </Button>
         </Form>
+      </div>
+      <div>
+        {/* <TeardownModal></TeardownModal> */}
       </div>
     </>
   );

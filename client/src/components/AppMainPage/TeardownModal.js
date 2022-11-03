@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import { useAppContext } from '../../Lib/AppContext';
 import APICalls from '../../services/APICalls';
+import { Row } from 'react-bootstrap';
 import '../../App.css';
 
 const TeardownModal = ({ stage, setTeardownVisible, stages, setStages }) => {
@@ -29,15 +30,15 @@ const TeardownModal = ({ stage, setTeardownVisible, stages, setStages }) => {
   }
 
   return (
-    <>
-    <div className="screen" onClick={handleScreenClick}>
-    </div>
-      <div className="modal">
+    <Row>
+    {/* <div className="screen" onClick={handleScreenClick}>
+    </div> */}
+      <div className="#">
           <p>{`Are you sure you want to teardown stage ${stage.stageName}?`}</p> :
           <Button onClick={handleTeardownClick} variant='primary' type='submit'>Yes, Tear It Down</Button>
           <Button onClick={() => setTeardownVisible(false)} variant='secondary' type='cancel'>Cancel</Button>
       </div>
-    </>
+    </Row>
   )
 }
 
