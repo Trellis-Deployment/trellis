@@ -2,7 +2,7 @@ import "../../App.css";
 import "../../stylesheets/AppStage.css";
 import { useState } from "react";
 import BranchSettings from "./BranchSettings";
-import TeardownModal from "./TeardownModal";
+// import TeardownModal from "./TeardownModal";
 import CommitId from "./CommitId";
 import { Card, Col, Row } from "react-bootstrap";
 
@@ -10,24 +10,17 @@ import { CloudCheck, ExclamationCircle, Gear } from "react-bootstrap-icons";
 
 const StageData = ({ stage, stages, setStages }) => {
   const [branchSettingsVisible, setBranchSettingsVisible] = useState(false);
-  // const [teardownVisible, setTeardownVisible] = useState(false);
 
   const handleSettingsClick = (e) => {
     e.preventDefault();
     setBranchSettingsVisible(true);
   };
 
-  // const handleTeardownClick = (e) => {
-  //   e.preventDefault();
-  //   setTeardownVisible(true);
-  // };
-
   return (
     <div>
       <Card.Text className="stage-branch ps-1 text-center">
         <Row>
-        <Row>
-      </Row>
+          <Row></Row>
         </Row>
         <Row className="stage-info-branch">
           <Row>
@@ -68,17 +61,6 @@ const StageData = ({ stage, stages, setStages }) => {
               </a>
             </Col>
           </Row>
-          <Row></Row>
-          {/* <div class="dropdown mt-3">
-                <button  class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="book-dropdown" data-bs-toggle="drowdown">
-              choose book
-              <ul className="dropdown-menu" aria-labelledby="book-dropdown">
-                <li href="#" class="dropdown-item">sky blue</li>
-              </ul>
-                </button>
-          </div> */}
           <Row>
             <span
               target="_blank"
@@ -102,21 +84,6 @@ const StageData = ({ stage, stages, setStages }) => {
               )}
             </span>
           </Row>
-          {/* <Row className="text-center">
-            {stage.stageState !== "created" &&
-            stage.stageState !== "tearingDown" &&
-            stage.stageState !== "deploying" ? (
-              <span>
-                <a
-                  href="/"
-                  onClick={handleTeardownClick}
-                  className="stage-info-branch"
-                >
-                  Teardown
-                </a>
-              </span>
-            ) : null}
-          </Row> */}
         </Row>
         {stage.stageState === "created" && (
           <Row>
@@ -155,14 +122,6 @@ const StageData = ({ stage, stages, setStages }) => {
             setStages={setStages}
           />
         ) : null}
-        {/* {teardownVisible ? (
-          <TeardownModal
-            stage={stage}
-            setTeardownVisible={setTeardownVisible}
-            stages={stages}
-            setStages={setStages}
-          />
-        ) : null} */}
       </Card.Text>
     </div>
   );
