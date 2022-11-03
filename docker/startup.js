@@ -57,24 +57,6 @@ function processDeploy(err, data) {
     const AWS_ACCESS_KEY_ID = parsed["iam-number"];
     const AWS_SECRET_ACCESS_KEY = parsed["iam-code"];
 
-    function syncReadFile(filename) {
-      const contents = readFileSync(filename, "utf-8");
-      let contentsArr = contents.split(/\r?\n/);
-      contentsArr = contentsArr.filter((line) => {
-        return (
-          (line.includes("[INFO]") ||
-            line.includes("[DEBUG]") ||
-            line.includes("✅") ||
-            line.includes("❌")) &&
-          !line.includes("PROGRESS") &&
-          !line.includes("Checking") &&
-          !line.includes("Fetching")
-        );
-      });
-
-      return contentsArr.join("\r\n");
-    }
-
     const awsCredentialCommands = [
       "mkdir -p ~/.aws",
       "touch ~/.aws/credentials",
@@ -113,35 +95,10 @@ function processDeploy(err, data) {
     const actionCommands = ACTION === 'deploy' ? deployCommands : teardownCommands;
     execSync(actionCommands.join(' && '), { stdio: 'inherit' });
   
-    statusData.STATE = ACTION === 'deploy' ? 'deployed' : 'created';
-    statusData.LOGS = syncReadFile(
-      `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
-    );
-  
     console.log(ACTION === 'deploy' ? 'SUCCESS: APP DEPLOYED!' : 'SUCCESS: APP TEARDOWN COMPLETE!');
   } catch (e) {
-    if (existsSync(`/root/repos/${GITHUB_REPO}/.build/sst-debug.log`)) {
-      statusData.LOGS = syncReadFile(
-        `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
-      );
-    } else {
-      statusData.LOGS = e.message;
-    }
     console.log(`error: ${e.message}`);
-    statusData.STATE = "error";
   }
-
-  // let postStatusResultPromise = fetch(SET_STATUS_URL, {
-  //   method: "POST",
-  //   body: JSON.stringify(statusData),
-  //   headers: {
-  //     "Content-type": "application/json; charset=UTF-8",
-  //   },
-  // });
-
-  // postStatusResultPromise.then((val) => {
-  //   console.log("Posted to deployment database");
-  // });
 }
 
 try {

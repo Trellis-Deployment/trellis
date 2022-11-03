@@ -29,7 +29,6 @@ export const main = async (event, context, callback) => {
   let deployment;
   let logs = '';
   let state = 'deploying';
-  const currentDate = new Date().toString();
   for (const logEvent of logEvents) {
     let log = logEvent.message;
     if (log.includes('DEPLOYMENT_ID')) {
@@ -45,14 +44,14 @@ export const main = async (event, context, callback) => {
       } else if (log.includes('SUCCESS: APP TEARDOWN COMPLETE!')) {
         state = 'removed';
       }
-      logs = logs + `\n[${currentDate}]\n--- ${log}`;
+      logs = logs + `\n--- ${log}`;
     }
   }
   if (!deployment) {
     // change this function to use filterExpressions?
     deployment = await getDeploymentByLogStream(logStream);
   }
-  if (deployment.state === 'tearingDown' && state === 'deploying') {
+  if (deployment.deploymentState === 'tearingDown' && state === 'deploying') {
     state = 'tearingDown';
   }
   

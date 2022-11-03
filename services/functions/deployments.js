@@ -7,9 +7,9 @@ export const main = handler(async (event) => {
   try {
     const deployments = await getDeploymentsByStageId(stageId);
     deployments.sort((a, b) => {
-      if (a.deploymentState === 'deploying') {
+      if (a.deploymentState === 'deploying' || b.deploymentState === 'tearingDown') {
         return -1;
-      } else if (b.deploymentState === 'deploying') {
+      } else if (b.deploymentState === 'deploying' || b.deploymentState === 'tearingDown') {
         return 1;
       }
       return b.deployedTime - a.deployedTime
