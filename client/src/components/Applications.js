@@ -42,16 +42,16 @@ const Applications = () => {
   };
 
   return (
-    <div className="app-list-home container">
-      <Shapes Shape={HollowLogo}></Shapes>
+    <div className="app-list-home container pt-2">
+      <Shapes></Shapes>
       <div className="row pb-2">
         <div className="col">
-          <Button onClick={handleNewAppClick} size="sm" variant="success">
-            <PlusCircle size={20} /> New App
+          <Button onClick={handleNewAppClick} size="sm" variant="primary">
+            <PlusCircle size={25} className="pe-1"/> New App
           </Button>
         </div>
         <div className="col col-auto">
-          <h3 className="text-start">Welcome {authUser}</h3>
+          <h3 className="text-start welcome">Welcome {authUser}</h3>
         </div>
         <div></div>
       </div>
@@ -79,12 +79,12 @@ const Applications = () => {
                       </div>
                       <div className="col">
                         <Card.Body className="py-2">
-                          <Card.Title className="text-start">
+                          <Card.Subtitle className="text-start card-text">
                             App: {application.appName}
-                          </Card.Title>
-                          <Card.Subtitle className="text-start">
-                            Repo: {application.repoName}
                           </Card.Subtitle>
+                          <Card.Title className="text-start card-text b">
+                            Repo: {application.repoName}
+                          </Card.Title>
                         </Card.Body>
                       </div>
                       <div

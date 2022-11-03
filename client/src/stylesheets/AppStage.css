@@ -144,7 +144,15 @@ ol, ul {
 }
 
 .btn {
-  background-color: #1eb98f;
+  background-color: dodgerblue;
+  border: 1px solid white;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #004E92;
+  border: 1px solid dodgerblue;
+  transition: 0.3s;
 }
 
 .small-font  {
@@ -175,7 +183,7 @@ ol, ul {
 
 .badge-text {
   font-size: 20px;
-  background-color: #1eb98f;
+  background-color: #033f9a;
   border-radius: 30px;
   transition: 0.3s;
 }
@@ -184,7 +192,7 @@ ol, ul {
   font-size: 20px;
   background-color: white;
   border-radius: 30px;
-  color: #1eb98f;
+  color: #1f96ff;
   transition: 0.3s;
 }
 

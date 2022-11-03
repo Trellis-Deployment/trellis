@@ -1,3 +1,17 @@
+.trellis-navigation {
+  font-family: 'Baloo 2';
+  font-size: 20px;
+  font-weight: 500;
+  background: rgb(31,150,255);
+  background: linear-gradient(225deg, rgba(31,150,255,1) 36%, rgba(4,87,159,1) 100%);
+}
+
+.Signup {
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-weight: 600;
+}
+
 .logout {
   color: white;
   font-weight: 500;
@@ -6,4 +20,10 @@
 
 .logout:hover {
   color: peachpuff;
+}
+
+.icons-trellis {
+  width: 40px;
+  height: 30px;
+  margin: 0;
 }

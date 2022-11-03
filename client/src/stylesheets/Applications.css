@@ -81,15 +81,34 @@ li {
 }
 
 .oam {
-  background-color: #3c444d;
+  background-color: #86c6fd;
   border-radius: 6px;
   border: 1px solid #dce1e0;
   transition: 0.3s;
+  border: 1.5px solid white;
 }
 
 .oam:hover {
-  background-color: #232627;
+  background-color: #002050a9;
   border-radius: 6px;
-  border: 1px solid #5AE8C2;
+  border: 1px solid #1f96ff;
   transition: 0.3s;
+}
+
+.welcome {
+  font-size: 25px;
+}
+
+.card-text {
+  /* color: dodgerblue; */
+  font-size: 18px;
+  text-shadow: 1px 1px 2px #5b5b5b;
+}
+
+.card-text.b {
+  font-size: 16px;
+}
+
+.card-text:hover {
+  /* color: #ffffff; */
 }

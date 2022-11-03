@@ -1,7 +1,8 @@
 import '../../App.css';
+import '../../stylesheets/NavigationBar.css'
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Trellis from "../../Resources/favicon-32x32.png"
+import Trellis from "../../Resources/Asset 4.svg"
 import { LinkContainer } from "react-router-bootstrap";
 import { Container } from 'react-bootstrap';
 import { useAppContext } from "../../Lib/AppContext";
@@ -22,12 +23,12 @@ function NavigationBar({ handleLogoutClick}) {
     navigate(`/`);
   }
   return (
-    <Navbar collapseOnSelect bg="dark" variant="dark" expand="sm"
-       className="#" sticky="top">
+    <Navbar collapseOnSelect variant="dark" expand="sm"
+       className="trellis-navigation" sticky="top">
           <Container>
          <LinkContainer to="/" onClick={handleMainPageClick}>
             <Navbar.Brand>
-            <img src={ Trellis } alt="Dobby Placeholder Logo" className="topicon pe-2"></img>
+            <img src={ Trellis } alt="Trellis Deployment" className='icons-trellis me-1'></img>
               Trellis
               { authUser ? ` ➤ ${authUser}` : null}
             </Navbar.Brand>
