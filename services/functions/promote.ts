@@ -5,7 +5,6 @@ import { APIGatewayProxyEventV2 } from "aws-lambda";
 import createDeployment, {
   NewDeployment,
 } from "../util/deploymentsTableUtils/createDeployment";
-import getStageByAppIdAndStageName from "util/stagesTableUtils/getStageByAppIdAndStageName";
 import getStagesByAppId from "../util/stagesTableUtils/getStagesByAppId";
 import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 

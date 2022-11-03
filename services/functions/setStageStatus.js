@@ -15,7 +15,6 @@ export const main = handler(async (event) => {
     const user = await getUserByLogin(data.GITHUB_USER);
     const app = await getAppByUserAndAppName({ userId: user.userId, appName: data.APP_NAME });
     const stage = await getStageByAppIdAndStageName({ appId: app.appId, stageName: data.STAGE_NAME });
-
     const deploymentState = data.STATE === 'created' ? 'removed' : data.STATE;
     await updateDeploymentStateById({ deploymentId: data.DEPLOYMENT_ID, state: deploymentState, logs: data.LOGS });
     const deployment = await getDeploymentById(data.DEPLOYMENT_ID);

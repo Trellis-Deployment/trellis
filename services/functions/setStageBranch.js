@@ -9,15 +9,8 @@ export const main = handler(async (event) => {
   const { stageId, branch, userId, appName } = data;
 
   try {
-    const appPromise = getAppByUserAndAppName({ userId, appName });
-    const tokenPromise = getTokenByUserId(userId);
-    const [app, token] = await Promise.all([appPromise, tokenPromise]);
-    const [owner, repo] = app.repoName.split('/');
-    const lastBranchCommit = await githubCalls.getLastBranchCommit({ token, userLogin: owner, repo, branch });
-    const lastBranchCommitId = lastBranchCommit.sha;
-    await setStageBranch({ stageId, branch, lastCommitId: lastBranchCommitId });
-
-    return JSON.stringify({lastCommitId: lastBranchCommitId, stageBranch: branch});
+    await setStageBranch({ stageId, branch });
+    return JSON.stringify({ stageBranch: branch});
   } catch(e) {
     console.log("error in setStageBranch handler:", e.message);
     return e.message;

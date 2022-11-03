@@ -6,7 +6,7 @@ import githubCalls from "util/github/githubCalls";
 
 export const main = handler(async (event) => {
   let { userId, appName, stageId, commitId } = JSON.parse(event.body);
-  const { stage, token, user, stageName, repoName, IAMAccessKey, IAMSecretKey } = await getDataForManualDeployment({ userId, appName, stageId });
+  const { stage, token, user, stageName, repoName, IAMCredentialsLocation } = await getDataForManualDeployment({ userId, appName, stageId });
 
   if (!commitId) {
     const lastCommit = await githubCalls.getLastBranchCommit({ token, userLogin: user, repo: repoName, branch: stage.stageBranch });
@@ -17,9 +17,8 @@ export const main = handler(async (event) => {
 
   try {
     const data = {
+      AWS_SSM_KEY: IAMCredentialsLocation,
       ACTION: 'teardown',
-      AWS_ACCESS_KEY_ID: IAMAccessKey, 
-      AWS_SECRET_ACCESS_KEY: IAMSecretKey,
       GITHUB_X_ACCESS_TOKEN: token,
       GITHUB_USER: user,
       GITHUB_REPO: repoName,

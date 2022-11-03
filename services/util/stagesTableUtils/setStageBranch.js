@@ -1,14 +1,13 @@
 import dynamodb from "../templates/dynamodb";
-import githubCalls from "util/github/githubCalls";
 
-const setStageBranch = async ({ stageId, branch, lastCommitId }) => {
+const setStageBranch = async ({ stageId, branch }) => {
   const updateParams = {
     TableName: process.env.STAGES_TABLE_NAME,
     Key: {
       stageId: stageId,
     },
-    UpdateExpression: "SET stageBranch = :stageBranch, lastCommitId = :lastCommitId",
-    ExpressionAttributeValues: { ":stageBranch": branch, ":lastCommitId": lastCommitId },
+    UpdateExpression: "SET stageBranch = :stageBranch",
+    ExpressionAttributeValues: { ":stageBranch": branch },
   };
 
   try {

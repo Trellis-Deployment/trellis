@@ -13,8 +13,7 @@ export const main = handler(async (event, context) => {
   const repoName = data.repository["full_name"];
 
   try {
-    const { userId, stage, appName, stageName, token } =
-      await getDataForAutoDeployment({ repoName, branch });
+    const { userId, stage, appName, stageName, token } = await getDataForAutoDeployment({ repoName, branch });
     if (!stage) {
       return;
     }
