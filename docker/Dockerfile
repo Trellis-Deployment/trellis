@@ -4,6 +4,7 @@ WORKDIR /
 
 ADD ./startup.js /
 ADD ./package.json /
+COPY ./utils /utils
 RUN chmod +x startup.js
 RUN npm install
 
