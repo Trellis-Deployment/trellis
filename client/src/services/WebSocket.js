@@ -33,7 +33,6 @@ class WebSocket {
       }
       currentClass.setStages(updatedStages);
     }
-   
   }
 
   endConnection() {

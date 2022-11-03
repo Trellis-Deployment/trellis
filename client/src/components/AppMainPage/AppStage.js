@@ -38,22 +38,15 @@ const AppStage = ({ stage, setStages, stages }) => {
           {stage.stageName}
         </Link>
       </Card.Title>
-
-      <Card.Text className="stage-branch ps-1">
-        <Row className="stage-info-branch">
-          Stage Branch:{" "}
-          <Col>
-          {/* going to stage data */}
-            {
-              <StageData
-                stage={stage}
-                stages={stages}
-                setStages={setStages}
-              ></StageData>
-            }
-          </Col>
-        </Row>
-      </Card.Text>
+      <Row>
+        {
+          <StageData
+            stage={stage}
+            stages={stages}
+            setStages={setStages}
+          ></StageData>
+        }
+      </Row>
       <div className="d-flex">
         {stage.stageName !== "prod" ? (
           <>
@@ -69,12 +62,14 @@ const AppStage = ({ stage, setStages, stages }) => {
               disabled={
                 stage.stageState === "deployed" &&
                 stages.find((s) => s.stageName === "prod").stageState !==
-                  "deploying"
+                  "deploying" &&
+                stages.find((s) => s.stageName === "prod").stageState !==
+                  "tearingDown"
                   ? false
                   : true
               }
               size="sm"
-              variant="success"
+              variant="primary"
               onClick={handlePromoteClick}
             >
               Promote to Production

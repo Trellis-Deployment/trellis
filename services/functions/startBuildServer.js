@@ -31,6 +31,10 @@ export const main = handler(async (event, context) => {
               value: REGION,
             },
             {
+              name: "ACTION",
+              value: data.ACTION,
+            },
+            {
               name: "AWS_SSM_KEY",
               value: data.AWS_SSM_KEY,
             },

@@ -42,7 +42,7 @@ const CreateApp = () => {
     };
     try {
       const data = await APICalls.postApps(app);
-      if(data.message) {
+      if (data.message) {
         alert(data.message);
         return;
       }
@@ -94,13 +94,18 @@ const CreateApp = () => {
               <em>Don't see your repo? configure github</em>
             </p>
 
-            
             <Nav.Link href={CONFIGURE}>
-            <div className="row d-flex pt-1">
-            <div className="col">
-              <Button className="d-flex configure-git" variant="dark" size="dark">
-                Configure Github
-              </Button></div></div>
+              <div className="row d-flex pt-1">
+                <div className="col">
+                  <Button
+                    className="d-flex configure-git"
+                    variant="dark"
+                    size="dark"
+                  >
+                    Configure Github
+                  </Button>
+                </div>
+              </div>
             </Nav.Link>
           </Form.Group>
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
@@ -122,19 +127,26 @@ const CreateApp = () => {
             />
           </Form.Group>
           <div className="container row">
-          <div className="col">
-            <Button
-              variant="outline-light"
-              size="md"
-              type="submit"
-              className="submit"
-            >
-              Submit
-            </Button></div>
+            <div className="col">
+              <Button
+                variant="outline-light"
+                size="md"
+                type="submit"
+                className="submit"
+              >
+                Submit
+              </Button>
+            </div>
             <div className="col text-center">
-            <Button href="/apps" className="cancel-button"size="md" variant="danger">
-              Cancel
-            </Button></div>
+              <Button
+                href="/apps"
+                className="cancel-button"
+                size="md"
+                variant="danger"
+              >
+                Cancel
+              </Button>
+            </div>
           </div>
         </Form>
       </Container>

@@ -77,7 +77,7 @@ const getCommits = async ({token, userLogin, repo}) => {
     auth: token
   });
   try {
-    const response = await octokit.request('Get /repos/{owner}/{repo}/commits', {
+    const response = await octokit.request('GET /repos/{owner}/{repo}/commits', {
       owner: userLogin,
       repo: repo,
     });
@@ -86,6 +86,7 @@ const getCommits = async ({token, userLogin, repo}) => {
     console.log(e.message);
   }
 }
+
 const getBranches = async (token, fullRepo) => {
   const octokit = new Octokit({
     auth: token
@@ -97,13 +98,29 @@ const getBranches = async (token, fullRepo) => {
       owner: owner,
       repo: repo,
     });
-    console.log("Github branch request response: ", response);
     const branches = response.data;
 
     return branches
   } catch(e) {
     console.log({githubFailed: e.message});
     throw new Error(`{githubFailed: ${e.message}}`);
+  }
+}
+
+const getLastBranchCommit = async ({token, userLogin, repo, branch}) => {
+
+  const octokit = new Octokit({
+    auth: token
+  });
+  try {
+    const response = await octokit.request('GET /repos/{owner}/{repo}/commits/{branch}', {
+      owner: userLogin,
+      repo: repo,
+      branch: branch,
+    });
+    return response.data;
+  } catch(e) {
+    console.log(e.message);
   }
 }
 
@@ -114,6 +131,8 @@ const githubCalls = {
   createWebhook,
   getCommits,
   getBranches,
+  getLastBranchCommit,
+
 };
 
 export default githubCalls;

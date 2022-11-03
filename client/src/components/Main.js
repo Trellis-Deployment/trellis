@@ -22,7 +22,7 @@ const Main = () => {
   }, [authUser, navigate, redirect]);
 
   return (
-    <div className="pt-1">
+    <div className="pt-3">
       <Header></Header>
     </div>
   );

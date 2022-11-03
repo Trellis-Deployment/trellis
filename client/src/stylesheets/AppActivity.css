@@ -1,9 +1,10 @@
 .badge-version {
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 30px;
   margin: 5px;
   padding: 10px;
-  background-color: #7a7c7d;
+  background: rgb(2,138,255);
+  background: radial-gradient(circle, rgba(2,138,255,1) 65%, rgba(0,80,150,1) 91%);
 }
 
 .rollback {
@@ -17,12 +18,13 @@
 }
 
 .logs {
-  background-color: black;
+  background-color:#002050;
   color: white;
-  min-height: 80px;
+  min-height: 90px;
   margin: auto;
   border-radius: 7px;
   font-size: 15px;
+  border-color: aliceblue;
 }
 
 .presenter {

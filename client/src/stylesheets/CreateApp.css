@@ -10,12 +10,14 @@
   }
 
 .form-layout {
-    background-color: #51e6bc29;
-    transition: 0.3s;
+  background: rgba(31, 151, 255, 0.655);
+  background: linear-gradient(225deg, rgba(31, 151, 255, 0.557) 36%, rgba(4, 87, 159, 0.588) 100%);
+  transition: 0.3s;
 }
   
 .form-layout:hover {
-  background-color: #51e6bc44;
+  background: rgb(31,150,255);
+  background: linear-gradient(225deg, rgba(31,150,255,1) 36%, rgba(4,87,159,1) 100%);
   transition: 0.3s;
 }
 

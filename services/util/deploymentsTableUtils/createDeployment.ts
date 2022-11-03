@@ -11,15 +11,16 @@ export interface NewDeployment {
   error?: string;
 }
 
-const createDeployment = async ({ stageId, commitId }) => {
+const createDeployment = async ({ stageId, commitId, state }) => {
   const deploymentId = UUIDV4();
   const time = new Date().getTime();
+  state = state ? state : 'deploying';
   const newDeployment = {
     deploymentId,
     stageId,
     commitId,
     logs: "",
-    deploymentState: "deploying",
+    deploymentState: state,
     time: time,
   };
 

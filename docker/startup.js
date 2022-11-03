@@ -1,4 +1,4 @@
-const { execSync } = require("child_process");
+const { execSync } = require('child_process');
 const {
   readdirSync,
   existsSync,
@@ -7,6 +7,7 @@ const {
 } = require("fs");
 const AWS = require("aws-sdk");
 
+const ACTION = process.env.ACTION;
 const GITHUB_X_ACCESS_TOKEN = process.env.GITHUB_X_ACCESS_TOKEN;
 const GITHUB_USER = process.env.GITHUB_USER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
@@ -104,21 +105,26 @@ function processDeploy(err, data) {
       `cd ~/repos/${GITHUB_REPO}`,
       `npx sst deploy --stage ${STAGE_NAME}`,
     ];
-    execSync(deployCommands.join(" && "), { stdio: "inherit" });
-
-    buildStatusData.STATE = "deployed";
-    buildStatusData.LOGS = syncReadFile(
+    const teardownCommands = [
+      `cd ~/repos/${GITHUB_REPO}`,
+      `npx sst remove --stage ${STAGE_NAME}`,
+    ]
+    const actionCommands = ACTION === 'deploy' ? deployCommands : teardownCommands;
+    execSync(actionCommands.join(' && '), { stdio: 'inherit' });
+  
+    statusData.STATE = ACTION === 'deploy' ? 'deployed' : 'created';
+    statusData.LOGS = syncReadFile(
       `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
     );
-
-    console.log("SUCCESS: APP DEPLOYED!");
-  } catch(e) {
+  
+    console.log(ACTION === 'deploy' ? 'SUCCESS: APP DEPLOYED!' : 'SUCCESS: APP TEARDOWN COMPLETE!');
+  } catch (e) {
     if (existsSync(`/root/repos/${GITHUB_REPO}/.build/sst-debug.log`)) {
-      buildStatusData.LOGS = syncReadFile(
+      statusData.LOGS = syncReadFile(
         `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
       );
     } else {
-      buildStatusData.LOGS = e.message;
+      statusData.LOGS = e.message;
     }
     console.log(`error: ${e.message}`);
     buildStatusData.STATE = "error";
@@ -141,9 +147,9 @@ try {
   const client = new AWS.SecretsManager({
     region: REGION,
   });
-
   client.getSecretValue({ SecretId: AWS_SSM_KEY }, processDeploy);
 } catch (e) {
   console.log(`error: ${e.message}`);
   buildStatusData.STATE = "error";
 }
+

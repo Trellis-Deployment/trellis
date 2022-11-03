@@ -13,8 +13,7 @@ export const main = handler(async (event, context) => {
   const repoName = data.repository["full_name"];
 
   try {
-    const { userId, stage, appName, stageName, token } =
-      await getDataForAutoDeployment({ repoName, branch });
+    const { userId, stage, appName, stageName, token } = await getDataForAutoDeployment({ repoName, branch });
     if (!stage) {
       return;
     }
@@ -24,12 +23,13 @@ export const main = handler(async (event, context) => {
     });
     const buildData = {
       AWS_SSM_KEY: stage.IAMCredentialsLocation,
+      ACTION: 'deploy',
       GITHUB_X_ACCESS_TOKEN: token,
       GITHUB_USER: repoName.split("/")[0],
       GITHUB_REPO: repoName.split("/")[1],
       STAGE_NAME: stageName,
       BRANCH_NAME: stage.stageBranch,
-      SET_STATUS_URL: `https://${event.headers.host}/setStatus`,
+      SET_STATUS_URL: `https://${event.headers.host}/stageStatus`,
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,
       COMMIT_ID: commitId,
