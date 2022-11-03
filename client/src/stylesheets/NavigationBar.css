@@ -4,11 +4,12 @@
   font-weight: 500;
   background: rgb(31,150,255);
   background: linear-gradient(225deg, rgba(31,150,255,1) 36%, rgba(4,87,159,1) 100%);
+  border-bottom: 1px solid white;
 }
 
 .Signup {
-  font-family: 'Montserrat';
-  font-size: 16px;
+  font-family: 'Poppins';
+  font-size: 15px;
   font-weight: 600;
 }
 

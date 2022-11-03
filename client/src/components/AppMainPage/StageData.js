@@ -65,6 +65,20 @@ const StageData = ({ stage, stages, setStages }) => {
             </Col>
           </Row>
           <Row>
+          <div className="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+    Settings
+  </button>
+  <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+    <li><a className="dropdown-item active" href="#">Action</a></li>
+    <li><a className="dropdown-item" href="#">Another action</a></li>
+    <li><a className="dropdown-item" href="#">Something else here</a></li>
+    <li><hr className="dropdown-divider"></hr></li>
+    <li><a className="dropdown-item" href="#">Separated link</a></li>
+  </ul>
+</div>
+          </Row>
+          <Row>
             <span
               target="_blank"
               className="commit ps-1 stage-info text-start"
@@ -95,7 +109,7 @@ const StageData = ({ stage, stages, setStages }) => {
                 <a
                   href="/"
                   onClick={handleTeardownClick}
-                  className="text-info"
+                  className="stage-info-branch"
                 >
                   Teardown
                 </a>
