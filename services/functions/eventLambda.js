@@ -29,6 +29,7 @@ export const main = async (event, context, callback) => {
   let deployment;
   let logs = '';
   let deployed = false;
+  const currentDate = new Date().toString();
   for (const logEvent of logEvents) {
     let log = logEvent.message;
     if (log.includes('DEPLOYMENT_ID')) {
@@ -40,7 +41,7 @@ export const main = async (event, context, callback) => {
       if (log.includes('SUCCESS: APP DEPLOYED!')) {
         deployed = true;
       }
-      logs = logs + `\n${log}`;
+      logs = logs + `\n[${currentDate}]\n---${log}`;
     }
   }
   if (!deployment) {

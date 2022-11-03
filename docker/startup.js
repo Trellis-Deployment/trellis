@@ -124,17 +124,17 @@ function processDeploy(err, data) {
     buildStatusData.STATE = "error";
   }
 
-  let postStatusResultPromise = fetch(SET_STATUS_URL, {
-    method: "POST",
-    body: JSON.stringify(buildStatusData),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
+  // let postStatusResultPromise = fetch(SET_STATUS_URL, {
+  //   method: "POST",
+  //   body: JSON.stringify(buildStatusData),
+  //   headers: {
+  //     "Content-type": "application/json; charset=UTF-8",
+  //   },
+  // });
 
-  postStatusResultPromise.then((val) => {
-    console.log("Posted to deployment database");
-  });
+  // postStatusResultPromise.then((val) => {
+  //   console.log("Posted to deployment database");
+  // });
 }
 
 const client = new AWS.SecretsManager({
