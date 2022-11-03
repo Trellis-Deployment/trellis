@@ -28,7 +28,7 @@ function NavigationBar({ handleLogoutClick}) {
           <Container>
          <LinkContainer to="/" onClick={handleMainPageClick}>
             <Navbar.Brand>
-            <img src={ Trellis } alt="Trellis Deployment" className="topicon pe-2"></img>
+            <img src={ Trellis } alt="Trellis Deployment" className='icons-trellis me-1'></img>
               Trellis
               { authUser ? ` ➤ ${authUser}` : null}
             </Navbar.Brand>
