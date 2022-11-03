@@ -9,7 +9,7 @@ const CommitId = ({ value }) => {
   };
 
   return (
-    <a href="/" className="text-warning" onClick={handleIdClick}>
+    <a href="/" className="text-info" onClick={handleIdClick}>
       {fullIdVisible ? value : `${value.slice(0, 5)}...`}
     </a>
   );

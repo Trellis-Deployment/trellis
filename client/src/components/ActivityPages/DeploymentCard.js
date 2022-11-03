@@ -34,7 +34,7 @@ const DeploymentCard = ({
         <Col>
           <Card.Title className="badge badge-version text-center">V{version}</Card.Title>
         </Col>
-        <Col className="text-start">
+        <Col className="text-start stage-info">
           <Row>Deployment State: {deployment.deploymentState}</Row>
           <Row className="text-start">
             CommitId: {deployment.commitId}
