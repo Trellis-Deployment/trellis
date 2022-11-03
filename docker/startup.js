@@ -73,56 +73,45 @@ function processDeploy(err, data) {
     return contentsArr.join("\r\n");
   }
 
-  try {
-    const awsCredentialCommands = [
-      "mkdir -p ~/.aws",
-      "touch ~/.aws/credentials",
-      "echo [default] >> ~/.aws/credentials",
-      `echo aws_access_key_id = ${AWS_ACCESS_KEY_ID} >> ~/.aws/credentials`,
-      `echo aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY} >> ~/.aws/credentials`,
-    ];
-    execSync(awsCredentialCommands.join(" && "), { stdio: "inherit" });
-    console.log("SUCCESS: AWS CREDENTIALS STORED");
+  const awsCredentialCommands = [
+    "mkdir -p ~/.aws",
+    "touch ~/.aws/credentials",
+    "echo [default] >> ~/.aws/credentials",
+    `echo aws_access_key_id = ${AWS_ACCESS_KEY_ID} >> ~/.aws/credentials`,
+    `echo aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY} >> ~/.aws/credentials`,
+  ];
+  execSync(awsCredentialCommands.join(" && "), { stdio: "inherit" });
+  console.log("SUCCESS: AWS CREDENTIALS STORED");
 
-    const cloneRepoCommands = [
-      "apk add git",
-      "mkdir -p ~/repos",
-      "cd ~/repos",
-      `git clone https://x-access-token:${GITHUB_X_ACCESS_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git`,
-      `cd ${GITHUB_REPO}`,
-    ];
-    if (COMMIT_ID !== "") {
-      cloneRepoCommands.push(`git checkout ${COMMIT_ID}`);
-    }
-    execSync(cloneRepoCommands.join(" && "), { stdio: "inherit" });
-    console.log("SUCCESS: REPO CLONED");
-
-    const dependencyCommands = [`cd ~/repos/${GITHUB_REPO}`, "npm install"];
-    execSync(dependencyCommands.join(" && "), { stdio: "inherit" });
-    console.log("SUCCESS: NODE PACKAGE DEPENDENCIES INSTALLED");
-
-    const deployCommands = [
-      `cd ~/repos/${GITHUB_REPO}`,
-      `npx sst deploy --stage ${STAGE_NAME}`,
-    ];
-    execSync(deployCommands.join(" && "), { stdio: "inherit" });
-
-    buildStatusData.STATE = "deployed";
-    buildStatusData.LOGS = syncReadFile(
-      `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
-    );
-
-    console.log("SUCCESS: APP DEPLOYED!");
-  } catch (e) {
-    if (existsSync(`/root/repos/${GITHUB_REPO}/.build/sst-debug.log`)) {
-      buildStatusData.LOGS = syncReadFile(
-        `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
-      );
-    } else {
-      buildStatusData.LOGS = e.message;
-    }
-    buildStatusData.STATE = "error";
+  const cloneRepoCommands = [
+    "apk add git",
+    "mkdir -p ~/repos",
+    "cd ~/repos",
+    `git clone https://x-access-token:${GITHUB_X_ACCESS_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git`,
+    `cd ${GITHUB_REPO}`,
+  ];
+  if (COMMIT_ID !== "") {
+    cloneRepoCommands.push(`git checkout ${COMMIT_ID}`);
   }
+  execSync(cloneRepoCommands.join(" && "), { stdio: "inherit" });
+  console.log("SUCCESS: REPO CLONED");
+
+  const dependencyCommands = [`cd ~/repos/${GITHUB_REPO}`, "npm install"];
+  execSync(dependencyCommands.join(" && "), { stdio: "inherit" });
+  console.log("SUCCESS: NODE PACKAGE DEPENDENCIES INSTALLED");
+
+  const deployCommands = [
+    `cd ~/repos/${GITHUB_REPO}`,
+    `npx sst deploy --stage ${STAGE_NAME}`,
+  ];
+  execSync(deployCommands.join(" && "), { stdio: "inherit" });
+
+  buildStatusData.STATE = "deployed";
+  buildStatusData.LOGS = syncReadFile(
+    `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
+  );
+
+  console.log("SUCCESS: APP DEPLOYED!");
 
   // let postStatusResultPromise = fetch(SET_STATUS_URL, {
   //   method: "POST",
@@ -137,8 +126,20 @@ function processDeploy(err, data) {
   // });
 }
 
-const client = new AWS.SecretsManager({
-  region: REGION,
-});
+try {
+  const client = new AWS.SecretsManager({
+    region: REGION,
+  });
 
-client.getSecretValue({ SecretId: AWS_SSM_KEY }, processDeploy);
+  client.getSecretValue({ SecretId: AWS_SSM_KEY }, processDeploy);
+} catch (e) {
+  if (existsSync(`/root/repos/${GITHUB_REPO}/.build/sst-debug.log`)) {
+    buildStatusData.LOGS = syncReadFile(
+      `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
+    );
+  } else {
+    buildStatusData.LOGS = e.message;
+  }
+  console.log("error: e.message");
+  buildStatusData.STATE = "error";
+}
