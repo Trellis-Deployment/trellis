@@ -26,16 +26,15 @@ const UserApp = () => {
   }, [appId, userId]);
 
   return (
-    <div>
-      <div className="card px-3 py-1 pipes mt-3 mid-wide-card container lips">
+      <div className="card px-3 py-1 pipes mt-3 mid-wide-card container holder">
         <div className="row">
-          <div className="col pipeline-title mb-1">
+          <div className="col pipeline-title mb-1 aling-self-end">
             Pipeline
             <a className="ps-2 small-font" href="/apps">
               edit
             </a>
           </div>
-          <div className="d-flex col pe-0 justify-content-end align-items-end">
+          <div className="d-flex col pe-0 justify-content-end align-items-center">
             <a href="/apps" className="small-font">
               View Full Pipeline
             </a>
@@ -53,9 +52,6 @@ const UserApp = () => {
           ))}
         </div>
       </div>
-
-      <div className="container py-3"></div>
-    </div>
   );
 };
 

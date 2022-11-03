@@ -10,9 +10,9 @@ body {
 }
 
 .card-back {
-  background: #161819;
+  background: #ffffffe4;
   border-radius: 5px;
-  border: 1px solid #232627;
+  /* border: 1px solid #232627; */
 }
 
 .card-body {
@@ -25,7 +25,8 @@ body {
 }
 
 .stage-row {
-  background-color: #232627;
+  background: rgb(0,100,186);
+  background: linear-gradient(180deg, rgba(0,100,186,1) 0%, rgba(0,78,146,1) 100%);
   /* margin: 0.5%; */
   border-radius: 5px;
   border: 1px solid gray;
@@ -50,8 +51,9 @@ img {
   border: 0;
 }
 
-.lips {
-  background: #246b58c0 !important;
+.holder {
+  background: rgb(31,150,255);
+  background: linear-gradient(180deg, rgba(31,150,255,1) 0%, rgba(3,84,156,1) 73%, rgba(0,78,146,1) 100%);
 }
 
 .spinner-border {
@@ -65,7 +67,8 @@ img {
 /* 
 black
 #232627
-
+background: rgb(31,150,255);
+background: linear-gradient(180deg, rgba(31,150,255,1) 0%, rgba(3,84,156,1) 73%, rgba(0,78,146,1) 100%);
 name text
 #A3C2DC
 
@@ -79,12 +82,12 @@ dark
 /* second box */
 .SectionHeader {
   margin-top: 0;
-  font-family: "Exo 2",sans-serif;
-  letter-spacing: px;
-  font-size: 13px;
+  font-family: "Poppins",sans-serif;
+  /* letter-spacing: 0.5px; */
+  font-size: 15px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #A3C2DC;
+  color: rgb(238, 255, 192);
 }
 
 ol, ul {
@@ -94,7 +97,7 @@ ol, ul {
 
 
 .pipeline-title {
-  font-size: 17px;
+  font-size: 20px;
 }
 
 .stage-title {
@@ -131,10 +134,19 @@ ol, ul {
 }
 
 .stage-info-branch {
-  color: #A3C2DC;
+  color: rgb(192, 227, 255);
+  font-family: "Poppins",sans-serif;
   font-size: 15px;
   padding-left: 1px;
 }
+
+/* margin-top: 0;
+font-family: "Poppins",sans-serif;
+letter-spacing: 0.5px;
+font-size: 15px;
+font-weight: 600;
+text-transform: uppercase;
+color: rgb(242, 255, 192); */
 
 .btn-sm {
   font-size: 13px;
@@ -144,7 +156,15 @@ ol, ul {
 }
 
 .btn {
-  background-color: #1eb98f;
+  transition: 0.3s;
+  background-color: dodgerblue;
+  border: 1px solid white;
+}
+
+.btn:hover {
+  background-color: #004E92;
+  border: 1px solid dodgerblue;
+  transition: 0.3s;
 }
 
 .small-font  {
@@ -159,7 +179,7 @@ ol, ul {
 }
 
 .stage-info {
-  color: #1eb98f;
+  color: white;
   font-size: 13px;
 }
 
@@ -175,7 +195,7 @@ ol, ul {
 
 .badge-text {
   font-size: 20px;
-  background-color: #1eb98f;
+  background-color: #033f9a;
   border-radius: 30px;
   transition: 0.3s;
 }
@@ -184,7 +204,7 @@ ol, ul {
   font-size: 20px;
   background-color: white;
   border-radius: 30px;
-  color: #1eb98f;
+  color: #1f96ff;
   transition: 0.3s;
 }
 

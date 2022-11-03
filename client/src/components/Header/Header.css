@@ -1,6 +1,6 @@
 
 /*Google fonts*/
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@200;300;400;500;600&display=swap'); */
 
 *{
 	margin: 0;
@@ -8,7 +8,7 @@
 	outline: none;
 }
 body{
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Baloo 2', sans-serif;
 	font-weight: 400;
 	color: #fff;
 	overflow-x: hidden;
@@ -22,7 +22,7 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .blockade {
-  background-color: #50e7bf54;
+  background-color: #1f97ff92;
   /* position: relative; */
   padding: 50px;
   display: flex;
@@ -97,7 +97,7 @@ h1,h2,h3,h4,h5,h6{
 	border:  1px solid #ffffff40;
 }
 .home .btn:hover{
-	background-color: #50E7BE;
+	background-color: #1f96ff;
   color: black;
 }
 
@@ -112,7 +112,7 @@ h1,h2,h3,h4,h5,h6{
 	z-index: -9;
 }
 .shape .shape1{
-	right: -160px;
+	right: -130px;
 	top: -50px;
 	width: 350px;
 	opacity: .5;
@@ -120,7 +120,7 @@ h1,h2,h3,h4,h5,h6{
 	animation: shape linear 30s infinite reverse;
 }
 .shape .shape2{
-	left: -70px;
+	left: 300px;
 	bottom: -50px;
 	width: 450px;
 	opacity: .5;
@@ -172,6 +172,17 @@ h1,h2,h3,h4,h5,h6{
 	animation: shape5 linear 25s infinite;
 	transform: translate(0, -150px) rotate(0deg);
 }
+
+.shape .shape6{
+	left: 200px;
+	top: 30;
+	width: 50px;
+	opacity: 0;
+	transform-origin: center;
+	animation: shape5 linear 30s infinite;
+	transform: translate(0, -70px) rotate(180deg);
+}
+
 @keyframes shape5{
 	100%{
 		opacity: 1;

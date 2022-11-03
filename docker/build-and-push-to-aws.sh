@@ -16,7 +16,7 @@ if [ $? -ne 0 ]; then
 fi
 
 aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID_NUMBER.dkr.ecr.$AWS_REGION.amazonaws.com
-docker build -t $reponame .
+docker build -t $reponame . --platform=linux/amd64
 docker tag $reponame:latest $AWS_ACCOUNT_ID_NUMBER.dkr.ecr.$AWS_REGION.amazonaws.com/$reponame:latest
 docker push $AWS_ACCOUNT_ID_NUMBER.dkr.ecr.$AWS_REGION.amazonaws.com/$reponame:latest
 
