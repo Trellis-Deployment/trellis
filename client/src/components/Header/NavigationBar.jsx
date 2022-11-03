@@ -8,10 +8,10 @@ import { Container } from 'react-bootstrap';
 import { useAppContext } from "../../Lib/AppContext";
 import { useNavigate } from "react-router-dom";
 
-function NavigationBar({ handleLogoutClick}) {
+function NavigationBar({ handleLogoutClick }) {
   const SIGN_UP = `https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`
   const SIGN_IN = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_Client_ID}`
-  const { authUser, appName, setAppName, setAppId } = useAppContext(); 
+  const { authUser, appName, setAppName, setAppId } = useAppContext();
   const navigate = useNavigate();
 
   const handleMainPageClick = (e) => {
@@ -24,44 +24,44 @@ function NavigationBar({ handleLogoutClick}) {
   }
   return (
     <Navbar collapseOnSelect variant="dark" expand="sm"
-       className="trellis-navigation" sticky="top">
-          <Container>
-         <LinkContainer to="/" onClick={handleMainPageClick}>
+      className="trellis-navigation" sticky="top">
+      <Container>
+        <LinkContainer to="/" onClick={handleMainPageClick}>
+          <Navbar.Brand>
+            <img src={Trellis} alt="Trellis Deployment" className='icons-trellis me-1'></img>
+            Trellis
+            {authUser ? ` ➤ ${authUser}` : null}
+          </Navbar.Brand>
+        </LinkContainer>
+        {appName ?
+          <LinkContainer to={`/application/${appName}`} >
             <Navbar.Brand>
-            <img src={ Trellis } alt="Trellis Deployment" className='icons-trellis me-1'></img>
-              Trellis
-              { authUser ? ` ➤ ${authUser}` : null}
+              {` ➤ ${appName}`}
             </Navbar.Brand>
-          </LinkContainer>
-          {appName ?
-            <LinkContainer to={`/application/${appName}`} >
-              <Navbar.Brand>
-                { ` ➤ ${appName}` }
-              </Navbar.Brand>
-            </LinkContainer> :
-            null
-          }
-          <Navbar.Toggle />
+          </LinkContainer> :
+          null
+        }
+        <Navbar.Toggle />
 
-          <Navbar.Collapse className="justify-content-end">
-          { !authUser ? (
-              <>
+        <Navbar.Collapse className="justify-content-end">
+          {!authUser ? (
+            <>
               <Nav>
                 <Nav.Link href={SIGN_UP} className="Signup">
-                    Sign up
+                  Sign up
                 </Nav.Link>
                 <Nav.Link href={SIGN_IN} className="Signup">
-                    Sign in
+                  Sign in
                 </Nav.Link>
-                </Nav>
-              </>
-            ) : (
-              <Nav>
-                <Nav.Link onClick={ handleLogoutClick } variant="dark" size="md">Logout</Nav.Link>
               </Nav>
-            )}
-          </Navbar.Collapse>
-          </Container>
+            </>
+          ) : (
+            <Nav>
+              <Nav.Link onClick={handleLogoutClick} variant="dark" size="md">Logout</Nav.Link>
+            </Nav>
+          )}
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   )
 }
