@@ -65,11 +65,7 @@ const StageData = ({ stage, stages, setStages }) => {
             </Col>
           </Row>
           <Row>
-          <div className="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-    Settings
-  </button>
-</div>
+
           </Row>
           <Row>
             <span
