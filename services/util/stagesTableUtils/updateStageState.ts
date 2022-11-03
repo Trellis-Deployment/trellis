@@ -1,7 +1,9 @@
 import dynamodb from "../templates/dynamodb";
 
 const updateStageState = async ({ stage, state, commitId }) => {
-  const time = (new Date()).getTime();
+  const time = state === 'created' ? '' : (new Date()).getTime();
+  commitId = state === 'created' ? '' : commitId;
+
   const updateParams = {
     TableName: process.env.STAGES_TABLE_NAME,
     Key: {

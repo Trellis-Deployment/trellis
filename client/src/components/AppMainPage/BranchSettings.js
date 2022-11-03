@@ -40,7 +40,7 @@ const BranchSettings = ({
     try {
       const response = await APICalls.setStageBranch({
         stageId: stage.stageId,
-        branchName: selectedBranch,
+        branch: selectedBranch,
       });
       console.log(typeof setStages);
       if (response.status === 200) {

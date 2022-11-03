@@ -1,13 +1,13 @@
 import dynamodb from "../templates/dynamodb";
 
-const setStageBranch = async ({ stageId, branchName }) => {
+const setStageBranch = async ({ stageId, branch }) => {
   const updateParams = {
     TableName: process.env.STAGES_TABLE_NAME,
     Key: {
       stageId: stageId,
     },
     UpdateExpression: "SET stageBranch = :stageBranch",
-    ExpressionAttributeValues: { ":stageBranch": branchName },
+    ExpressionAttributeValues: { ":stageBranch": branch },
   };
 
   try {

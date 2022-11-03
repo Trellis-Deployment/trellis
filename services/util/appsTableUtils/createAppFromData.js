@@ -6,7 +6,6 @@ const createAppFromData = async (data) => {
   let createdApp;
   try {
    createdApp = await getAppByRepoName(data.repoName);
-   console.log({createdApp});
   } catch(e) {
     console.log(e.message);
   }

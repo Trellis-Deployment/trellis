@@ -29,7 +29,7 @@ const AppStage = ({ stage, setStages, stages }) => {
     const data = await APICalls.getStages(appId);
     setStages(data);
   };
-
+  
   return (
     <Col key={stage.stageId} className="stage-row m-1 py-1 pb-2">
       <Card.Title className="SectionHeader text-center">
@@ -43,7 +43,6 @@ const AppStage = ({ stage, setStages, stages }) => {
         <Row className="stage-info-branch">
           Stage Branch:{" "}
           <Col>
-          {/* going to stage data */}
             {
               <StageData
                 stage={stage}
@@ -68,10 +67,10 @@ const AppStage = ({ stage, setStages, stages }) => {
             <Button
               disabled={
                 stage.stageState === "deployed" &&
-                stages.find((s) => s.stageName === "prod").stageState !==
-                  "deploying"
-                  ? false
-                  : true
+                stages.find((s) => s.stageName === "prod").stageState !== "deploying" &&
+                stages.find((s) => s.stageName === "prod").stageState !== "tearingDown" ? 
+                false :
+                true
               }
               size="sm"
               variant="success"

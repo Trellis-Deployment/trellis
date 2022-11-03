@@ -1,4 +1,4 @@
-const { execSync } = require("child_process");
+const { execSync } = require('child_process');
 const {
   readdirSync,
   existsSync,
@@ -7,6 +7,7 @@ const {
 } = require("fs");
 const AWS = require("aws-sdk");
 
+const ACTION = process.env.ACTION;
 const GITHUB_X_ACCESS_TOKEN = process.env.GITHUB_X_ACCESS_TOKEN;
 const GITHUB_USER = process.env.GITHUB_USER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
@@ -19,60 +20,62 @@ const AWS_SSM_KEY = process.env.AWS_SSM_KEY;
 const REGION = process.env.REGION;
 
 function processDeploy(err, data) {
-  if (err) {
-    console.log(err);
-    if (err.code === "DecryptionFailureException")
-      // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
-      // Deal with the exception here, and/or rethrow at your discretion.
-      throw err;
-    else if (err.code === "InternalServiceErrorException")
-      // An error occurred on the server side.
-      // Deal with the exception here, and/or rethrow at your discretion.
-      throw err;
-    else if (err.code === "InvalidParameterException")
-      // You provided an invalid value for a parameter.
-      // Deal with the exception here, and/or rethrow at your discretion.
-      throw err;
-    else if (err.code === "InvalidRequestException")
-      // You provided a parameter value that is not valid for the current state of the resource.
-      // Deal with the exception here, and/or rethrow at your discretion.
-      throw err;
-    else if (err.code === "ResourceNotFoundException")
-      // We can't find the resource that you asked for.
-      // Deal with the exception here, and/or rethrow at your discretion.
-      throw err;
-  }
-
-  const parsed = JSON.parse(data.SecretString);
-  const AWS_ACCESS_KEY_ID = parsed["iam-number"];
-  const AWS_SECRET_ACCESS_KEY = parsed["iam-code"];
-
-  const buildStatusData = {
-    GITHUB_USER,
-    STAGE_NAME,
-    APP_NAME,
-    DEPLOYMENT_ID,
-  };
-
-  function syncReadFile(filename) {
-    const contents = readFileSync(filename, "utf-8");
-    let contentsArr = contents.split(/\r?\n/);
-    contentsArr = contentsArr.filter((line) => {
-      return (
-        (line.includes("[INFO]") ||
-          line.includes("[DEBUG]") ||
-          line.includes("✅") ||
-          line.includes("❌")) &&
-        !line.includes("PROGRESS") &&
-        !line.includes("Checking") &&
-        !line.includes("Fetching")
-      );
-    });
-
-    return contentsArr.join("\r\n");
-  }
-
   try {
+    if (err) {
+      console.log(err);
+      if (err.code === "DecryptionFailureException")
+        // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw err;
+      else if (err.code === "InternalServiceErrorException")
+        // An error occurred on the server side.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw err;
+      else if (err.code === "InvalidParameterException")
+        // You provided an invalid value for a parameter.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw err;
+      else if (err.code === "InvalidRequestException")
+        // You provided a parameter value that is not valid for the current state of the resource.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw err;
+      else if (err.code === "ResourceNotFoundException")
+        // We can't find the resource that you asked for.
+        // Deal with the exception here, and/or rethrow at your discretion.
+        throw err;
+    }
+
+    const parsed = JSON.parse(data.SecretString);
+    const AWS_ACCESS_KEY_ID = parsed["iam-number"];
+    const AWS_SECRET_ACCESS_KEY = parsed["iam-code"];
+
+    const statusData = {
+      ACTION,
+      GITHUB_USER,
+      STAGE_NAME,
+      APP_NAME,
+      DEPLOYMENT_ID,
+      COMMIT_ID,
+    };
+
+    function syncReadFile(filename) {
+      const contents = readFileSync(filename, "utf-8");
+      let contentsArr = contents.split(/\r?\n/);
+      contentsArr = contentsArr.filter((line) => {
+        return (
+          (line.includes("[INFO]") ||
+            line.includes("[DEBUG]") ||
+            line.includes("✅") ||
+            line.includes("❌")) &&
+          !line.includes("PROGRESS") &&
+          !line.includes("Checking") &&
+          !line.includes("Fetching")
+        );
+      });
+
+      return contentsArr.join("\r\n");
+    }
+
     const awsCredentialCommands = [
       "mkdir -p ~/.aws",
       "touch ~/.aws/credentials",
@@ -104,28 +107,33 @@ function processDeploy(err, data) {
       `cd ~/repos/${GITHUB_REPO}`,
       `npx sst deploy --stage ${STAGE_NAME}`,
     ];
-    execSync(deployCommands.join(" && "), { stdio: "inherit" });
-
-    buildStatusData.STATE = "deployed";
-    buildStatusData.LOGS = syncReadFile(
+    const teardownCommands = [
+      `cd ~/repos/${GITHUB_REPO}`,
+      `npx sst remove --stage ${STAGE_NAME}`,
+    ]
+    const actionCommands = ACTION === 'deploy' ? deployCommands : teardownCommands;
+    execSync(actionCommands.join(' && '), { stdio: 'inherit' });
+  
+    statusData.STATE = ACTION === 'deploy' ? 'deployed' : 'created';
+    statusData.LOGS = syncReadFile(
       `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
     );
-
-    console.log("SUCCESS: APP DEPLOYED!");
+  
+    console.log(ACTION === 'deploy' ? 'SUCCESS: APP DEPLOYED!' : 'SUCCESS: APP TEARDOWN COMPLETE!');
   } catch (e) {
     if (existsSync(`/root/repos/${GITHUB_REPO}/.build/sst-debug.log`)) {
-      buildStatusData.LOGS = syncReadFile(
+      statusData.LOGS = syncReadFile(
         `/root/repos/${GITHUB_REPO}/.build/sst-debug.log`
       );
     } else {
-      buildStatusData.LOGS = e.message;
+      statusData.LOGS = e.message;
     }
-    buildStatusData.STATE = "error";
+    statusData.STATE = 'error';
   }
 
   let postStatusResultPromise = fetch(SET_STATUS_URL, {
-    method: "POST",
-    body: JSON.stringify(buildStatusData),
+    method: "PUT",
+    body: JSON.stringify(statusData),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
@@ -141,3 +149,4 @@ const client = new AWS.SecretsManager({
 });
 
 client.getSecretValue({ SecretId: AWS_SSM_KEY }, processDeploy);
+
