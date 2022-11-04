@@ -22,7 +22,8 @@
     "vitest": "^0.24.3"
   },
   "workspaces": [
-    "services"
+    "services",
+    "client"
   ],
   "dependencies": {
     "@aws-sdk/client-cloudformation": "^3.201.0",

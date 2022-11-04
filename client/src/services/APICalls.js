@@ -110,6 +110,13 @@ const setStageEnvVariables = async ({ stageId, envJSONString }) => {
   });
   return response;
 };
+const setStageNPMCommand = async ({ stageId, npmScriptName }) => {
+  const response = await axios.put(`${API_URL}/npmScriptName`, {
+    stageId,
+    npmScriptName,
+  });
+  return response.data;  
+}
 
 const APICalls = {
   authenticate,
@@ -129,6 +136,8 @@ const APICalls = {
   teardown,
   setStageIamCredentials,
   setStageEnvVariables,
+  setStageNPMCommand,
+  
 };
 
 export default APICalls;

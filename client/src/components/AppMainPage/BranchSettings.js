@@ -2,6 +2,7 @@ import "../../App.css";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import NPMScriptNameInput from "./NPMScriptNameInput";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import { Row } from "react-bootstrap";
@@ -121,7 +122,7 @@ const BranchSettings = ({
           <p>Loading branches</p>
         ) : (
           <>
-            <p>Change git branch for stage {stage.stageName}:</p>
+            <h3>Change git branch for stage {stage.stageName}:</h3>
             <Form onSubmit={handleBranchChangeSubmit}>
               <Form.Select
                 aria-label="branch select"
@@ -144,6 +145,7 @@ const BranchSettings = ({
         <h4>Set per-stage IAM credentials</h4>
         <Form onSubmit={handleIAMCredentialsSubmit}>
           {/* <p className="text-start">IAM Access Key ID:</p> */}
+          <h3>Set per-stage IAM credentials</h3>
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
             <p className="text-start">IAM Access Key:</p>
             <Form.Control
@@ -171,7 +173,6 @@ const BranchSettings = ({
           <h4 className="text-start mb-0">
             Set stage environment variables as a JSON string -{" "}
           </h4>
-        
             <a target="_blank" href="https://jsonformatter.curiousconcept.com/">
               online formatter
             </a>
@@ -199,6 +200,7 @@ const BranchSettings = ({
             </div>
           </Row>
         ) : null}
+        <NPMScriptNameInput stage={stage} stages={stages} setStages={setStages}></NPMScriptNameInput>
       </div>
     </>
   );
