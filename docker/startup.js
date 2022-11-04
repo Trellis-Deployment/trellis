@@ -1,11 +1,6 @@
 const { writeEnv } = require("./utils/writeEnv");
 const { execSync } = require("child_process");
-const {
-  readdirSync,
-  existsSync,
-  readFileSync,
-  promises: fsPromises,
-} = require("fs");
+const { execSync } = require('child_process');
 const AWS = require("aws-sdk");
 
 const ACTION = process.env.ACTION;
@@ -14,12 +9,12 @@ const GITHUB_USER = process.env.GITHUB_USER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
 const STAGE_NAME = process.env.STAGE_NAME;
 const APP_NAME = process.env.APP_NAME;
-const SET_STATUS_URL = process.env.SET_STATUS_URL;
 const DEPLOYMENT_ID = process.env.DEPLOYMENT_ID;
 const COMMIT_ID = process.env.COMMIT_ID || "";
 const AWS_SSM_KEY = process.env.AWS_SSM_KEY;
 const AWS_SSM_ENV = process.env.AWS_SSM_ENV || "";
 const REGION = process.env.REGION;
+const NPM_SCRIPT_NAME = process.env.NPM_SCRIPT_NAME;
 
 console.log({ DEPLOYMENT_ID });
 const statusData = {
@@ -87,6 +82,12 @@ function processDeploy(err, data) {
     const dependencyCommands = [`cd ~/repos/${GITHUB_REPO}`, "npm install"];
     execSync(dependencyCommands.join(" && "), { stdio: "inherit" });
     console.log("SUCCESS: NODE PACKAGE DEPENDENCIES INSTALLED");
+
+    if (NPM_SCRIPT_NAME) {
+      const optionalNPMScriptCommands = [`cd ~/repos/${GITHUB_REPO}`, `npm run ${NPM_SCRIPT_NAME}`]
+      execSync(optionalNPMScriptCommands.join(" && "), { stdio: "inherit" });
+      console.log("SUCCESS: OPTIONAL NPM COMMAND EXECUTED");
+    }
 
     const deployCommands = [
       `cd ~/repos/${GITHUB_REPO}`,

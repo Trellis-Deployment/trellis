@@ -2,6 +2,7 @@ import "../../App.css";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import NPMScriptNameInput from "./NPMScriptNameInput";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import { Row } from "react-bootstrap";
@@ -121,7 +122,7 @@ const BranchSettings = ({
           <p>Loading branches</p>
         ) : (
           <>
-            <p>Change git branch for stage {stage.stageName}:</p>
+            <h4>Change git branch for stage {stage.stageName}:</h4>
             <Form onSubmit={handleBranchChangeSubmit}>
               <Form.Select
                 aria-label="branch select"
@@ -168,10 +169,9 @@ const BranchSettings = ({
         </Form>
         <hr></hr>
         <Form onSubmit={handleEnvVariableSubmit}>
-          <h4 className="text-start mb-0">
-            Set stage environment variables as a JSON string -{" "}
+          <h4>
+            Set stage environment variables as a JSON string{" "}
           </h4>
-        
             <a target="_blank" href="https://jsonformatter.curiousconcept.com/">
               online formatter
             </a>
@@ -192,13 +192,15 @@ const BranchSettings = ({
             {" "}
             <hr></hr>
             <div className="mt-3">
-              <p>{`Would you like to teardown stage ${stage.stageName}?`}</p>
+              <h4>{`Would you like to teardown stage ${stage.stageName}?`}</h4>
               <Button onClick={handleTeardownClick} type="submit">
                 Teardown
               </Button>
             </div>
           </Row>
         ) : null}
+        <hr></hr>
+        <NPMScriptNameInput stage={stage} stages={stages} setStages={setStages}></NPMScriptNameInput>
       </div>
     </>
   );
