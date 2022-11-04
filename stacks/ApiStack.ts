@@ -130,6 +130,8 @@ export function ApiStack({ stack, app }: StackContext) {
       "POST /promote": "functions/promote.main",
       "GET /repoBranches": "functions/getRepoBranches.main",
       "PUT /stageBranch": "functions/setStageBranch.main",
+      "PUT /npmScriptName": "functions/setStageNPMCommand.main",
+
     },
     accessLog: false,
   });
@@ -144,3 +146,4 @@ export function ApiStack({ stack, app }: StackContext) {
     webSocketApi,
   };
 }
+

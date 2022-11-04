@@ -12,6 +12,7 @@ export const createStagesTable = (stack) => {
       stageState: "string",
       lastDeploymentTime: "number",
       lastCommitId: "string",
+      npmScriptName: "string",
     },
     primaryIndex: { partitionKey: "stageId" },
     globalIndexes: {

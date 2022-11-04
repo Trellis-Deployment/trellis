@@ -55,10 +55,6 @@ export const main = handler(async (event, context) => {
               value: data.STAGE_NAME,
             },
             {
-              name: "SET_STATUS_URL",
-              value: data.SET_STATUS_URL,
-            },
-            {
               name: "DEPLOYMENT_ID",
               value: data.DEPLOYMENT_ID,
             },
@@ -73,6 +69,10 @@ export const main = handler(async (event, context) => {
             {
               name: "AWS_SSM_ENV",
               value: data.AWS_SSM_ENV,
+            },
+            {
+              name: "NPM_SCRIPT_NAME",
+              value: data.NPM_SCRIPT_NAME
             },
           ],
           name: CONTAINER,
