@@ -9,7 +9,7 @@ import { useAppContext } from "../Lib/AppContext";
 const CreateApp = () => {
   const [repos, setRepos] = useState([]);
   const [appName, setAppName] = useState("Application name");
-  const [description, setDescription] = useState("Description");
+  const [description, setDescription] = useState("");
   const [accessKey, setAccessKey] = useState("IAM Access Key");
   const [secretKey, setSecretKey] = useState("IAM Secret Key");
   const [repo, setRepo] = useState(undefined);
@@ -31,11 +31,15 @@ const CreateApp = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if(!repo) {
+      alert("Please, select a repo from the provided list");
+      return;
+    }
     const app = {
       appName: appName.replace(" ", "-"),
       userLogin: authUser,
       userId: userId,
-      description,
+      description: description,
       repoName: repo,
       defaultIAMAccessKey: accessKey,
       defaultIAMSecretKey: secretKey,
@@ -73,6 +77,7 @@ const CreateApp = () => {
             <Form.Control
               type="string"
               placeholder="Description"
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>
@@ -85,7 +90,7 @@ const CreateApp = () => {
               onChange={(e) => setRepo(e.target.value)}
               required
             >
-              <option selected>Click here to select a repo</option>
+              <option>Click here to select a repo</option>
               {repos.map((repo, idx) => (
                 <option key={idx}>{repo}</option>
               ))}

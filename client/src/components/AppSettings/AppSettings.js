@@ -6,17 +6,24 @@ import AddUsers from "./AddUsers";
 import DeleteApp
  from "./DeleteApp";
 import { useAppContext } from "../../Lib/AppContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import APICalls from "../../services/APICalls";
 const AppSettings = () => {
-  const [app, setApp] = useState({});
-  const { appId } = useAppContext();
-
+  const [ app, setApp ] = useState();
+  const [ appDescription, setAppDescription ] = useState();
+  const [ appRepo, setAppRepo ] = useState();
+  const [ appUsers, setAppUsers ] = useState();
+  const { appId, appName, setAppName } = useAppContext();
+  
   useEffect(() => {
     const getApp = async() => {
       try {
         const app = await APICalls.getApp(appId);
         setApp(app);
+        setAppDescription(app.description);
+        setAppRepo(app.repoName);
+        setAppUsers(app.appUsers);
+        setAppName(app.appName);
       } catch(e) {
         if(e.response.data) {
           alert(e.response.data.error);
@@ -26,20 +33,19 @@ const AppSettings = () => {
       }
     }
     getApp();
-  }, [appId]);
+  }, [appId, appUsers, appRepo, appDescription]);
 
-  console.log({app});
 
   return (
     <div className="container pipes mt-3 mid-card holder">
     <div className="row">
       <div className="col pipeline-title mt-1">Settings</div>
     </div>
-    <AppName appName={app.appName}></AppName>
-    <GitRepo repo={app.repoName}></GitRepo>
-    <AppDescription description={app.description}></AppDescription>
+    <AppName appName={appName} setAppName={setAppName}></AppName>
+    <GitRepo repo={appRepo} setRepo={setAppRepo}></GitRepo>
+    <AppDescription description={appDescription} setDescription={setAppDescription} app={app}></AppDescription>
     <UnitTest></UnitTest>
-    <AddUsers users={app.users}></AddUsers>
+    <AddUsers users={appUsers} setUsers={setAppUsers}></AddUsers>
     <DeleteApp></DeleteApp>
   </div>
   );
