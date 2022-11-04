@@ -34,6 +34,7 @@ export const main = handler(async (event, context) => {
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,
       COMMIT_ID: commitId,
+      NPM_SCRIPT_NAME: stage.npmScriptName,
     };
 
     console.log({ buildData });

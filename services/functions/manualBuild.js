@@ -37,6 +37,7 @@ export const main = handler(async (event) => {
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,
       COMMIT_ID: commitId,
+      NPM_SCRIPT_NAME: stage.npmScriptName,
     };
     await invokeBuildFunction(data, stage, commitId);
     const updatedStages = await getStagesByAppId(stage.appId);

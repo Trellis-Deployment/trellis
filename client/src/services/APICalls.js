@@ -115,7 +115,7 @@ const setStageNPMCommand = async ({ stageId, npmScriptName }) => {
     stageId,
     npmScriptName,
   });
-  return response.data;  
+  return response;  
 }
 
 const APICalls = {

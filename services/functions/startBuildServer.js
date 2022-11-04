@@ -70,6 +70,10 @@ export const main = handler(async (event, context) => {
               name: "AWS_SSM_ENV",
               value: data.AWS_SSM_ENV,
             },
+            {
+              name: "NPM_SCRIPT_NAME",
+              value: data.NPM_SCRIPT_NAME
+            },
           ],
           name: CONTAINER,
         },

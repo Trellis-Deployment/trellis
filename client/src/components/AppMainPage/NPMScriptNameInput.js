@@ -1,9 +1,8 @@
 import "../../App.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-// import { useAppContext } from "../../Lib/AppContext";
-// import APICalls from "../../services/APICalls";
+import APICalls from "../../services/APICalls";
 
 const NPMScriptNameInput = ({stage, stages, setStages}) => {
   const [npmScriptName, setNPMScriptName] = useState(stage.npmScriptName);
@@ -11,13 +10,23 @@ const NPMScriptNameInput = ({stage, stages, setStages}) => {
 
   const handleNPMScriptNameChangeSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmissionSaved(false);
     try {
-      setIsSubmissionSaved(false);
-      console.log(npmScriptName)
-      setTimeout(() => setIsSubmissionSaved(true), 3000);
+      const response = await APICalls.setStageNPMCommand({stageId: stage.stageId, npmScriptName});
+      if (response.status === 200) {
+        const responseData = JSON.parse(response.data);
+        console.log(responseData);
+        const updatedStages = stages.map((s) =>
+        s.stageId === stage.stageId
+          ? { ...s, ...responseData }
+          : s
+        );
+        setStages(updatedStages)
+      }
     } catch (e) {
       console.log(e.message)
     }
+    setIsSubmissionSaved(true);
   }
 
   return (
@@ -33,7 +42,7 @@ const NPMScriptNameInput = ({stage, stages, setStages}) => {
       onChange={(e) => setNPMScriptName(e.target.value)}
     >
     </Form.Control>
-    <Button variant="primary" type="submit" disabled={!isSubmissionSaved}>
+    <Button variant="primary" type="submit" disabled={!isSubmissionSaved || npmScriptName === stage.npmScriptName}>
       Submit
     </Button>
   </Form>
