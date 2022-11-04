@@ -13,17 +13,17 @@ const AppSettings = () => {
   const [ appDescription, setAppDescription ] = useState();
   const [ appRepo, setAppRepo ] = useState();
   const [ appUsers, setAppUsers ] = useState();
-  const { appId, appName, setAppName } = useAppContext();
+  const { appId } = useAppContext();
   
   useEffect(() => {
     const getApp = async() => {
       try {
         const app = await APICalls.getApp(appId);
         setApp(app);
-        setAppDescription(app.description);
-        setAppRepo(app.repoName);
-        setAppUsers(app.appUsers);
-        setAppName(app.appName);
+        // setAppDescription(app.description);
+        // setAppRepo(app.repoName);
+        // setAppUsers(app.appUsers);
+        // setAppName(app.appName);
       } catch(e) {
         if(e.response.data) {
           alert(e.response.data.error);
@@ -33,7 +33,7 @@ const AppSettings = () => {
       }
     }
     getApp();
-  }, [appId, appUsers, appRepo, appDescription]);
+  }, [appId]);
 
 
   return (
@@ -41,12 +41,18 @@ const AppSettings = () => {
     <div className="row">
       <div className="col pipeline-title mt-1">Settings</div>
     </div>
-    <AppName appName={appName} setAppName={setAppName}></AppName>
-    <GitRepo repo={appRepo} setRepo={setAppRepo}></GitRepo>
-    <AppDescription description={appDescription} setDescription={setAppDescription} app={app}></AppDescription>
-    <UnitTest></UnitTest>
-    <AddUsers users={appUsers} setUsers={setAppUsers}></AddUsers>
-    <DeleteApp></DeleteApp>
+    {
+    app ?
+      <>
+        <AppName></AppName>
+        <GitRepo></GitRepo>
+        <AppDescription setApp={setApp} app={app}></AppDescription>
+        <UnitTest></UnitTest>
+        <AddUsers></AddUsers>
+        <DeleteApp></DeleteApp>
+      </> :
+      null
+    }
   </div>
   );
 }

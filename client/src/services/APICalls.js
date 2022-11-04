@@ -99,6 +99,11 @@ const setStageEnvVariables = async ({ stageId, envJSONString }) => {
   return response;
 };
 
+const putApp = async(app) => {
+  const response = await axios.put(`${API_URL}/app/${app.appId}`, app);
+  return response.data;
+}
+
 const APICalls = {
   getRepos,
   getApp,
@@ -116,6 +121,7 @@ const APICalls = {
   teardown,
   setStageIamCredentials,
   setStageEnvVariables,
+  putApp,
 };
 
 export default APICalls;
