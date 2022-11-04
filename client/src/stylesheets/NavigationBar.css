@@ -58,7 +58,7 @@
 } */
 
 .animate-nav {
-  background: linear-gradient(-45deg, #002050,#1F96FF, #1F96FF);
+  background: linear-gradient(-45deg, #002050,#1F96FF, #1F96FF, rgb(0, 213, 255), #1F96FF);
   background-size: 400% 400%;
   animation: gradient 20s ease infinite;
 }
