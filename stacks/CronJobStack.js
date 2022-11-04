@@ -6,7 +6,7 @@ export function CronJobStack({ stack }) {
   const { users } = use(StorageStack);
 
   const githubTokenRefresh = new Cron(stack, "GithubTokenRefresh", {
-    schedule: 'rate(1 minute)',
+    schedule: 'rate(7 hours)',
     job: {
       function: {
         permissions: [users],
