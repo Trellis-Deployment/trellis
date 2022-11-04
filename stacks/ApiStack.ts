@@ -8,14 +8,19 @@ import {
 import { StorageStack } from "./StorageStack";
 import { BuildServerStack } from "./BuildServerStack";
 import config from "../util/config";
-import * as destinations from 'aws-cdk-lib/aws-logs-destinations';
-import * as logs from 'aws-cdk-lib/aws-logs';
+import * as destinations from "aws-cdk-lib/aws-logs-destinations";
+import * as logs from "aws-cdk-lib/aws-logs";
 
 export function ApiStack({ stack, app }: StackContext) {
-  const { users, apps, stages, deployments, storeAWSCredentialsLambda } =
-    use(StorageStack);
   const { buildFunction, logGroup } = use(BuildServerStack);
-
+  const {
+    users,
+    apps,
+    stages,
+    deployments,
+    storeAWSCredentialsLambda,
+    storeEnvLambda,
+  } = use(StorageStack);
 
   const Client_ID = config.Client_ID ? config.Client_ID : "undefined";
   const Client_secret = config.Client_secret || "undefined";
@@ -66,15 +71,15 @@ export function ApiStack({ stack, app }: StackContext) {
       WEB_SOCKET_LAMBDA_NAME: webSocketMessage.functionName,
       REGION: config.Region,
       WEB_SOCKET_URL: webSocketApi.url,
-    }
+    },
   });
 
-  new logs.SubscriptionFilter(this, 'buildContainerSubscription', {
+  new logs.SubscriptionFilter(this, "buildContainerSubscription", {
     logGroup,
     destination: new destinations.LambdaDestination(logEventResponseLambda),
     filterPattern: logs.FilterPattern.allEvents(),
   });
-  
+
   const api = new Api(stack, "Api", {
     defaults: {
       function: {
@@ -86,8 +91,10 @@ export function ApiStack({ stack, app }: StackContext) {
           buildFunction,
           webSocketMessage,
           storeAWSCredentialsLambda,
+          storeEnvLambda,
         ],
         environment: {
+          REGION: stack.region,
           USERS_TABLE_NAME: users.tableName,
           APPS_TABLE_NAME: apps.tableName,
           STAGES_TABLE_NAME: stages.tableName,
@@ -99,7 +106,7 @@ export function ApiStack({ stack, app }: StackContext) {
           WEB_SOCKET_URL: webSocketApi.url,
           STORE_AWS_CREDENTIALS_LAMBDA_NAME:
             storeAWSCredentialsLambda.functionName,
-          REGION: config.Region,
+          STORE_ENV_LAMBDA_NAME: storeEnvLambda.functionName,
         },
       },
     },
@@ -117,6 +124,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "POST /build": "functions/manualBuild.main",
       "POST /setStatus": "functions/setDeploymentStatus.main",
       "POST /stageCredentials": "functions/setStageCredentials.main",
+      "POST /stageEnv": "functions/setStageEnv.main",
       "POST /teardown": "functions/teardown.main",
       "PUT /stageStatus": "functions/setStageStatus.main",
       "POST /promote": "functions/promote.main",
@@ -125,7 +133,6 @@ export function ApiStack({ stack, app }: StackContext) {
     },
     accessLog: false,
   });
-
 
   stack.addOutputs({
     ApiEndpoint: api.url,

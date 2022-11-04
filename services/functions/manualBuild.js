@@ -9,9 +9,15 @@ import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 export const main = handler(async (event) => {
   let { userId, appName, stageId } = JSON.parse(event.body);
 
-  const { stage, token, user, stageName, repoName, IAMCredentialsLocation } = await getDataForManualDeployment({ userId, appName, stageId });
+  const { stage, token, user, stageName, repoName, IAMCredentialsLocation } =
+    await getDataForManualDeployment({ userId, appName, stageId });
 
-  const lastCommit = await githubCalls.getLastBranchCommit({ token, userLogin: user, repo: repoName, branch: stage.stageBranch });
+  const lastCommit = await githubCalls.getLastBranchCommit({
+    token,
+    userLogin: user,
+    repo: repoName,
+    branch: stage.stageBranch,
+  });
   const commitId = lastCommit.sha;
 
   const deployment = await createDeployment({
@@ -22,7 +28,8 @@ export const main = handler(async (event) => {
   try {
     const data = {
       AWS_SSM_KEY: IAMCredentialsLocation,
-      ACTION: 'deploy',
+      AWS_SSM_ENV: stage.envLocation,
+      ACTION: "deploy",
       GITHUB_X_ACCESS_TOKEN: token,
       GITHUB_USER: user,
       GITHUB_REPO: repoName,
@@ -35,7 +42,7 @@ export const main = handler(async (event) => {
     await invokeBuildFunction(data, stage, commitId);
     const updatedStages = await getStagesByAppId(stage.appId);
     await invokeWebSocketMessage({ userId, updatedStages });
-    return "success"
+    return "success";
   } catch (e) {
     console.log(e.message);
     return e.message;
