@@ -1,7 +1,17 @@
-const { execSync } = require("child_process");
+import {execSync} from "child_process";
+import getRawSecret from "./getSecret";
 
-const writeEnv = (envObject, GITHUB_REPO) => {
+const writeEnv = async (AWS_ENV_KEY, region, GITHUB_REPO) => {
+  if (AWS_ENV_KEY === "") {
+    console.log("SKIPPED: NO ENV FILE WRITTEN");
+    return
+  }
+  let envString = await getRawSecret(AWS_ENV_KEY, region)
+
+  let envObject = JSON.parse(envString);
+
   if (!envObject) {
+    console.log("SKIPPED: NO ENV FILE WRITTEN");
     return;
   }
 
@@ -9,10 +19,8 @@ const writeEnv = (envObject, GITHUB_REPO) => {
   Object.entries(envObject).forEach(([key, value]) => {
     writeEnvCommands.push(`echo ${key} = ${value} >> .env`);
   });
-  execSync(writeEnvCommands.join(" && "), { stdio: "inherit" });
+  execSync(writeEnvCommands.join(" && "), {stdio: "inherit"});
   console.log("SUCCESS: ENV FILE WRITTEN");
 };
 
-module.exports = {
-  writeEnv,
-};
+export default writeEnv
