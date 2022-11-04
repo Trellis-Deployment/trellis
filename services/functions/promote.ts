@@ -11,17 +11,17 @@ import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 interface eventData {
   targetStageId: "string";
   userId: "string";
-  appName: "string";
+  appId: "string";
   sourceCommitId: "string";
 }
 
 export const main = handler(async (event: APIGatewayProxyEventV2) => {
   const parsedEvent: eventData = JSON.parse(event.body);
-  const { targetStageId, userId, appName, sourceCommitId } = parsedEvent;
-  const { stage, token, user, stageName, repoName } = await getDataForPromotion(
+  const { targetStageId, userId, appId, sourceCommitId } = parsedEvent;
+  const { stage, token, user, stageName, repoName, appName } = await getDataForPromotion(
     {
       userId,
-      appName,
+      appId,
       targetStageId,
     }
   );

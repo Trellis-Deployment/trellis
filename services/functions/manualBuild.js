@@ -7,10 +7,14 @@ import getStagesByAppId from "../util/stagesTableUtils/getStagesByAppId";
 import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 
 export const main = handler(async (event) => {
-  let { userId, appName, stageId } = JSON.parse(event.body);
+  let { userId, appId, stageId } = JSON.parse(event.body);
 
+<<<<<<< HEAD
   const { stage, token, user, stageName, repoName, IAMCredentialsLocation } =
     await getDataForManualDeployment({ userId, appName, stageId });
+=======
+  const { stage, token, user, stageName, repoName, IAMCredentialsLocation, appName } = await getDataForManualDeployment({ userId, appId, stageId });
+>>>>>>> 23cdcd0 (edited multiple functions to support different users for the app)
 
   const lastCommit = await githubCalls.getLastBranchCommit({
     token,
