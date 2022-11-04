@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
+import { Row } from "react-bootstrap";
 
 const BranchSettings = ({
   stage,
@@ -17,6 +18,7 @@ const BranchSettings = ({
   const [iamAccessKeyId, setIamAccessKeyId] = useState("");
   const [iamSecretAccessKey, setIamSecretAccessKey] = useState("");
   const [envVariablesString, setEnvVariablesString] = useState("");
+  const [teardownVisible, setTeardownVisible] = useState(false);
 
   useEffect(() => {
     const loadBranches = async () => {
@@ -28,6 +30,9 @@ const BranchSettings = ({
       }
     };
     loadBranches();
+    if (stage.stageState === "deployed") {
+      setTeardownVisible(true);
+    }
   }, [appName, userId]);
 
   const handleScreenClick = (e) => {
@@ -82,10 +87,36 @@ const BranchSettings = ({
       console.log(``);
     }
   };
+
+  const handleTeardownClick = async (e) => {
+    try {
+      const response = await APICalls.teardown({
+        stageId: stage.stageId,
+        userId,
+        appName,
+        commitId: stage.lastCommitId,
+      });
+
+      if (response.status === 200) {
+        setTeardownVisible(false);
+        console.log("data: ", response.data);
+        const responseData = JSON.parse(response.data);
+        const updatedStages = stages.map((s) =>
+          s.stageId === stage.stageId ? { ...s, ...responseData } : s
+        );
+        setStages(updatedStages);
+      }
+    } catch (e) {
+      console.log(
+        `error requesting teardown of stage ${stage.stageName}: ${e.message}`
+      );
+    }
+  };
+
   return (
     <>
       <div className="screen" onClick={handleScreenClick}></div>
-      <div className="modal">
+      <div className="modal holder main-modal p-3 m-3">
         {repoBranches.length === 0 ? (
           <p>Loading branches</p>
         ) : (
@@ -106,15 +137,15 @@ const BranchSettings = ({
               <Button variant="primary" type="submit">
                 Submit
               </Button>
+              <hr></hr>
             </Form>
           </>
         )}
-        <hr></hr>
+        <h4>Set per-stage IAM credentials</h4>
         <Form onSubmit={handleIAMCredentialsSubmit}>
-          <h3>Set per-stage IAM credentials</h3>
           <p className="text-start">IAM Access Key ID:</p>
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
-            <p className="text-start pt-1">IAM Access Key:</p>
+            <p className="text-start">IAM Access Key:</p>
             <Form.Control
               type="password"
               placeholder="IAM Access Key"
@@ -153,6 +184,18 @@ const BranchSettings = ({
             Submit
           </Button>
         </Form>
+        {teardownVisible ? (
+          <Row className="text-center">
+            {" "}
+            <hr></hr>
+            <div className="mt-3">
+              <p>{`Would you like to teardown stage ${stage.stageName}?`}</p>
+              <Button onClick={handleTeardownClick} type="submit">
+                Teardown
+              </Button>
+            </div>
+          </Row>
+        ) : null}
       </div>
     </>
   );
