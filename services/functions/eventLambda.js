@@ -68,6 +68,7 @@ export const main = async (event, context, callback) => {
   const appPromise = getAppByAppId(stage.appId);
   const updatedStagesPromise = getStagesByAppId(stage.appId);
   const [updatedDeployment, app, updatedStages] = await Promise.all([updateDeploymentState, appPromise, updatedStagesPromise]);
+  
   let promises =  [invokeWebSocketMessage({userId: app.userId, updatedStages})];
   app.users.forEach(userId => promises.push(invokeWebSocketMessage({userId, updatedStages})))
   await Promise.all(promises);
