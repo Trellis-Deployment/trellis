@@ -25,6 +25,7 @@ const createAppFromData = async (data) => {
       description: data.description,
       repoName: data.repoName,
       defaultIAMCredentialsLocation: data.defaultIAMCredentialsLocation,
+      users: [],
     },
   };
 

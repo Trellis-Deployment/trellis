@@ -6,7 +6,7 @@ import setStageBranch from '../util/stagesTableUtils/setStageBranch';
 
 export const main = handler(async (event) => {
   const data = event.body ? JSON.parse(event.body) : null;
-  const { stageId, branch, userId, appName } = data;
+  const { stageId, branch } = data;
 
   try {
     await setStageBranch({ stageId, branch });

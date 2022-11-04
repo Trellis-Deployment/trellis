@@ -11,7 +11,7 @@ const AppStage = ({ stage, setStages, stages }) => {
 
   const handleDeployClick = async (e, stageId) => {
     e.preventDefault();
-    await APICalls.buildStage({ userId, appName, stageId });
+    await APICalls.buildStage({ userId, stageId, appId });
     const data = await APICalls.getStages(appId);
     setStages(data);
   };
@@ -23,7 +23,7 @@ const AppStage = ({ stage, setStages, stages }) => {
     await APICalls.promoteStage({
       targetStageId: prodStageId,
       userId,
-      appName,
+      appId,
       sourceCommitId: stage.lastCommitId,
     });
     const data = await APICalls.getStages(appId);

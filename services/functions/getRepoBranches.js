@@ -1,14 +1,15 @@
 import githubCalls from "util/github/githubCalls";
 import getTokenByUserId from "util/usersTableUtils/getTokenByUserId";
-import getAppByUserAndAppName from "util/appsTableUtils/getAppByUserAndAppName";
 import handler from "../util/templates/handler";
+import getAppByAppId from "util/appsTableUtils/getAppByAppId";
 
+// Assumes that any user that has access to Trellis app has access to its repo
 export const main = handler(async (event) => {
   const userId = event["queryStringParameters"]['userId'];
-  const appName = event["queryStringParameters"]['appName'];
+  const appId = event["queryStringParameters"]['appId'];
   
   try {
-    const appPromise = getAppByUserAndAppName({ userId, appName });
+    const appPromise = getAppByAppId(appId);
     const tokenPromise = getTokenByUserId(userId);
     const [app, token] = await Promise.all([appPromise, tokenPromise]);
 
