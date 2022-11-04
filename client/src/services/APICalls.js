@@ -22,6 +22,11 @@ const getApps = async (userId) => {
   return response.data;
 };
 
+const getApp = async(appId) => {
+  const response = await axios.get(`${API_URL}/app/${appId}`);
+  return response.data;
+}
+
 const postApps = async (app) => {
   const response = await axios.post(`${API_URL}/apps`, app);
   console.log(response);
@@ -96,6 +101,7 @@ const setStageEnvVariables = async ({ stageId, envJSONString }) => {
 
 const APICalls = {
   getRepos,
+  getApp,
   getApps,
   postApps,
   signup,
