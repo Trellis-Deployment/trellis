@@ -140,8 +140,7 @@ try {
           throw err;
       }
 
-      let parsed = JSON.parse(data.SecretString);
-      envObject = JSON.parse(parsed["env"]);
+      envObject = JSON.parse(data.SecretString);
       client.getSecretValue({ SecretId: AWS_SSM_KEY }, processDeploy);
     });
   } else {
