@@ -49,7 +49,6 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
       GITHUB_USER: user,
       GITHUB_REPO: repoName,
       STAGE_NAME: stageName,
-      SET_STATUS_URL: `https://${event.headers.host}/stageStatus`,
       COMMIT_ID: sourceCommitId,
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,

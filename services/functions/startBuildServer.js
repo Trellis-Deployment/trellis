@@ -55,10 +55,6 @@ export const main = handler(async (event, context) => {
               value: data.STAGE_NAME,
             },
             {
-              name: "SET_STATUS_URL",
-              value: data.SET_STATUS_URL,
-            },
-            {
               name: "DEPLOYMENT_ID",
               value: data.DEPLOYMENT_ID,
             },

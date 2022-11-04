@@ -34,7 +34,6 @@ export const main = handler(async (event) => {
       GITHUB_USER: user,
       GITHUB_REPO: repoName,
       STAGE_NAME: stageName,
-      SET_STATUS_URL: `https://${event.headers.host}/stageStatus`,
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,
       COMMIT_ID: commitId,
