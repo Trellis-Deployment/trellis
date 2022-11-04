@@ -20,12 +20,13 @@
 .logs {
   background-color:#002050;
   color: white;
-  min-height: 90px;
+  min-height: 120px;
   margin: auto;
   border-radius: 7px;
   font-size: 15px;
   border-color: aliceblue;
   font-family: monospace;
+  font-size: 12px;
 }
 
 .presenter {

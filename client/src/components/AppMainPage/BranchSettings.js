@@ -134,7 +134,7 @@ const BranchSettings = ({
                   </option>
                 ))}
               </Form.Select>
-              <Button variant="primary" type="submit">
+              <Button variant="primary mt-2" type="submit">
                 Submit
               </Button>
               <hr></hr>
@@ -143,7 +143,7 @@ const BranchSettings = ({
         )}
         <h4>Set per-stage IAM credentials</h4>
         <Form onSubmit={handleIAMCredentialsSubmit}>
-          <p className="text-start">IAM Access Key ID:</p>
+          {/* <p className="text-start">IAM Access Key ID:</p> */}
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
             <p className="text-start">IAM Access Key:</p>
             <Form.Control
@@ -168,19 +168,22 @@ const BranchSettings = ({
         </Form>
         <hr></hr>
         <Form onSubmit={handleEnvVariableSubmit}>
-          <h3>
+          <h4 className="text-start mb-0">
             Set stage environment variables as a JSON string -{" "}
+          </h4>
+        
             <a target="_blank" href="https://jsonformatter.curiousconcept.com/">
               online formatter
             </a>
-          </h3>
           <Form.Control
             type="textarea"
+            className="mt-1"
             placeholder="JSON-formatted ENV variables"
             required
             onChange={(e) => setEnvVariablesString(e.target.value)}
           />
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit"
+          className="mt-2">
             Submit
           </Button>
         </Form>
