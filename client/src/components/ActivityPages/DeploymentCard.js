@@ -2,6 +2,7 @@ import "../../stylesheets/AppActivity.css";
 import { Row, Card, Col, Button } from "react-bootstrap";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
+import Logs from "./Logs";
 
 const DeploymentCard = ({
   deployment,
@@ -29,6 +30,7 @@ const DeploymentCard = ({
   };
 
   return (
+    <>
     <Row className="d-flex">
       <Col className="activity-row m-1 row col-auto">
         <Col>
@@ -52,16 +54,10 @@ const DeploymentCard = ({
         )}
       </Col>
 
-      <div className="row m-1 form-floating">
-        <div className="text-start ps-0 pt-1 presenter">Logs:</div>
-        <textarea
-          className="logs my-1"
-          id="floatingTextarea"
-          value={deployment.logs}
-          readOnly
-        ></textarea>
-      </div>
+
     </Row>
+        <Logs logs={deployment.logs} ></Logs>
+    </>
   );
 };
 
