@@ -124,6 +124,16 @@ const getLastBranchCommit = async ({token, userLogin, repo, branch}) => {
   }
 }
 
+const refreshTokens = async ({refreshToken}) => {
+  const refreshURL = `https://github.com/login/oauth/access_token?client_id=${process.env.Client_ID}&client_secret=${process.env.Client_secret}&grant_type=refresh_token&refresh_token=${refreshToken}`
+  try {
+    const response = await axios.post(refreshURL);
+    return response.data;
+  } catch (e) {
+    console.log('Error refreshing github token: ', e.message);
+  }
+}
+
 const githubCalls = {
   getAccessToken,
   getUserInfo,
@@ -132,6 +142,7 @@ const githubCalls = {
   getCommits,
   getBranches,
   getLastBranchCommit,
+  refreshTokens,
 
 };
 

@@ -29,11 +29,34 @@ export function StorageStack({ stack, app }: StackContext) {
       statements: [writeSecretsPolicy],
     })
   );
+
+  const storeEnvLambda = new Function(stack, "storeEnvForStage", {
+    handler: "functions/storeStageEnvInSSM.main",
+    timeout: 10,
+    environment: {
+      ACCOUNT: stack.account,
+    },
+  });
+
+  const updateSecretsPolicy = new iam.PolicyStatement({
+    actions: ["secretsmanager:UpdateSecret"],
+    resources: [
+      `arn:aws:secretsmanager:${stack.region}:${stack.account}:secret:trellis/*`,
+    ],
+  });
+
+  storeEnvLambda.role?.attachInlinePolicy(
+    new iam.Policy(stack, "write-update-ssm-secrets", {
+      statements: [writeSecretsPolicy, updateSecretsPolicy],
+    })
+  );
+
   return {
     users,
     apps,
     stages,
     deployments,
     storeAWSCredentialsLambda,
+    storeEnvLambda,
   };
 }

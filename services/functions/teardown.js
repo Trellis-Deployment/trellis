@@ -3,7 +3,8 @@ import getDataForManualDeployment from "../util/deployment/getDataForManualDeplo
 import invokeBuildFunction from "../util/deployment/invokeBuildFunction";
 import createDeployment from "util/deploymentsTableUtils/createDeployment";
 import githubCalls from "util/github/githubCalls";
-
+import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
+import getStagesByAppId from "util/stagesTableUtils/getStagesByAppId";
 export const main = handler(async (event) => {
   let { userId, appName, stageId, commitId } = JSON.parse(event.body);
   const { stage, token, user, stageName, repoName, IAMCredentialsLocation } = await getDataForManualDeployment({ userId, appName, stageId });
@@ -30,6 +31,8 @@ export const main = handler(async (event) => {
     };
     
     await invokeBuildFunction(data, stage, commitId);
+    const updatedStages = await getStagesByAppId(stage.appId);
+    await invokeWebSocketMessage({ userId, updatedStages });
     return JSON.stringify({ stageState: 'tearingDown' });
   } catch(e) {
     console.log(e.message);

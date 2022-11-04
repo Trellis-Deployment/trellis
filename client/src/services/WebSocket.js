@@ -16,7 +16,6 @@ class WebSocket {
   }
 
   connectionClosed(e) {
-    console.log({e});
     console.log('WebSocket Connection is closed')
   }
 
@@ -29,8 +28,6 @@ class WebSocket {
       console.log("messaged received");
       const updatedStages = JSON.parse(e.data);
       if (currentClass.appId !== updatedStages[0].appId) {
-        console.log({currentAppID: currentClass.appId});
-        console.log({receivedAppId: updatedStages[0].appId});
         return;
       }
       currentClass.setStages(updatedStages);
