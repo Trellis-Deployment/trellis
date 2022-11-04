@@ -37,9 +37,9 @@ const NPMScriptNameInput = ({stage, stages, setStages}) => {
   
   return (
     <>
-    <h3>Choose an optional NPM command to be executed before deployment:</h3>
+    <h4>Choose an optional NPM command to be executed before deployment:</h4>
     <Form onSubmit={handleNPMScriptNameChangeSubmit}>
-    <Form.Label>e.g. enter 'test' for 'npm run test'</Form.Label>
+    <p className="text-start">e.g. enter 'test' for 'npm run test'</p>
     <Form.Control
       aria-label="npm script input"
       placeholder="npm command name"
