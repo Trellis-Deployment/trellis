@@ -6,7 +6,6 @@ import Waiting from "../Resources/Trellis_house.jpg";
 import Image from "react-bootstrap/Image";
 import { useAppContext } from "../Lib/AppContext";
 import { PersonPlusFill } from "react-bootstrap-icons";
-import {ReactComponent as DefaultImg} from "../Resources/trellis_hollow0.svg";
 
 const GitRedirect = () => {
   const [searchParams] = useSearchParams();
@@ -59,18 +58,12 @@ const GitRedirect = () => {
           </div>
         </header>
         <div className="text-center">
-          <div className="spinner-grow" role="status">
-            <PersonPlusFill color="black" size={30}></PersonPlusFill>
-          </div>
+        <div className="spinner-grow" role="status"><PersonPlusFill color="black" size={30}></PersonPlusFill></div>
           <h3 className="box text-dark p-1">
             {authenticated
               ? `Congratulations you signed in`
               : `Waiting for Authentication`}
           </h3>
-        </div>
-        <div>
-        </div>
-        <div className="App">
         </div>
       </div>
     </div>
