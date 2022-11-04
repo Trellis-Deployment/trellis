@@ -1,6 +1,7 @@
 import handler from "../util/templates/handler";
 import setStageEnvLocation from "../util/stagesTableUtils/setStageEnvLocation";
 import getStageById from "util/stagesTableUtils/getStageById";
+import { v4 as uuidv4 } from "uuid";
 import AWS from "aws-sdk";
 
 const REGION = process.env.REGION;
@@ -23,15 +24,16 @@ export const main = handler(async (event) => {
       FunctionName: process.env.STORE_ENV_LAMBDA_NAME,
       InvocationType: "Event",
       LogType: "Tail",
-      Payload: {
+      Payload: JSON.stringify({
         region: REGION,
         secretName,
         envJSONString,
         update,
-      },
+      }),
     };
     await lambda.invoke(params).promise();
-    await setStageEnvLocation(stageId, secretName);
+    let envLocation = secretName;
+    await setStageEnvLocation(stageId, envLocation);
     return "Environment variables updated";
   } catch (e) {
     console.log(e.message);
