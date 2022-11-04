@@ -21,12 +21,13 @@ const AppActivity = () => {
       newWebSocket.endConnection(userId);
     };
   }, [appId, userId]);
+
+
   return (
     <div className="container pipes mt-3 mid-card holder">
       <div className="row">
         <div className="col pipeline-title mt-1">Activity</div>
       </div>
-      <div className="col m-0">
         <div className="mx-0 row card-back">
           {stages.map((stage) => (
             <StageDeploymentCard
@@ -35,7 +36,6 @@ const AppActivity = () => {
             ></StageDeploymentCard>
           ))}
         </div>
-      </div>
     </div>
   );
 };
