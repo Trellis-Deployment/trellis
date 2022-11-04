@@ -53,15 +53,15 @@ const getStageStatus = async ({ stageId }) => {
   return response.data;
 };
 
-const getRepoBranches = async ({ userId, appName }) => {
+const getRepoBranches = async ({ userId, appId }) => {
   const response = await axios.get(
-    `${API_URL}/repoBranches?userId=${userId}&appName=${appName}`
+    `${API_URL}/repoBranches?userId=${userId}&appId=${appId}`
   );
   return response.data;
 };
 
-const teardown = async({ userId, appName, stageId, commitId }) => {
-  const response = await axios.post(`${API_URL}/teardown`, { userId, appName, stageId, commitId });
+const teardown = async({ userId, appId, stageId, commitId }) => {
+  const response = await axios.post(`${API_URL}/teardown`, { userId, appId, stageId, commitId });
   return response
 }
 

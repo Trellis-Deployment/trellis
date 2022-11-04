@@ -6,8 +6,8 @@ import githubCalls from "util/github/githubCalls";
 import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 import getStagesByAppId from "util/stagesTableUtils/getStagesByAppId";
 export const main = handler(async (event) => {
-  let { userId, appName, stageId, commitId } = JSON.parse(event.body);
-  const { stage, token, user, stageName, repoName, IAMCredentialsLocation } = await getDataForManualDeployment({ userId, appName, stageId });
+  let { userId, appId, stageId, commitId } = JSON.parse(event.body);
+  const { stage, token, user, stageName, repoName, IAMCredentialsLocation, appName } = await getDataForManualDeployment({ userId, appId, stageId });
 
   if (!commitId) {
     const lastCommit = await githubCalls.getLastBranchCommit({ token, userLogin: user, repo: repoName, branch: stage.stageBranch });

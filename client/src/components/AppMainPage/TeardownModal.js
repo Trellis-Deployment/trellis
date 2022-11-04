@@ -4,7 +4,7 @@ import APICalls from '../../services/APICalls';
 import '../../App.css';
 
 const TeardownModal = ({ stage, setTeardownVisible, stages, setStages }) => {
-  const { appName, userId } = useAppContext();
+  const { userId, appId } = useAppContext();
 
   const handleScreenClick = (e) => {
     if (e.target.classList.contains('screen')) {
@@ -14,7 +14,7 @@ const TeardownModal = ({ stage, setTeardownVisible, stages, setStages }) => {
 
   const handleTeardownClick = async (e) => {
     try {
-      const response = await APICalls.teardown({ stageId: stage.stageId, userId, appName, commitId: stage.lastCommitId });
+      const response = await APICalls.teardown({ stageId: stage.stageId, userId, appId, commitId: stage.lastCommitId });
       
       if (response.status === 200) {
         setTeardownVisible(false);

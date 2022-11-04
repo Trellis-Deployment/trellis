@@ -11,7 +11,7 @@ const BranchSettings = ({
   stages,
   setStages,
 }) => {
-  const { appName, userId } = useAppContext();
+  const { appName, userId, appId } = useAppContext();
   const [repoBranches, setRepoBranches] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState(stage.stageBranch);
   const [iamAccessKeyId, setIamAccessKeyId] = useState("");
@@ -20,7 +20,7 @@ const BranchSettings = ({
   useEffect(() => {
     const loadBranches = async () => {
       try {
-        const branches = await APICalls.getRepoBranches({ userId, appName });
+        const branches = await APICalls.getRepoBranches({ userId, appId });
         setRepoBranches(branches);
       } catch (e) {
         console.log(`error fetching repo branches for app ${appName}`, e);
