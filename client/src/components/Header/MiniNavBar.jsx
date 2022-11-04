@@ -20,7 +20,9 @@ function MiniNavigationBar() {
         </LinkContainer>
         <Nav.Link>Issues</Nav.Link>
         <Nav.Link>Resources</Nav.Link>
-        <Nav.Link>Settings</Nav.Link>
+        <LinkContainer to={`/application/${appName}/settings`}>
+          <Nav.Link>Settings</Nav.Link>
+        </LinkContainer> 
       </Nav>
     </Navbar>
   );

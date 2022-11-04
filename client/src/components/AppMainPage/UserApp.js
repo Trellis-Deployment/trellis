@@ -9,7 +9,7 @@ import WebSocket from "../../services/WebSocket";
 
 const UserApp = () => {
   const [stages, setStages] = useState([]);
-  const { appId, userId } = useAppContext();
+  const { appId, userId, appName } = useAppContext();
   
   useEffect(() => {
     const updateStages = async () => {
@@ -30,7 +30,7 @@ const UserApp = () => {
         <div className="row">
           <div className="col pipeline-title mb-1 aling-self-end">
             Pipeline
-            <a className="ps-2 small-font" href="/apps">
+            <a className="ps-2 small-font" href={`/application/${appName}/settings`}>
               edit
             </a>
           </div>

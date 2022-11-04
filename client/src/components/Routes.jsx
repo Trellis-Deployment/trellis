@@ -8,6 +8,7 @@ import CreateApp from "./CreateApp";
 import AppModal from "./AppMainPage/UserApp";
 import AppActivity from "./ActivityPages/AppActivity";
 import { useAppContext } from "../Lib/AppContext";
+import AppSettings from "./AppSettings/AppSettings";
 
 export default function RoutesComp() {
   const { authUser } = useAppContext();
@@ -59,6 +60,16 @@ export default function RoutesComp() {
         element={
           authUser ? (
             <AppActivity />
+          ) : (
+            <Navigate to="/" />
+          )
+        }
+      />
+      <Route
+        path={`/application/:appName/settings`}
+        element={
+          authUser ? (
+            <AppSettings />
           ) : (
             <Navigate to="/" />
           )
