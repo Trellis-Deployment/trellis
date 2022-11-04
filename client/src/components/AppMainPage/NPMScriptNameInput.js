@@ -6,11 +6,11 @@ import APICalls from "../../services/APICalls";
 
 const NPMScriptNameInput = ({stage, stages, setStages}) => {
   const [npmScriptName, setNPMScriptName] = useState(stage.npmScriptName);
-  const [isSubmissionSaved, setIsSubmissionSaved] = useState(true);
+  const [isSubmissionInProgress, setIsSubmissionInProgress] = useState(false);
 
   const handleNPMScriptNameChangeSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmissionSaved(false);
+    setIsSubmissionInProgress(true);
     try {
       const response = await APICalls.setStageNPMCommand({stageId: stage.stageId, npmScriptName});
       if (response.status === 200) {
@@ -26,9 +26,15 @@ const NPMScriptNameInput = ({stage, stages, setStages}) => {
     } catch (e) {
       console.log(e.message)
     }
-    setIsSubmissionSaved(true);
+    setIsSubmissionInProgress(false);
   }
 
+  const generateSubmitButtonText = () => {
+    if (isSubmissionInProgress) return "Saving...";
+    if (npmScriptName === stage.npmScriptName) return "Saved";
+    return "Submit";
+  }
+  
   return (
     <>
     <h3>Choose an optional NPM command to be executed before deployment:</h3>
@@ -42,8 +48,8 @@ const NPMScriptNameInput = ({stage, stages, setStages}) => {
       onChange={(e) => setNPMScriptName(e.target.value)}
     >
     </Form.Control>
-    <Button variant="primary" type="submit" disabled={!isSubmissionSaved || npmScriptName === stage.npmScriptName}>
-      Submit
+    <Button variant="primary" type="submit" disabled={isSubmissionInProgress || npmScriptName === stage.npmScriptName}>
+      {generateSubmitButtonText()}
     </Button>
   </Form>
   </>
