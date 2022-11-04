@@ -16,6 +16,7 @@ const BranchSettings = ({
   const [selectedBranch, setSelectedBranch] = useState(stage.stageBranch);
   const [iamAccessKeyId, setIamAccessKeyId] = useState("");
   const [iamSecretAccessKey, setIamSecretAccessKey] = useState("");
+  const [envVariablesString, setEnvVariablesString] = useState("");
 
   useEffect(() => {
     const loadBranches = async () => {
@@ -70,6 +71,17 @@ const BranchSettings = ({
     }
   };
 
+  const handleEnvVariableSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await APICalls.setStageEnvVariables({
+        stageId: stage.stageId,
+        envJSONString: envVariablesString,
+      });
+    } catch (e) {
+      console.log(``);
+    }
+  };
   return (
     <>
       <div className="screen" onClick={handleScreenClick}></div>
@@ -123,10 +135,27 @@ const BranchSettings = ({
             Submit
           </Button>
         </Form>
+        <hr></hr>
+        <Form onSubmit={handleEnvVariableSubmit}>
+          <h3>
+            Set stage environment variables as a JSON string -{" "}
+            <a target="_blank" href="https://jsonformatter.curiousconcept.com/">
+              online formatter
+            </a>
+          </h3>
+          <Form.Control
+            type="textarea"
+            placeholder="JSON-formatted ENV variables"
+            required
+            onChange={(e) => setEnvVariablesString(e.target.value)}
+          />
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
       </div>
     </>
   );
 };
 
 export default BranchSettings;
-
