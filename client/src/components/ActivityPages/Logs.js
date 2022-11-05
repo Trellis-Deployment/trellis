@@ -2,7 +2,6 @@ import "../../stylesheets/AppActivity.css";
 import { useRef, useEffect } from "react";
 
 const Logs = (logs = "") => {
-  console.log("These are logs", logs.logs);
   const logText = logs.logs;
   const textArea = useRef();
 

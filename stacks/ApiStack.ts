@@ -114,6 +114,7 @@ export function ApiStack({ stack, app }: StackContext) {
     routes: {
       "GET /signup": "functions/signup.main",
       "GET /signin": "functions/signin.main",
+      "GET /users": "functions/users.main",
       "GET /repos": "functions/repos.main",
       "GET /apps": "functions/apps.main",
       "GET /app/{appId}": "functions/app.main",
@@ -133,7 +134,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "PUT /stageBranch": "functions/setStageBranch.main",
       "PUT /app/{appId}": "functions/putApp.main",
       "PUT /npmScriptName": "functions/setStageNPMCommand.main",
-
+      "DELETE /app/{appId}": "functions/deleteApp.main",
     },
     accessLog: false,
   });

@@ -2,7 +2,7 @@ import "../../stylesheets/AppStage.css";
 import { useState, useEffect } from "react";
 import DeploymentCard from "./DeploymentCard";
 import APICalls from "../../services/APICalls";
-import { Col, Card, Row } from "react-bootstrap";
+import { Col, Card } from "react-bootstrap";
 
 const StageDeploymentCard = ({ stage }) => {
   const [deployments, setDeployments] = useState([]);

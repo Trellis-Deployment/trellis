@@ -1,10 +1,9 @@
-import AppName from "./AppName";
-import GitRepo from "./GitRepo";
-import AppDescription from "./AppDescription";
-import UnitTest from "./UnitTest";
-import AddUsers from "./AddUsers";
+import AppName from "./AppNameCard";
+import GitRepo from "./GitRepoCard";
+import AppDescription from "./AppDescriptionCard";
+import AddUsers from "./AddUsersCard";
 import DeleteApp
- from "./DeleteApp";
+ from "./DeleteAppCard";
 import { useAppContext } from "../../Lib/AppContext";
 import { useEffect, useState } from "react";
 import APICalls from "../../services/APICalls";
@@ -37,11 +36,10 @@ const AppSettings = () => {
     {
     app ?
       <>
-        <AppName></AppName>
-        <GitRepo></GitRepo>
+        <AppName setApp={setApp} app={app}></AppName>
+        <GitRepo setApp={setApp} app={app}></GitRepo>
         <AppDescription setApp={setApp} app={app}></AppDescription>
-        <UnitTest></UnitTest>
-        <AddUsers></AddUsers>
+        <AddUsers setApp={setApp} app={app}></AddUsers>
         <DeleteApp></DeleteApp>
       </> :
       null

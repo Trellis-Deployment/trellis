@@ -8,15 +8,20 @@ import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 
 export const main = handler(async (event) => {
   let { userId, appId, stageId } = JSON.parse(event.body);
-
   const { stage, token, user, stageName, repoName, IAMCredentialsLocation, appName } = await getDataForManualDeployment({ userId, appId, stageId });
-
+  console.log({
+    token,
+    user,
+    repoName,
+    branch: stage.stageBranch,
+  })
   const lastCommit = await githubCalls.getLastBranchCommit({
     token,
     userLogin: user,
     repo: repoName,
     branch: stage.stageBranch,
   });
+  console.log({lastCommit});
   const commitId = lastCommit.sha;
 
   const deployment = await createDeployment({
