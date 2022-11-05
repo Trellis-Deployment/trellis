@@ -3,7 +3,6 @@ import { Row, Card, Col, Button } from "react-bootstrap";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import Logs from "./Logs";
-import DeploymentInfo from "./DeploymentInfo";
 
 const DeploymentCard = ({
   deployment,
@@ -47,13 +46,13 @@ const DeploymentCard = ({
        <text className="dep-key">Deployment time: <text className="dep-value">{String(new Date(deployment.time))}</text></text>
       </Row>
         </Col>
-        {/* {idx === 0 || deployment.deploymentState !== "deployed" ? null : ( */}
-          <Col className="col-1 justify-content-end align-items-start">
+        {idx === 0 || deployment.deploymentState !== "deployed" ? null : (
+          <Col className="col-2 text-sm-center">
             <Button className="rollback" onClick={handleRollBackClick}>
               Rollback
             </Button>
           </Col>
-        {/* )} */}
+        )}
       </Col>
 
 
