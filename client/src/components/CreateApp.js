@@ -99,7 +99,7 @@ const CreateApp = () => {
               <em>Don't see your repo? configure github</em>
             </p>
 
-            <Nav.Link href={CONFIGURE}>
+            <Nav.Link target="_" href={CONFIGURE}>
               <div className="row d-flex pt-1">
                 <div className="col">
                   <Button

@@ -1,5 +1,6 @@
 import APICalls from "../../services/APICalls";
 import CardLayout from "./CardLayout";
+import NameAndDescriptionForm from "./forms/NameAndDescriptionForm";
 
 const AppDescription = ({ app, setApp}) => {
   const handleFormSubmit = async (description) => {
@@ -13,8 +14,14 @@ const AppDescription = ({ app, setApp}) => {
     }
   }
   return (
-    <CardLayout property="description" appValue={app.description} onSubmit={handleFormSubmit}></CardLayout>
-    
+    <CardLayout
+      property="description"
+      appValue={app.description}
+      inputForm={<NameAndDescriptionForm
+        property="description"
+        onSubmit={handleFormSubmit}
+      />}
+    />
   )
 }
 
