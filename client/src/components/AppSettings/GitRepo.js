@@ -1,16 +1,21 @@
-import { Row, Card } from "react-bootstrap";
+import APICalls from "../../services/APICalls";
+import CardLayout from "./CardLayout";
 
-const GitRepo = ({repo}) => {
+const AppDescription = ({ app, setApp }) => {
+  const handleFormSubmit = async (description) => {
+    const newApp = {...app, description: description};
+    try {
+      const data = await APICalls.putApp(newApp);
+      setApp(data);
+    } catch(e) {
+      console.log(e.message);
+      alert(e.message);
+    }
+  }
   return (
-    <Row className="py-1 stage-row m-1 my-2 bh-bla">
-      <Card.Title className="SectionHeader text-start">
-        Git Repo:
-      </Card.Title>
-      <Card.Text>
-        {repo}
-      </Card.Text>
-    </Row>
+    <CardLayout property="description" appValue={app.description} onSubmit={handleFormSubmit}></CardLayout>
+    
   )
 }
 
-export default GitRepo;
+export default AppDescription;

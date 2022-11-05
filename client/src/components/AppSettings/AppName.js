@@ -1,14 +1,25 @@
-import { Row, Card } from "react-bootstrap";
-const AppName = ({appName}) => {
+import APICalls from "../../services/APICalls";
+import CardLayout from "./CardLayout";
+import { useAppContext } from "../../Lib/AppContext";
+
+const AppName = ({app, setApp}) => {
+  const { setAppName } = useAppContext();
+
+  const handleFormSubmit = async (name) => {
+    const newApp = {...app, appName: name};
+    try {
+      const data = await APICalls.putApp(newApp);
+      setApp(data);
+      window.sessionStorage.setItem("trellisAppName", data.appName);
+      setAppName(data.appName);
+    } catch(e) {
+      console.log(e.message);
+      alert(e.message);
+    }
+  }
   return (
-    <Row className="py-1 stage-row m-1 my-2 bh-bla">
-      <Card.Title className="SectionHeader text-start">
-        Application Name:
-      </Card.Title>
-      <Card.Text>
-        {appName}
-      </Card.Text>
-    </Row>
+    <CardLayout property="name" appValue={app.appName} onSubmit={handleFormSubmit}></CardLayout>
+    
   )
 }
 

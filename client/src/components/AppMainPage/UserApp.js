@@ -5,7 +5,6 @@ import APICalls from "../../services/APICalls";
 import AppStage from "./AppStage";
 import { useAppContext } from "../../Lib/AppContext";
 import WebSocket from "../../services/WebSocket";
-import { Card, Col, Row } from "react-bootstrap";
 
 const UserApp = () => {
   const [stages, setStages] = useState([]);

@@ -18,7 +18,6 @@ const StageData = ({ stage, stages, setStages }) => {
 
   return (
     <div>
-      {console.log("STAGE STATE HERE!!!", stage.stageState)}
       <Card.Text className="stage-branch ps-1 text-center">
         <Row>
           <Row></Row>

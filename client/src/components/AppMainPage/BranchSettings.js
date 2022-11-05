@@ -34,7 +34,7 @@ const BranchSettings = ({
     if (stage.stageState === "deployed") {
       setTeardownVisible(true);
     }
-  }, [appName, userId, appId]);
+  }, [appName, userId, appId, stage.stageState]);
 
   const handleScreenClick = (e) => {
     if (e.target.classList.contains("screen")) {
@@ -172,7 +172,7 @@ const BranchSettings = ({
           <h4>
             Set stage environment variables as a JSON string{" "}
           </h4>
-            <a target="_blank" href="https://jsonformatter.curiousconcept.com/">
+            <a target="_blank" rel="noreferrer" href="https://jsonformatter.curiousconcept.com/">
               online formatter
             </a>
           <Form.Control

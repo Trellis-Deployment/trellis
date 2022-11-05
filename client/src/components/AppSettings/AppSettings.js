@@ -37,8 +37,8 @@ const AppSettings = () => {
     {
     app ?
       <>
-        <AppName></AppName>
-        <GitRepo></GitRepo>
+        <AppName setApp={setApp} app={app}></AppName>
+        <GitRepo setApp={setApp} app={app}></GitRepo>
         <AppDescription setApp={setApp} app={app}></AppDescription>
         <UnitTest></UnitTest>
         <AddUsers></AddUsers>
