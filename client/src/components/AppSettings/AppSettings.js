@@ -6,13 +6,10 @@ import AddUsers from "./AddUsers";
 import DeleteApp
  from "./DeleteApp";
 import { useAppContext } from "../../Lib/AppContext";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import APICalls from "../../services/APICalls";
 const AppSettings = () => {
   const [ app, setApp ] = useState();
-  const [ appDescription, setAppDescription ] = useState();
-  const [ appRepo, setAppRepo ] = useState();
-  const [ appUsers, setAppUsers ] = useState();
   const { appId } = useAppContext();
   
   useEffect(() => {
@@ -20,10 +17,6 @@ const AppSettings = () => {
       try {
         const app = await APICalls.getApp(appId);
         setApp(app);
-        // setAppDescription(app.description);
-        // setAppRepo(app.repoName);
-        // setAppUsers(app.appUsers);
-        // setAppName(app.appName);
       } catch(e) {
         if(e.response.data) {
           alert(e.response.data.error);
