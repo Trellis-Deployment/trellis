@@ -3,12 +3,16 @@ import CardLayout from "./CardLayout";
 import { useAppContext } from "../../Lib/AppContext";
 import NameAndDescriptionForm from "./forms/NameAndDescriptionForm";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const AppName = ({app, setApp}) => {
+  const [ showForm, toggleShowForm ] = useState(false);
+
   const { setAppName } = useAppContext();
   const navigate = useNavigate();
 
   const handleFormSubmit = async (name) => {
+    
     const newApp = {...app, appName: name};
     try {
       const data = await APICalls.putApp(newApp);
@@ -25,9 +29,12 @@ const AppName = ({app, setApp}) => {
     <CardLayout
       property="name"
       appValue={app.appName}
+      showForm={showForm}
+      toggleShowForm={toggleShowForm}
       inputForm={<NameAndDescriptionForm
         property="name"
         onSubmit={handleFormSubmit}
+        toggleShowForm={toggleShowForm}
       />}
     />
   )

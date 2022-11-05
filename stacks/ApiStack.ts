@@ -134,7 +134,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "PUT /stageBranch": "functions/setStageBranch.main",
       "PUT /app/{appId}": "functions/putApp.main",
       "PUT /npmScriptName": "functions/setStageNPMCommand.main",
-
+      "DELETE /app/{appId}": "functions/deleteApp.main",
     },
     accessLog: false,
   });

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import APICalls from "../../../services/APICalls";
 
-const AddUsersForm = ({ onSubmit, appUsers, users }) => {
+const AddUsersForm = ({ onSubmit, appUsers, users, toggleShowForm }) => {
   const [updatedUsers, setUpdatedUsers] = useState([]);
 
   useEffect(() => {
@@ -22,6 +22,11 @@ const AddUsersForm = ({ onSubmit, appUsers, users }) => {
     }
   }
 
+  const handleCancelClick = (e) => {
+    e.preventDefault();
+    toggleShowForm(false);
+  }
+
   return (
     <Form onSubmit={handleFormSubmit}>
       <Form.Group>
@@ -38,7 +43,10 @@ const AddUsersForm = ({ onSubmit, appUsers, users }) => {
         ))}
       </Form.Group>
       <Button variant="primary" type="submit">
-        Update App's Users
+        Save
+      </Button>
+      <Button variant="secondary" onClick={handleCancelClick}>
+        Cancel
       </Button>
     </Form>
   )

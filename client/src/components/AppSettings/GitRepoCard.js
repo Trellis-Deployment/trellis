@@ -1,8 +1,11 @@
 import APICalls from "../../services/APICalls";
 import CardLayout from "./CardLayout";
 import GitRepoForm from "./forms/GitRepoForm";
+import { useState } from "react";
 
 const GitRepo = ({ app, setApp}) => {
+  const [ showForm, toggleShowForm ] = useState(false);
+
   const handleFormSubmit = async (repo) => {
     const newApp = {...app, repoName: repo};
     console.log({newApp});
@@ -22,9 +25,12 @@ const GitRepo = ({ app, setApp}) => {
     <CardLayout
       property="repo"
       appValue={app.repoName}
+      showForm={showForm}
+      toggleShowForm={toggleShowForm}
       inputForm={<GitRepoForm
         property="repo"
         onSubmit={handleFormSubmit}
+        toggleShowForm={toggleShowForm}
       />}
     />
   )

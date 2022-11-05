@@ -1,6 +1,10 @@
-import { Row, Card } from "react-bootstrap";
+import { Row, Card, Button } from "react-bootstrap";
 
-const CardLayout = ({property, appValue, inputForm}) => {
+const CardLayout = ({property, appValue, inputForm, showForm, toggleShowForm}) => {
+  const handleUpdateClick = (e) => {
+    e.preventDefault();
+    toggleShowForm(!showForm);
+  }
   return (
     <Row className="py-1 stage-row m-1 my-2 bh-bla">
       <Card.Title className="SectionHeader text-start">
@@ -11,7 +15,11 @@ const CardLayout = ({property, appValue, inputForm}) => {
         <br />
         - {appValue}
       </Card.Text>
-      {inputForm}
+      {showForm ? inputForm :
+        <Button onClick={handleUpdateClick}>
+          Update Apps {property}
+        </Button>
+      }
     </Row>
   )
 }

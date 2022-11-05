@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-const NameAndDescription = ({ onSubmit, property}) => {
+const NameAndDescription = ({ onSubmit, property, toggleShowForm}) => {
   const [input, setInput] = useState("");
 
   const handleFormSubmit = async (e) => {
@@ -13,6 +13,12 @@ const NameAndDescription = ({ onSubmit, property}) => {
     await onSubmit(input);
     setInput("");
   }
+
+  const handleCancelClick = (e) => {
+    e.preventDefault();
+    toggleShowForm(false);
+  }
+
   return(
     <Form onSubmit={handleFormSubmit}>
       <Form.Group>
@@ -24,7 +30,10 @@ const NameAndDescription = ({ onSubmit, property}) => {
         />
       </Form.Group>
       <Button variant="primary" type="submit">
-        Update App's {property}
+        Save
+      </Button>
+      <Button variant="secondary" onClick={handleCancelClick}>
+        Cancel
       </Button>
     </Form>
   );
