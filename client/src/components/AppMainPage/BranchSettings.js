@@ -34,7 +34,7 @@ const BranchSettings = ({
     if (stage.stageState === "deployed") {
       setTeardownVisible(true);
     }
-  }, [appName, userId]);
+  }, [appName, userId, appId]);
 
   const handleScreenClick = (e) => {
     if (e.target.classList.contains("screen")) {
