@@ -3,6 +3,7 @@ import { Row, Card, Col, Button } from "react-bootstrap";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import Logs from "./Logs";
+import DeploymentInfo from "./DeploymentInfo";
 
 const DeploymentCard = ({
   deployment,
@@ -31,27 +32,28 @@ const DeploymentCard = ({
 
   return (
     <>
-    <Row className="d-flex">
+    <Row className="#">
       <Col className="activity-row m-1 row col-auto">
-        <Col>
-          <Card.Title className="badge badge-version text-center">
+        <Col className="col-auto align-self-center">
+          <Card.Title className="badge badge-version">
             V{version}
           </Card.Title>
         </Col>
-        <Col className="text-start stage-info">
-          <Row>Deployment State: {deployment.deploymentState}</Row>
-          <Row className="text-start">CommitId: {deployment.commitId}</Row>{" "}
-          <Row className="#">
-            Deployment time: {String(new Date(deployment.time))}
-          </Row>{" "}
+        <Col className="text-start stage-info col-8">
+          {/* <DeploymentInfo deployment={deployment}></DeploymentInfo> */}
+          <Row>
+       <text className="dep-key">Deployment State: <text className="dep-value">{deployment.deploymentState}</text></text>
+       <text className="dep-key">CommitId: <text className="dep-value">{deployment.commitId}</text></text>
+       <text className="dep-key">Deployment time: <text className="dep-value">{String(new Date(deployment.time))}</text></text>
+      </Row>
         </Col>
-        {idx === 0 || deployment.deploymentState !== "deployed" ? null : (
-          <Col className="d-flex pe-0 justify-content-end align-items-start">
+        {/* {idx === 0 || deployment.deploymentState !== "deployed" ? null : ( */}
+          <Col className="col-1 justify-content-end align-items-start">
             <Button className="rollback" onClick={handleRollBackClick}>
               Rollback
             </Button>
           </Col>
-        )}
+        {/* )} */}
       </Col>
 
 
