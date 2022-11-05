@@ -4,6 +4,7 @@ import Shapes from "../Development/Shapes";
 // import Shape from "../../Resources/terllis_border_white.svg";
 import Trellis from "../../Resources/android-chrome-512x512.png";
 import { Github } from "react-bootstrap-icons";
+import TrellisPro from "../../Resources/trellis_logo_pro.svg"
 
 const Header = () => {
   return (
@@ -13,7 +14,7 @@ const Header = () => {
         <div className="container">
           <div className="row">
             <div class="col col-sm align-self-center text-md-end text-sm-center">
-              <img src={Trellis} className="img-fluid front" alt="#"></img>
+              <img src={TrellisPro} className="img-fluid front" alt="#"></img>
             </div>
             <div class="col-md p-2 ms-4 align-self-md-center">
               <div className="text-md-start text-sm-center">

@@ -1,5 +1,4 @@
 import "../../stylesheets/Main.css";
-import "../Development/Shapes";
 import DefaultImg from "../../Resources/trellis_hollow0.svg";
 
 const Shapes = ({Shape}) => {
