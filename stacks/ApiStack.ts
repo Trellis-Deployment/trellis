@@ -116,6 +116,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "GET /signin": "functions/signin.main",
       "GET /repos": "functions/repos.main",
       "GET /apps": "functions/apps.main",
+      "GET /app/{appId}": "functions/app.main",
       "GET /stages": "functions/stages.main",
       "GET /stageStatus": "functions/getStageStatus.main",
       "GET /deployments": "functions/deployments.main",
@@ -130,6 +131,7 @@ export function ApiStack({ stack, app }: StackContext) {
       "POST /promote": "functions/promote.main",
       "GET /repoBranches": "functions/getRepoBranches.main",
       "PUT /stageBranch": "functions/setStageBranch.main",
+      "PUT /app/{appId}": "functions/putApp.main",
       "PUT /npmScriptName": "functions/setStageNPMCommand.main",
 
     },

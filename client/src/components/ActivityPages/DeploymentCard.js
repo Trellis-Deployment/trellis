@@ -11,13 +11,13 @@ const DeploymentCard = ({
   stageId,
   setDeployments,
 }) => {
-  const { userId, appName } = useAppContext();
+  const { userId, appId } = useAppContext();
   const handleRollBackClick = async (e) => {
     e.preventDefault();
     try {
       await APICalls.buildStage({
         userId,
-        appName,
+        appId,
         stageId,
         commitId: deployment.commitId,
       });

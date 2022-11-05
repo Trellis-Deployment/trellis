@@ -7,7 +7,6 @@ import Card from "react-bootstrap/Card";
 import { PlusCircle } from "react-bootstrap-icons";
 import { useAppContext } from "../Lib/AppContext";
 import Shapes from './Development/Shapes';
-import HollowLogo from "./Development/trellis_border_black.svg"
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);

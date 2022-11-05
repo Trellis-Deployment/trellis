@@ -2,11 +2,6 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const authenticate = async (code) => {
-  const response = await axios.get(`${API_URL}/authenticate?code=${code}`);
-  return response.data;
-};
-
 const signup = async (code) => {
   const response = await axios.get(`${API_URL}/signup?code=${code}`);
   return response.data;
@@ -22,17 +17,15 @@ const getRepos = async (user) => {
   return response.data;
 };
 
-const buildRepo = async (user, repo) => {
-  const response = await axios.get(
-    `${API_URL}/repos/build?user=${user}&repo=${repo}`
-  );
-  return response.data;
-};
-
 const getApps = async (userId) => {
   const response = await axios.get(`${API_URL}/apps?user=${userId}`);
   return response.data;
 };
+
+const getApp = async(appId) => {
+  const response = await axios.get(`${API_URL}/app/${appId}`);
+  return response.data;
+}
 
 const postApps = async (app) => {
   const response = await axios.post(`${API_URL}/apps`, app);
@@ -65,22 +58,17 @@ const getStageStatus = async ({ stageId }) => {
   return response.data;
 };
 
-const getRepoBranches = async ({ userId, appName }) => {
+const getRepoBranches = async ({ userId, appId }) => {
   const response = await axios.get(
-    `${API_URL}/repoBranches?userId=${userId}&appName=${appName}`
+    `${API_URL}/repoBranches?userId=${userId}&appId=${appId}`
   );
   return response.data;
 };
 
-const teardown = async ({ userId, appName, stageId, commitId }) => {
-  const response = await axios.post(`${API_URL}/teardown`, {
-    userId,
-    appName,
-    stageId,
-    commitId,
-  });
-  return response;
-};
+const teardown = async({ userId, appId, stageId, commitId }) => {
+  const response = await axios.post(`${API_URL}/teardown`, { userId, appId, stageId, commitId });
+  return response
+}
 
 const setStageBranch = async ({ stageId, branch }) => {
   const response = await axios.put(`${API_URL}/stageBranch`, {
@@ -118,10 +106,14 @@ const setStageNPMCommand = async ({ stageId, npmScriptName }) => {
   return response;  
 }
 
+const putApp = async(app) => {
+  const response = await axios.put(`${API_URL}/app/${app.appId}`, app);
+  return response.data;
+}
+
 const APICalls = {
-  authenticate,
   getRepos,
-  buildRepo,
+  getApp,
   getApps,
   postApps,
   signup,
@@ -136,6 +128,7 @@ const APICalls = {
   teardown,
   setStageIamCredentials,
   setStageEnvVariables,
+  putApp,
   setStageNPMCommand,
   
 };

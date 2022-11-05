@@ -5,7 +5,7 @@ import { Row } from "react-bootstrap";
 import "../../App.css";
 
 const TeardownModal = ({ stage, setTeardownVisible, stages, setStages }) => {
-  const { appName, userId } = useAppContext();
+  const { userId, appId } = useAppContext();
 
   const handleScreenClick = (e) => {
     if (e.target.classList.contains("screen")) {
@@ -18,10 +18,10 @@ const TeardownModal = ({ stage, setTeardownVisible, stages, setStages }) => {
       const response = await APICalls.teardown({
         stageId: stage.stageId,
         userId,
-        appName,
-        commitId: stage.lastCommitId,
+        appId,
+        commitId: stage.lastCommitId 
       });
-
+      
       if (response.status === 200) {
         setTeardownVisible(false);
         console.log("data: ", response.data);
