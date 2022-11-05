@@ -25,9 +25,9 @@ h6 {
 }
 
 .blockade {
-  background: linear-gradient(-45deg, #002050c5, #1f96ffc5, #1f96ff, #1f96ff);
+  background: linear-gradient(-45deg, #002050c5, #1f96ffc5, #1f96ff, #85c0f4, #002050c5);
   background-size: 400% 400%;
-  animation: gradient 20s ease infinite;
+  animation: gradient 15s ease infinite;
 }
 
 @keyframes gradient {
