@@ -24,25 +24,28 @@ h1,h2,h3,h4,h5,h6{
 .blockade {
   background-color: #1f97ff92;
   /* position: relative; */
-  padding: 50px;
-  display: flex;
+  /* padding: 50px; */
+  /* display: flex; */
   /* align-items: end; */
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 
 .header-inner{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	/* display: flex; */
+	/* justify-content: space-between; */
+	/* align-items: center; */
 	/* max-width: 1140px; */
 	margin: 0 auto;
 }
 
-.albert {
-  display: flex;
-  padding: 20px 0 20px 0;
-  max-width: 360px;
+.front {
+  /* display: flex; */
+  /* padding: 20px 0 20px 0; */
+	min-width: 20%;
+  max-width: 340px;
+	/* min-width: 160px; */
+	/* align-items: end; */
 }
 
 .common {
@@ -68,7 +71,7 @@ h1,h2,h3,h4,h5,h6{
 }
 .home h5:before{
 	content: '';
-	position: absolute;
+	/* position: absolute; */
 	top: 50%;
 	left: 0;
 	width: 60px;
