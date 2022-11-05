@@ -121,6 +121,7 @@ const getLastBranchCommit = async ({token, userLogin, repo, branch}) => {
     return response.data;
   } catch(e) {
     console.log(e.message);
+    throw e;
   }
 }
 
@@ -131,6 +132,24 @@ const refreshTokens = async ({refreshToken}) => {
     return response.data;
   } catch (e) {
     console.log('Error refreshing github token: ', e.message);
+    throw e;
+  }
+}
+
+const getContributors = async ({token, owner, repo}) => {
+  const octokit = new Octokit({
+    auth: token
+  });
+
+  try {
+    const response = await octokit.request('GET /repos/{owner}/{repo}/contributors', {
+      owner,
+      repo
+    });
+    return response.data;
+  } catch(e) {
+    console.log(e.message);
+    throw e;
   }
 }
 
@@ -143,7 +162,7 @@ const githubCalls = {
   getBranches,
   getLastBranchCommit,
   refreshTokens,
-
+  getContributors,
 };
 
 export default githubCalls;

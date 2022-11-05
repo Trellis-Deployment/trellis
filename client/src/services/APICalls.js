@@ -111,6 +111,11 @@ const putApp = async(app) => {
   return response.data;
 }
 
+const getUsers = async() => {
+  const response = await axios.get(`${API_URL}/users`);
+  return response.data;
+}
+
 const APICalls = {
   getRepos,
   getApp,
@@ -130,7 +135,7 @@ const APICalls = {
   setStageEnvVariables,
   putApp,
   setStageNPMCommand,
-  
+  getUsers,
 };
 
 export default APICalls;

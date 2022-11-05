@@ -10,8 +10,12 @@ const GitRepo = ({ app, setApp}) => {
       const data = await APICalls.putApp(newApp);
       setApp(data);
     } catch(e) {
-      console.log(e.message);
-      alert(e.message);
+      if (e.response.data) {
+        alert(e.response.data.error);
+      } else {
+        console.log(e.message);
+        alert(e.message);
+      }
     }
   }
   return (

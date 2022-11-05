@@ -7,8 +7,8 @@ const getDataForPromotion = async ({ userId, appId, targetStageId }) => {
   const app = await getAppByAppId(appId);
   const stage = await getStageById(targetStageId);
   console.log({ stage });
-  const token = await getTokenByUserId(userId);
   const [user, repoName] = app.repoName.split("/");
+  const token = await getTokenByUserId(userId);
   return {
     stage,
     appName: app.appName,

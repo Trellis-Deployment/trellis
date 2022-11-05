@@ -39,7 +39,7 @@ const AppSettings = () => {
         <AppName setApp={setApp} app={app}></AppName>
         <GitRepo setApp={setApp} app={app}></GitRepo>
         <AppDescription setApp={setApp} app={app}></AppDescription>
-        <AddUsers></AddUsers>
+        <AddUsers setApp={setApp} app={app}></AddUsers>
         <DeleteApp></DeleteApp>
       </> :
       null
