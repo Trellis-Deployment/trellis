@@ -1,4 +1,4 @@
-import { Row, Col, Card } from "react-bootstrap";
+import { Row, Card } from "react-bootstrap";
 const AppName = ({appName}) => {
   return (
     <Row className="py-1 stage-row m-1 my-2 bh-bla">

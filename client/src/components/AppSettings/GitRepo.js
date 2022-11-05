@@ -1,4 +1,4 @@
-import { Row, Col, Card } from "react-bootstrap";
+import { Row, Card } from "react-bootstrap";
 
 const GitRepo = ({repo}) => {
   return (
