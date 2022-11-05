@@ -1,106 +1,120 @@
-
 /*Google fonts*/
 /* @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@200;300;400;500;600&display=swap'); */
 
-*{
-	margin: 0;
-	box-sizing: border-box;
-	outline: none;
+* {
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
 }
-body{
-	font-family: 'Baloo 2', sans-serif;
-	font-weight: 400;
-	color: #fff;
-	overflow-x: hidden;
-	overflow: hidden;
-	background-color: #071F30;
+body {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 400;
+  color: #fff;
+  overflow-x: hidden;
+  overflow: hidden;
+  background-color: #071f30;
 }
 
-
-h1,h2,h3,h4,h5,h6{
-	font-weight: normal;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
 }
 
 .blockade {
-  background-color: #1f97ff92;
-  /* position: relative; */
-  padding: 50px;
-  display: flex;
+  background: linear-gradient(-45deg, #002050c5, #1f96ffc5, #1f96ff, #85c0f4, #002050c5);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.header-inner {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  /* max-width: 1140px; */
+  margin: 0 auto;
+}
+
+.front {
+  /* display: flex; */
+  /* padding: 20px 0 20px 0; */
+  /* min-width: 20%; */
+  max-width: 340px;
+  /* min-width: 160px; */
   /* align-items: end; */
-  justify-content: center;
-}
-
-
-.header-inner{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	/* max-width: 1140px; */
-	margin: 0 auto;
-}
-
-.albert {
-  display: flex;
-  padding: 20px 0 20px 0;
-  max-width: 360px;
 }
 
 .common {
-	padding: 50px 0;
-	min-height: 100vh;
-	position: relative;
+  padding: 50px 0;
+  min-height: 100vh;
+  position: relative;
 }
 .home-inner {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.home .text{
-	max-width: 250px;
-	text-align: left;
-	margin-right: 60px;
+.home .text {
+  max-width: 250px;
+  text-align: left;
+  margin-right: 60px;
   /* margin-top: 40px; */
 }
-.home h5{
-	font-size: 18px;
-	text-transform: uppercase;
-	position: relative;
+.home h5 {
+  font-size: 18px;
+  text-transform: uppercase;
+  position: relative;
 }
-.home h5:before{
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 0;
-	width: 60px;
-	height: 1px;
-	background-color: #fff;
+.home h5:before {
+  content: "";
+  /* position: absolute; */
+  top: 50%;
+  left: 0;
+  width: 60px;
+  height: 1px;
+  background-color: #fff;
 }
-.home h1{
-	font-size: 64px;
-	text-transform: uppercase;
+.home h1 {
+  font-size: 64px;
+  text-transform: uppercase;
 }
-.home p{
-	font-size: 18px;
-	line-height: 30px;
-	color: #dde0e2;
-	margin: 10px 10px 20px 0;
+.home p {
+  font-size: 18px;
+  line-height: 30px;
+  color: #dde0e2;
+  margin: 10px 10px 20px 0;
   font-weight: 500;
 }
 
 /*top right  bottom left */
-.home .btn{
-	font-size: 18px;
-	color: #fff;
+.home .btn {
+  font-size: 18px;
+  color: #fff;
   background-color: #15755b00;
-	text-decoration: none;
-	padding: 15px 20px;
-	border:  1px solid #ffffff40;
-	transition: 0.3s;
+  text-decoration: none;
+  padding: 15px 20px;
+  border: 1px solid #ffffff40;
+  transition: 0.3s;
 }
-.home .btn:hover{
-	background-color: #1f96ff;
+.home .btn:hover {
+  background-color: #1f96ff;
   color: black;
-	transition: 0.3s;
+  transition: 0.3s;
 }
 
 .bttn {
@@ -108,86 +122,86 @@ h1,h2,h3,h4,h5,h6{
 }
 /* SHAPES */
 
-.shape img{
-	position: absolute;
-	width: 100%;
-	z-index: -9;
+.shape img {
+  position: absolute;
+  width: 100%;
+  z-index: -9;
 }
-.shape .shape1{
-	right: -130px;
-	top: -50px;
-	width: 350px;
-	opacity: .5;
-	transform-origin: center;
-	animation: shape linear 30s infinite reverse;
+.shape .shape1 {
+  right: -130px;
+  top: -50px;
+  width: 350px;
+  opacity: 0.5;
+  transform-origin: center;
+  animation: shape linear 30s infinite reverse;
 }
-.shape .shape2{
-	left: 300px;
-	bottom: -50px;
-	width: 450px;
-	opacity: .5;
-	transform-origin: center;
-	animation: shape linear 30s infinite reverse;
+.shape .shape2 {
+  left: 300px;
+  bottom: -50px;
+  width: 450px;
+  opacity: 0.5;
+  transform-origin: center;
+  animation: shape linear 30s infinite reverse;
 }
-@keyframes shape{
-	100%{
-		transform:  rotate(360deg);
-	}
-}
-
-.shape .shape3{
-	top: 0;
-	left: 0;
-	width: 250px;
-	opacity: .4;
-	transform-origin: center;
-	animation: shape3 linear 20s infinite;
-	transform: translate(-200px, -100px) rotate(0deg);
-}
-@keyframes shape3{
-	100%{
-		transform: translate(1300px, 600px) rotate(360deg);
-	}	
+@keyframes shape {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.shape .shape4{
-	left: 0;
-	bottom: 0;
-	width: 150px;
-	opacity: .4;
-	transform-origin: center;
-	animation: shape4 linear 20s infinite 5s;
-	transform: translate(700px, 80px) rotate(0deg);
+.shape .shape3 {
+  top: 0;
+  left: 0;
+  width: 250px;
+  opacity: 0.4;
+  transform-origin: center;
+  animation: shape3 linear 20s infinite;
+  transform: translate(-200px, -100px) rotate(0deg);
 }
-@keyframes shape4{
-	100%{
-		transform: translate(1200px, -800px) rotate(360deg);
-	}
-}
-
-.shape .shape5{
-	left: 500px;
-	top: 0;
-	width: 100px;
-	opacity: 0;
-	transform-origin: center;
-	animation: shape5 linear 25s infinite;
-	transform: translate(0, -150px) rotate(0deg);
+@keyframes shape3 {
+  100% {
+    transform: translate(1300px, 600px) rotate(360deg);
+  }
 }
 
-.shape .shape6{
-	left: 200px;
-	top: 30;
-	width: 50px;
-	opacity: 0;
-	transform-origin: center;
-	animation: shape5 linear 30s infinite;
-	transform: translate(0, -70px) rotate(180deg);
+.shape .shape4 {
+  left: 0;
+  bottom: 0;
+  width: 150px;
+  opacity: 0.4;
+  transform-origin: center;
+  animation: shape4 linear 20s infinite 5s;
+  transform: translate(700px, 80px) rotate(0deg);
+}
+@keyframes shape4 {
+  100% {
+    transform: translate(1200px, -800px) rotate(360deg);
+  }
 }
 
-@keyframes shape5{
-	100%{
-		opacity: 1;
-		transform: translate(0, 800px) rotate(720deg);
-	}
+.shape .shape5 {
+  left: 500px;
+  top: 0;
+  width: 100px;
+  opacity: 0;
+  transform-origin: center;
+  animation: shape5 linear 25s infinite;
+  transform: translate(0, -150px) rotate(0deg);
+}
+
+.shape .shape6 {
+  left: 200px;
+  top: 30;
+  width: 50px;
+  opacity: 0;
+  transform-origin: center;
+  animation: shape5 linear 30s infinite;
+  transform: translate(0, -70px) rotate(180deg);
+}
+
+@keyframes shape5 {
+  100% {
+    opacity: 1;
+    transform: translate(0, 800px) rotate(720deg);
+  }
 }

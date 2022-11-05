@@ -1,16 +1,19 @@
 .badge-version {
-  font-size: 15px;
+  /* font-family: 'Montserrat'; */
+  font-weight: 600;
+  font-size: 18px;
   border-radius: 30px;
-  margin: 5px;
-  padding: 10px;
+  padding: 12px;
   background: rgb(2,138,255);
   background: radial-gradient(circle, rgba(2,138,255,1) 65%, rgba(0,80,150,1) 91%);
 }
 
+
 .rollback {
+  font-family: 'Montserrat';
   padding: 6px;
   border-radius: 30px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .activity-row {  
@@ -31,4 +34,19 @@
 
 .presenter {
   font-size: 16px;
+}
+
+/* Deployment Info */
+.dep-key {
+  color: rgb(254, 254, 94);
+  font-family: 'Montserrat';
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.dep-value {
+  color: white;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 500;
 }

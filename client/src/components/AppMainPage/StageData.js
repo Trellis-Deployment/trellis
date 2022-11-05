@@ -6,7 +6,7 @@ import BranchSettings from "./BranchSettings";
 import CommitId from "./CommitId";
 import { Card, Col, Row } from "react-bootstrap";
 
-import { CloudCheck, ExclamationCircle, Gear } from "react-bootstrap-icons";
+import { CloudCheck, ExclamationCircle, FileEarmarkBinary, Gear } from "react-bootstrap-icons";
 
 const StageData = ({ stage, stages, setStages }) => {
   const [branchSettingsVisible, setBranchSettingsVisible] = useState(false);
@@ -88,14 +88,16 @@ const StageData = ({ stage, stages, setStages }) => {
         {stage.stageState === "created" && (
           <Row>
             <Col className="text-center">
-              <CloudCheck color="yellow" className="my-2" size={38} />
+              <FileEarmarkBinary color="yellow" className="mt-2" size={38} />
+              <p>created</p>
             </Col>
           </Row>
         )}
         {stage.stageState === "deployed" && (
           <Col className="text-center">
             {" "}
-            <CloudCheck color="green" className="my-2" size={38} />
+            <CloudCheck color="lightgreen" className="mt-2" size={38} />
+            <p>Deployed</p>
           </Col>
         )}
         {(stage.stageState === "deploying" ||
@@ -106,12 +108,14 @@ const StageData = ({ stage, stages, setStages }) => {
               color="white"
               size={38}
             />
+            <p>Deploying</p>
           </Col>
         )}
         {stage.stageState === "error" && (
-          <Col className="text-center my-2">
+          <Col className="text-center mt-2">
             {" "}
             <ExclamationCircle color="red" size={38} />
+            <p>Error</p>
           </Col>
         )}
         {branchSettingsVisible ? (
