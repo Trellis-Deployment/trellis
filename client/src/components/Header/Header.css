@@ -42,6 +42,10 @@ h6 {
   }
 }
 
+.intro {
+  border-radius: 30px;
+}
+
 .header-inner {
   /* display: flex; */
   /* justify-content: space-between; */

@@ -6,6 +6,7 @@ import Trellis from "../../Resources/android-chrome-512x512.png";
 import { Github } from "react-bootstrap-icons";
 import TrellisPro from "../../Resources/trellis_logo_pro.svg"
 import { ReactComponent as TextSVG } from "../../Resources/trellis_logo_pro.svg";
+import Logo from "../../Resources/Motion/logo_intro_5.mov";
 
 const Header = () => {
   const SIGN_UP = `https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`
@@ -18,7 +19,12 @@ const Header = () => {
           <div className="row">
             <div class="col col-sm align-self-center text-md-end text-sm-center">
               {/* <img src={TrellisPro} className="img-fluid front" alt="#"></img> */}
-              <TextSVG className="front"/>
+              {/* <TextSVG className="front"/> */}
+          <video className="VideoTag intro" autoPlay muted>
+            <source src={Logo} type="video/mp4" />
+          </video>
+
+
             </div>
             <div class="col-md p-2 ms-4 align-self-md-center">
               <div className="text-md-start text-sm-center">
