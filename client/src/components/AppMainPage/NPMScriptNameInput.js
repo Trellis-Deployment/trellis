@@ -15,7 +15,6 @@ const NPMScriptNameInput = ({stage, stages, setStages}) => {
       const response = await APICalls.setStageNPMCommand({stageId: stage.stageId, npmScriptName});
       if (response.status === 200) {
         const responseData = JSON.parse(response.data);
-        console.log(responseData);
         const updatedStages = stages.map((s) =>
         s.stageId === stage.stageId
           ? { ...s, ...responseData }

@@ -13,9 +13,6 @@ const invokeBuildFunction = async (data, stage, commitId) => {
 
   const state = data.ACTION === 'deploy' ? 'deploying' : 'tearingDown';
   await updateStageState({ stage, state, commitId });
-
-  console.log("after invocation");
-
   return "success";
 };
 

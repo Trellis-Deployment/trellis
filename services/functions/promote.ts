@@ -53,6 +53,8 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
       APP_NAME: appName,
       DEPLOYMENT_ID: deployment.deploymentId,
       NPM_SCRIPT_NAME: stage.npmScriptName,
+      IS_UNIT_TEST_REQUIRED: String(stage.isUnitTestRequired),
+
     };
 
     await invokeBuildFunction(data, stage, sourceCommitId);

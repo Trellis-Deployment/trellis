@@ -1,6 +1,5 @@
 const { writeEnv } = require("./utils/writeEnv");
 const { execSync } = require("child_process");
-const { execSync } = require('child_process');
 const AWS = require("aws-sdk");
 
 const ACTION = process.env.ACTION;
@@ -15,6 +14,7 @@ const AWS_SSM_KEY = process.env.AWS_SSM_KEY;
 const AWS_SSM_ENV = process.env.AWS_SSM_ENV || "";
 const REGION = process.env.REGION;
 const NPM_SCRIPT_NAME = process.env.NPM_SCRIPT_NAME;
+const IS_UNIT_TEST_REQUIRED = process.env.IS_UNIT_TEST_REQUIRED;
 
 console.log({ DEPLOYMENT_ID });
 const statusData = {
@@ -87,6 +87,14 @@ function processDeploy(err, data) {
       const optionalNPMScriptCommands = [`cd ~/repos/${GITHUB_REPO}`, `npm run ${NPM_SCRIPT_NAME}`]
       execSync(optionalNPMScriptCommands.join(" && "), { stdio: "inherit" });
       console.log("SUCCESS: OPTIONAL NPM COMMAND EXECUTED");
+    }
+
+    if (IS_UNIT_TEST_REQUIRED === 'true') {
+      const unitTestCommands = [`cd ~/repos/${GITHUB_REPO}`, `npm run test`]
+      console.log("EXECUTING UNIT TESTS VIA 'NPM RUN TEST': ");
+      console.log("(toggle unit tests in stage settings)");
+      execSync(unitTestCommands.join(" && "), { stdio: "inherit" });
+      console.log("UNIT TESTS EXECUTED");
     }
 
     const deployCommands = [
