@@ -17,12 +17,8 @@ const GitRepo = ({ app, setApp}) => {
       }
       setApp(data);
     } catch(e) {
-      if (e.response.data) {
-        alert(e.response.data.error);
-      } else {
-        console.log(e.message);
-        alert(e.message);
-      }
+      console.log(e.message);
+      alert(e.message);
     }
   }
   return (

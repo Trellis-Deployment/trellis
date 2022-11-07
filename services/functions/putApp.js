@@ -23,7 +23,7 @@ export const main = handler(async (event) => {
     return repo['full_name'] === app.repoName;
   }));
   if (!allUsersHaveAccessToRepo) {
-    throw new Error("some of the users don't have access to the app's repo, please change the contributors on the github repo or change the users of this app");
+    return{error: "some of the users don't have access to the app's repo, please change the contributors on the github repo or change the users of this app"};
   }
   try {
     await putEditedApp(app);
