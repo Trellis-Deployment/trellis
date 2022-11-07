@@ -137,6 +137,8 @@ export function ApiStack({ stack, app }: StackContext) {
       "PUT /npmScriptName": "functions/setStageNPMCommand.main",
       "DELETE /app/{appId}": "functions/deleteApp.main",
       "DELETE /stage/{stageId}": "functions/deleteStage.main",
+      "PUT /stageUnitTest": "functions/setStageIsUnitTestRequired.main",
+
     },
     accessLog: false,
   });

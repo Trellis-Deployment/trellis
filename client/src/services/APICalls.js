@@ -130,6 +130,14 @@ const deleteApp = async(appId) => {
   return response.data;
 }
 
+const toggleIsUnitTestRequired = async ({ stageId, isUnitTestRequired }) => {
+  const response = await axios.put(`${API_URL}/stageUnitTest`, {
+    stageId,
+    isUnitTestRequired,
+  });
+  return response;
+}
+
 const APICalls = {
   getRepos,
   getApp,
@@ -152,7 +160,9 @@ const APICalls = {
   getUsers,
   createStage,
   deleteStage,
-  deleteApp
+  deleteApp,
+  toggleIsUnitTestRequired,
+
 };
 
 export default APICalls;
