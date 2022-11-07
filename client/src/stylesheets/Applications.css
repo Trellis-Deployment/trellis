@@ -3,6 +3,10 @@ button {
   margin: 0 auto;
 }
 
+.button:hover {
+  cursor: pointer;
+}
+
 .m-title {
   color: black;
   font-weight: 600;
