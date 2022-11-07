@@ -35,6 +35,8 @@ export const main = handler(async (event, context) => {
       DEPLOYMENT_ID: deployment.deploymentId,
       COMMIT_ID: commitId,
       NPM_SCRIPT_NAME: stage.npmScriptName,
+      IS_UNIT_TEST_REQUIRED: String(stage.isUnitTestRequired),
+
     };
 
     console.log({ buildData });

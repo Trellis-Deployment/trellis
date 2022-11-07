@@ -72,7 +72,11 @@ export const main = handler(async (event, context) => {
             },
             {
               name: "NPM_SCRIPT_NAME",
-              value: data.NPM_SCRIPT_NAME
+              value: data.NPM_SCRIPT_NAME,
+            },
+            {
+              name: "IS_UNIT_TEST_REQUIRED",
+              value: data.IS_UNIT_TEST_REQUIRED,
             },
           ],
           name: CONTAINER,

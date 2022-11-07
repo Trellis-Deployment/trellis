@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import NPMScriptNameInput from "./NPMScriptNameInput";
+import ToggleIsUnitTestRequired from "./ToggleIsUnitTestRequired";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import { Row } from "react-bootstrap";
@@ -204,6 +205,8 @@ const BranchSettings = ({
         ) : null}
         <hr></hr>
         <NPMScriptNameInput stage={stage} stages={stages} setStages={setStages}></NPMScriptNameInput>
+        <hr></hr>
+        <ToggleIsUnitTestRequired stage={stage} stages={stages} setStages={setStages}></ToggleIsUnitTestRequired>
       </div>
     </>
   );
