@@ -8,6 +8,8 @@ import TrellisPro from "../../Resources/trellis_logo_pro.svg"
 import { ReactComponent as TextSVG } from "../../Resources/trellis_logo_pro.svg";
 
 const Header = () => {
+  const SIGN_UP = `https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`
+  const SIGN_IN = `https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_Client_ID}`
   return (
     <div className="home">
       <Shapes></Shapes>
@@ -18,7 +20,7 @@ const Header = () => {
               {/* <img src={TrellisPro} className="img-fluid front" alt="#"></img> */}
               <TextSVG className="front"/>
             </div>
-            <div className="col-md p-2 ms-4 align-self-md-center">
+            <div class="col-md p-2 ms-4 align-self-md-center">
               <div className="text-md-start text-sm-center">
                 <h3>Welcome to</h3>
                 <h1>TRELLIS</h1>
@@ -30,7 +32,7 @@ const Header = () => {
                 </div>
                 <div>
                   <a
-                    href={`https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`}
+                    href={SIGN_UP}
                     className="btn bttn"
                   >
                     Sign Up via Github{" "}
@@ -39,7 +41,7 @@ const Header = () => {
                 </div>
                 <div>
                   <a
-                    href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_Client_ID}`}
+                    href={SIGN_IN}
                     className="btn bttn "
                   >
                     Sign In via Github{" "}

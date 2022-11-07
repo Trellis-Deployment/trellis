@@ -32,6 +32,12 @@ body {
   border: 1px solid gray;
 }
 
+.settings-row {
+  background: rgb(12, 89, 157);
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
 .gear {
   color: white;
 }
@@ -100,13 +106,13 @@ dark
 
 /* second box */
 .SectionHeader {
-  margin-top: 0;
-  font-family: "Poppins",sans-serif;
-  /* letter-spacing: 0.5px; */
-  font-size: 15px;
-  font-weight: 600;
+  /* margin-top: 0; */
+  font-family: "Montserrat",sans-serif;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+  font-weight: 500;
   text-transform: uppercase;
-  color: rgb(238, 255, 192);
+  color:  rgb(225, 254, 94);;
 }
 
 ol, ul {
@@ -152,12 +158,6 @@ ol, ul {
   font-size: 13px;
 }
 
-.stage-info-branch {
-  color: rgb(192, 227, 255);
-  font-family: "Poppins",sans-serif;
-  font-size: 15px;
-  padding-left: 1px;
-}
 
 /* margin-top: 0;
 font-family: "Poppins",sans-serif;
@@ -200,8 +200,27 @@ color: rgb(242, 255, 192); */
 .stage-info {
   color: white;
   font-size: 12px;
-  /* padding: 0; */
-  /* margin: 1; */
+}
+
+.stage-info-branch {
+  color: rgb(192, 227, 255);
+  font-family: "Poppins",sans-serif;
+  font-size: 15px;
+  padding-left: 1px;
+}
+
+.card-info-key {
+  color:  rgb(225, 254, 94);;
+  font-family: 'Montserrat';
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.card-info-value {
+  color: white;
+  font-family: 'Baloo 2';
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .app-id {
@@ -238,23 +257,32 @@ color: rgb(242, 255, 192); */
   left: 0;
   height: 100vh;
   width: 100%;
-  transition: 0.3s;
+  transition: 0.5s;
   }
   
   .modal {
-  position: fixed;
+  position: relative;
   display: inline-block;
-  background-color: rgba(255, 255, 255, 1);
-  z-index: 10;
-  top: 20%;
-  left: 30%;
+  /* background-color: rgba(255, 255, 255, 1); */
+  /* z-index: 10; */
+  /* top: 30%; */
+  /* left: 30%; */
   height: auto;
   width: 500px;
-  transition: 0.3s;
+  transition: 0.5s;
   }
 
 
 .main-modal {
   border-radius: 12px;
   font-size: 16px;
+}
+
+.formatter-link {
+  color: rgb(220, 251, 132);
+  font-family: 'Montserrat';
+}
+
+.formatter-link:hover {
+  color: white;
 }

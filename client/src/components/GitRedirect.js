@@ -2,10 +2,8 @@ import "../stylesheets/GitRedirect.css";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import APICalls from "../services/APICalls";
-import Waiting from "../Resources/Trellis_house.jpg";
-import Image from "react-bootstrap/Image";
 import { useAppContext } from "../Lib/AppContext";
-import { PersonPlusFill } from "react-bootstrap-icons";
+import Trell from "../Resources/Motion/trellis loop.mov";
 
 const GitRedirect = () => {
   const [searchParams] = useSearchParams();
@@ -50,22 +48,37 @@ const GitRedirect = () => {
   }, [code, navigate, setAuthUser, application, setUserId]);
 
   return (
-    <div>
-      <div className="position-absolute top-50 start-50 translate-middle wait pb-1 px-2">
+    <div className="text-center">
+      <div>
+        <div>
+          <video className="VideoTag loop1" autoPlay loop muted>
+            <source src={Trell} type="video/mp4" />
+          </video>
+        </div>
+        <div>
+          {/* <div className="spinner-grow" role="status"><PersonPlusFill color="black" size={30}></PersonPlusFill></div> */}
+          <h2 className="waiting-auth mt-3 text-center animate-wait">
+            {authenticated
+              ? `Congratulations you signed in`
+              : `Waiting for Authentication`}
+          </h2>
+        </div>
+      </div>
+      {/* <div className="position-absolute top-50 start-50 translate-middle wait pb-1 px-2">
         <header className="App-header pt-3 pb-2">
           <div className="container">
             <Image src={Waiting} className="App-logo" alt="logo" fluid="true" />
           </div>
         </header>
-        <div className="text-center">
-        <div className="spinner-grow" role="status"><PersonPlusFill color="black" size={30}></PersonPlusFill></div>
+        <div className="text-center"> */}
+      {/* <div className="spinner-grow" role="status"><PersonPlusFill color="black" size={30}></PersonPlusFill></div>
           <h3 className="box text-dark p-1">
             {authenticated
               ? `Congratulations you signed in`
               : `Waiting for Authentication`}
-          </h3>
-        </div>
-      </div>
+          </h3> */}
+      {/* </div>
+      </div> */}
     </div>
   );
 };

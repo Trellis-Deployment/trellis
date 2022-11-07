@@ -1,45 +1,49 @@
-  .Login {
-    margin: auto;
-    padding: 20px;
-    /* background-color: #51e6bc29; */
-    background-blend-mode: screen;
-    max-width: 410px;
-    border-radius: 10px;
-    margin-top: 20px;
-    border: solid 1px gray;
-  }
+.Login {
+  margin: auto;
+  padding: 20px;
+  /* background-color: #51e6bc29; */
+  background-blend-mode: screen;
+  max-width: 410px;
+  border-radius: 10px;
+  margin-top: 20px;
+  border: solid 1px gray;
+}
 
 .form-layout {
   background: rgba(31, 151, 255, 0.655);
-  background: linear-gradient(225deg, rgba(31, 151, 255, 0.557) 36%, rgba(4, 87, 159, 0.588) 100%);
+  background: linear-gradient(
+    225deg,
+    rgba(31, 151, 255, 0.557) 36%,
+    rgba(4, 87, 159, 0.588) 100%
+  );
   transition: 0.3s;
 }
-  
+
 /* .form-layout:hover {
-  background: rgb(31,150,255);
-  background: linear-gradient(225deg, rgba(31,150,255,1) 36%, rgba(4,87,159,1) 100%);
+background: rgb(31,150,255);
+background: linear-gradient(225deg, rgba(31,150,255,1) 36%, rgba(4,87,159,1) 100%);
 } */
 
-  .Login form {
-    margin: 0 auto;
-    max-width: 320px;
-  }
-  
+.Login form {
+  margin: 0 auto;
+  max-width: 320px;
+}
 
-  form {
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-  }
+form {
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+}
 
-  .form-container {
-    border-radius: 10px;
-    padding-bottom: 20px;
-  }
+.form-container {
+  border-radius: 10px;
+  padding-bottom: 20px;
+}
 
-  .form-control:focus {
-    border-color: peachpuff;
-    box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075), 0 0 20px rgba(255, 255, 255, 0.6);
-  }
+.form-control:focus {
+  border-color: peachpuff;
+  box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075),
+    0 0 20px rgba(255, 255, 255, 0.6);
+}
 
 button {
   padding: 30px 0;
@@ -48,8 +52,8 @@ button {
 }
 
 /* .cancel-button {
-  background-color: rgb(146, 126, 126);
-  border: 1px solid white;
+background-color: rgb(146, 126, 126);
+border: 1px solid white;
 } */
 
 .cancel-button:hover {

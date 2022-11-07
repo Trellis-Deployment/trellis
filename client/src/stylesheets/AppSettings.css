@@ -1,0 +1,27 @@
+.settings-container {
+  max-width: 500px;
+}
+
+.settings-btn {
+  color: white;
+}
+
+.settings-btn-delete {
+  color: white;
+  background-color: rgb(252, 88, 132);
+  /* width: 160px; */
+}
+
+.settings-btn-delete:hover {
+  color: lightcyan;
+  background-color: red;
+}
+
+.settings-configure-git {
+  color: white;
+  background-color: darkseagreen;
+}
+
+.settings-configure-git:hover {
+  background-color: darkgreen;
+}
