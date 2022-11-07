@@ -11,14 +11,14 @@ const GitRepo = ({ app, setApp}) => {
     console.log({newApp});
     try {
       const data = await APICalls.putApp(newApp);
+      if(data.error) {
+        alert(data.error);
+        return;
+      }
       setApp(data);
     } catch(e) {
-      if (e.response.data) {
-        alert(e.response.data.error);
-      } else {
-        console.log(e.message);
-        alert(e.message);
-      }
+      console.log(e.message);
+      alert(e.message);
     }
   }
   return (

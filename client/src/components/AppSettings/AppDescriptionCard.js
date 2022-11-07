@@ -10,6 +10,10 @@ const AppDescription = ({ app, setApp}) => {
     const newApp = {...app, description: description};
     try {
       const data = await APICalls.putApp(newApp);
+      if(data.error) {
+        alert(data.error);
+        return;
+      }
       setApp(data);
     } catch(e) {
       console.log(e.message);

@@ -4,17 +4,22 @@ import AppDescription from "./AppDescriptionCard";
 import AddUsers from "./AddUsersCard";
 import DeleteApp
  from "./DeleteAppCard";
+import AppStages from "./AppStagesCard";
 import { useAppContext } from "../../Lib/AppContext";
 import { useEffect, useState } from "react";
 import APICalls from "../../services/APICalls";
 const AppSettings = () => {
   const [ app, setApp ] = useState();
   const { appId } = useAppContext();
+  const [ stages, setStages ] = useState([]);
   
   useEffect(() => {
     const getApp = async() => {
       try {
-        const app = await APICalls.getApp(appId);
+        const appPromise = APICalls.getApp(appId);
+        const stagesPromise = APICalls.getStages(appId);
+        const [ app, stages ] = await Promise.all([appPromise, stagesPromise]);
+        setStages(stages);
         setApp(app);
       } catch(e) {
         if(e.response.data) {
@@ -36,11 +41,12 @@ const AppSettings = () => {
     {
     app ?
       <>
-        <AppName setApp={setApp} app={app}></AppName>
-        <GitRepo setApp={setApp} app={app}></GitRepo>
-        <AppDescription setApp={setApp} app={app}></AppDescription>
-        <AddUsers setApp={setApp} app={app}></AddUsers>
-        <DeleteApp></DeleteApp>
+        <AppName setApp={setApp} app={app}/>
+        <GitRepo setApp={setApp} app={app}/>
+        <AppDescription setApp={setApp} app={app}/>
+        <AddUsers setApp={setApp} app={app}/>
+        <AppStages setApp={setApp} app={app} stages={stages} setStages={setStages}/>
+        <DeleteApp stages={stages}></DeleteApp>
       </> :
       null
     }

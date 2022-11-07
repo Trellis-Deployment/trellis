@@ -29,14 +29,18 @@ const AddUsers = ({ app, setApp }) => {
     getUsers();
     
   }, [app.userId, app.users]);
-  console.log({appUsers});
 
   const handleFormSubmit = async (updatedUsersLogins) => {
     const updatedUsersIds = updatedUsersLogins.map(userLogin => users.find(user => user.githubLogin === userLogin).userId);
     const newApp = {...app, users: updatedUsersIds}
     try {
       const data = await APICalls.putApp(newApp);
+      if(data.error) {
+        alert(data.error);
+        return;
+      }
       setApp(data);
+      toggleShowForm(false);
     } catch(e) {
       console.log(e.message);
       alert(e.message);

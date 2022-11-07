@@ -50,7 +50,6 @@ const CreateApp = () => {
         alert(data.message);
         return;
       }
-      console.log(data);
       navigate(`/Apps`);
     } catch (e) {
       console.log(e.message);

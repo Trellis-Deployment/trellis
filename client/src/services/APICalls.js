@@ -29,7 +29,6 @@ const getApp = async(appId) => {
 
 const postApps = async (app) => {
   const response = await axios.post(`${API_URL}/apps`, app);
-  console.log(response);
   return response.data;
 };
 
@@ -116,6 +115,21 @@ const getUsers = async() => {
   return response.data;
 }
 
+const createStage = async(stage) => {
+  const response = await axios.post(`${API_URL}/stage`, stage);
+  return response;
+}
+
+const deleteStage = async(stageId) => {
+  const response = await axios.delete(`${API_URL}/stage/${stageId}`);
+  return response.data;
+}
+
+const deleteApp = async(appId) => {
+  const response = await axios.delete(`${API_URL}/app/${appId}`);
+  return response.data;
+}
+
 const APICalls = {
   getRepos,
   getApp,
@@ -136,6 +150,9 @@ const APICalls = {
   putApp,
   setStageNPMCommand,
   getUsers,
+  createStage,
+  deleteStage,
+  deleteApp
 };
 
 export default APICalls;

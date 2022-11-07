@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Row, Card, Button } from "react-bootstrap";
 import DeleteAppForm from "./forms/DeleteAppForm";
-const DeleteApp = () => {
+const DeleteApp = ({stages}) => {
   const [ showForm, toggleShowForm ] = useState(false);
   const handleDeleteClick = (e) => {
     e.preventDefault();
@@ -14,7 +14,7 @@ const DeleteApp = () => {
         Delete Application:
       </Card.Title>
       {showForm ?
-      <DeleteAppForm toggleShowForm={toggleShowForm}/> : 
+      <DeleteAppForm toggleShowForm={toggleShowForm} stages={stages}/> : 
       <Button variant="danger" onClick={handleDeleteClick}>
         Delete Application
       </Button>
