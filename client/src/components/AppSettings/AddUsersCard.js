@@ -35,6 +35,10 @@ const AddUsers = ({ app, setApp }) => {
     const newApp = {...app, users: updatedUsersIds}
     try {
       const data = await APICalls.putApp(newApp);
+      if(data.error) {
+        alert(data.error);
+        return;
+      }
       setApp(data);
       toggleShowForm(false);
     } catch(e) {

@@ -11,6 +11,10 @@ const GitRepo = ({ app, setApp}) => {
     console.log({newApp});
     try {
       const data = await APICalls.putApp(newApp);
+      if(data.error) {
+        alert(data.error);
+        return;
+      }
       setApp(data);
     } catch(e) {
       if (e.response.data) {

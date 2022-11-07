@@ -16,6 +16,10 @@ const AppName = ({app, setApp}) => {
     const newApp = {...app, appName: name};
     try {
       const data = await APICalls.putApp(newApp);
+      if(data.error) {
+        alert(data.error);
+        return;
+      }
       setApp(data);
       window.sessionStorage.setItem("trellisAppName", data.appName);
       setAppName(data.appName);

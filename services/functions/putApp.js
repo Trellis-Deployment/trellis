@@ -7,6 +7,11 @@ import getUserById from "util/usersTableUtils/getUserById";
 
 export const main = handler(async (event) => {
   const appId = await event['pathParameters']['appId'];
+  try {
+    await getAppByAppId(appId)
+  } catch(e) {
+    return{error: `This app has been deleted`}
+  }
   const app = event.body ? JSON.parse(event.body) : null;
   let usersPromises = app.users.map(userId => getUserById(userId));
   usersPromises = usersPromises.concat(getUserById(app.userId));

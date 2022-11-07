@@ -4,7 +4,7 @@ import APICalls from "../../../services/APICalls";
 import { useNavigate } from "react-router-dom";
 
 const DeleteAppForm = ({toggleShowForm, stages}) => {
-  const { appName, appId } = useAppContext();
+  const { appName, appId, setAppName, setAppId } = useAppContext();
   const navigate = useNavigate();
   const handleCancelClick = (e) => {
     e.preventDefault();
@@ -20,7 +20,11 @@ const DeleteAppForm = ({toggleShowForm, stages}) => {
         alert(data.error);
         return;
       }
-      navigate('/apps');
+      window.sessionStorage.removeItem("trellisAppName");
+      window.sessionStorage.removeItem("trellisAppId");
+      setAppName(undefined);
+      setAppId(undefined);
+      navigate(`/`);
     } catch(e) {
       console.log(e.message);
       alert(e.message);

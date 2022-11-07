@@ -56,6 +56,7 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
       const data = await APICalls.createStage(newStage);
       if (data.error) {
         alert(data.error);
+        return;
       }
       const stages = await APICalls.getStages(app.appId);
       setStages(stages);
