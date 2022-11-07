@@ -1,4 +1,5 @@
 import "../../App.css";
+import "../../stylesheets/AppSettings.css"
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -6,6 +7,7 @@ import NPMScriptNameInput from "./NPMScriptNameInput";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import { Row } from "react-bootstrap";
+import { ArrowClockwise } from "react-bootstrap-icons";
 import DeleteStage from "./DeleteStage";
 
 const BranchSettings = ({
@@ -119,10 +121,18 @@ const BranchSettings = ({
     <>
       <div className="screen" onClick={handleScreenClick}></div>
       <div className="modal holder main-modal p-3 m-3">
-        {stage.stageName === "prod" || stage.stageName === "dev" ?
-        null : <DeleteStage stage={stage} setStages={setStages}/>}
+        {stage.stageName === "prod" || stage.stageName === "dev" ? null : (
+          <DeleteStage stage={stage} setStages={setStages} />
+        )}
         {repoBranches.length === 0 ? (
-          <p>Loading branches</p>
+          <div className="d-flex justify-content-center">
+            <ArrowClockwise
+              className="spinner-border"
+              color="white"
+              size={25}
+            ></ArrowClockwise>
+            <text className="align-self-center">Loading Branches</text>
+          </div>
         ) : (
           <>
             <h4>Change git branch for stage {stage.stageName}:</h4>
@@ -147,7 +157,6 @@ const BranchSettings = ({
         )}
         <h4>Set per-stage IAM credentials</h4>
         <Form onSubmit={handleIAMCredentialsSubmit}>
-          {/* <p className="text-start">IAM Access Key ID:</p> */}
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
             <p className="text-start">IAM Access Key:</p>
             <Form.Control
@@ -172,12 +181,15 @@ const BranchSettings = ({
         </Form>
         <hr></hr>
         <Form onSubmit={handleEnvVariableSubmit}>
-          <h4>
-            Set stage environment variables as a JSON string{" "}
-          </h4>
-            <a target="_blank" rel="noreferrer" href="https://jsonformatter.curiousconcept.com/">
-              online formatter
-            </a>
+          <h4>Set stage environment variables as a JSON string </h4>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="formatter-link"
+            href="https://jsonformatter.curiousconcept.com/"
+          >
+            online formatter
+          </a>
           <Form.Control
             type="textarea"
             className="mt-1"
@@ -185,8 +197,7 @@ const BranchSettings = ({
             required
             onChange={(e) => setEnvVariablesString(e.target.value)}
           />
-          <Button variant="primary" type="submit"
-          className="mt-2">
+          <Button variant="primary" type="submit" className="mt-2">
             Submit
           </Button>
         </Form>
@@ -196,14 +207,18 @@ const BranchSettings = ({
             <hr></hr>
             <div className="mt-3">
               <h4>{`Would you like to teardown stage ${stage.stageName}?`}</h4>
-              <Button onClick={handleTeardownClick} type="submit">
+              <Button onClick={handleTeardownClick} type="submit" className="btn settings-btn-delete">
                 Teardown
               </Button>
             </div>
           </Row>
         ) : null}
         <hr></hr>
-        <NPMScriptNameInput stage={stage} stages={stages} setStages={setStages}></NPMScriptNameInput>
+        <NPMScriptNameInput
+          stage={stage}
+          stages={stages}
+          setStages={setStages}
+        ></NPMScriptNameInput>
       </div>
     </>
   );

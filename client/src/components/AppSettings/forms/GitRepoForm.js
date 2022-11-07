@@ -45,6 +45,7 @@ const GitRepoForm = ({ onSubmit, toggleShowForm}) => {
           aria-label="select repo"
           size="sm"
           value={repo}
+          className="text-center m-2"
           onChange={(e) => setRepo(e.target.value)}
           required
         >
@@ -53,17 +54,15 @@ const GitRepoForm = ({ onSubmit, toggleShowForm}) => {
             <option key={idx}>{repo}</option>
           ))}
         </Form.Select>
-        <p className="text-center  pb-0 text-light fw-light">
+        <p className="text-center text-light fw-light">
           <em>Don't see your repo? configure github</em>
         </p>
 
         <Nav.Link target="_" href={CONFIGURE}>
-          <div className="row d-flex pt-1">
+          <div className="row d-flex">
             <div className="col">
               <Button
-                className="d-flex configure-git"
-                variant="dark"
-                size="dark"
+                className="d-flex settings-configure-git"
               >
                 Configure Github
               </Button>
@@ -71,10 +70,10 @@ const GitRepoForm = ({ onSubmit, toggleShowForm}) => {
           </div>
         </Nav.Link>
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button className="m-1 mt-2" type="submit">
         Save
       </Button>
-      <Button variant="secondary" onClick={handleCancelClick}>
+      <Button className="m-1 mt-2 settings-btn-delete" onClick={handleCancelClick}>
         Cancel
       </Button>
 

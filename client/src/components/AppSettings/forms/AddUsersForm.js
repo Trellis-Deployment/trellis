@@ -29,22 +29,23 @@ const AddUsersForm = ({ onSubmit, appUsers, users, toggleShowForm }) => {
   return (
     <Form onSubmit={handleFormSubmit}>
       <Form.Group>
-        <p className="text-start">Below are all the users signed up with Trellis other than the current app's owner, select those that you want to access this application</p>
+        <p className="text-start text-warning">Below are all the users signed up with Trellis other than the current app's owner, select those that you want to access this application</p>
 
         {users.map((user, idx) => (
           <Form.Check 
             key={idx} 
             type="checkbox"
+            className="text-start"
             label={user.githubLogin}
             checked={updatedUsers.some(userLogin => user.githubLogin === userLogin)}
             onChange={() => handleCheckToggle(user.githubLogin)}
           />
         ))}
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button className="m-1 mt-2" type="submit">
         Save
       </Button>
-      <Button variant="secondary" onClick={handleCancelClick}>
+      <Button className="m-1 mt-2 settings-btn-delete" onClick={handleCancelClick}>
         Cancel
       </Button>
     </Form>

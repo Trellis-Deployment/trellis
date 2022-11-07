@@ -71,7 +71,7 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
       <p className="text-start">New stage: (This stage will use the default APP AWS credentials. If you would like to change it, please do so on the stage settings after it's created.) </p>
 
       <Form.Group>
-        <p>stage Name*</p>
+        <p className="text-start card-info-key">stage Name*</p>
         <Form.Control
           type="string"
           value={stageName}
@@ -80,8 +80,8 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
           required
         />
         <br/>
-        <p>Environment variables(JSON string)</p>
-        <a target="_blank" rel="noreferrer" href="https://jsonformatter.curiousconcept.com/">
+        <p className="text-start card-info-key">Environment variables(JSON string)</p>
+        <a target="_blank" rel="noreferrer" href="https://jsonformatter.curiousconcept.com/" className="formatter-link">
               online formatter
         </a>
         <Form.Control
@@ -92,7 +92,7 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
             onChange={(e) => setEnvVariablesString(e.target.value)}
         />
         <br/>
-        <p>Choose an optional NPM command to be executed beforer deployment:(e.g. enter 'test' for 'npm run test')</p>
+        <p className="text-start">Choose an optional NPM command to be executed before deployment: (e.g. enter 'test' for 'npm run test')</p>
         <Form.Control
           placeholder="npm command name"
           type="text"
@@ -100,7 +100,7 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
           onChange={(e) => setNpmScriptName(e.target.value)}
         />
         <br/>
-        <p>Stage Branch*</p>
+        <p className="text-start card-info-key">Stage Branch*</p>
         <Form.Select
           aria-label="select branch"
           size="sm"
@@ -115,10 +115,10 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
         </Form.Select>
         
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button className="m-1 mt-2" type="submit">
         Save
       </Button>
-      <Button variant="secondary" onClick={handleCancelClick}>
+      <Button className="m-1 mt-2 settings-btn-delete" onClick={handleCancelClick}>
         Cancel
       </Button>
 

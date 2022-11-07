@@ -33,12 +33,12 @@ const DeleteAppForm = ({toggleShowForm, stages}) => {
   return (
     <>
       <Card.Text>
-        Are you sure you want to delete {appName}
+        Are you sure you want to delete: <text className="stage-row">{appName}</text> ?
       </Card.Text>
-      <Button onClick={handleDeleteClick}>
+      <Button className="m-1 mt-2 settings-btn-delete"  onClick={handleDeleteClick}>
         Delete {appName}
       </Button>
-      <Button onClick={handleCancelClick}>
+      <Button className="m-1 mt-2 settings-configure-git" onClick={handleCancelClick}>
         Cancel
       </Button>
     </>

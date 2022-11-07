@@ -6,7 +6,13 @@ import BranchSettings from "./BranchSettings";
 import CommitId from "./CommitId";
 import { Card, Col, Row } from "react-bootstrap";
 
-import { CloudCheck, ExclamationCircle, FileEarmarkBinary, Gear, FileExcel } from "react-bootstrap-icons";
+import {
+  CloudCheck,
+  ExclamationCircle,
+  FileEarmarkBinary,
+  Gear,
+  FileExcel,
+} from "react-bootstrap-icons";
 
 const StageData = ({ stage, stages, setStages }) => {
   const [branchSettingsVisible, setBranchSettingsVisible] = useState(false);
@@ -19,12 +25,10 @@ const StageData = ({ stage, stages, setStages }) => {
   return (
     <div>
       <Card.Text className="stage-branch ps-1 text-center">
-        <Row>
-          <Row></Row>
-        </Row>
         <Row className="stage-info-branch">
-          <Row>
-            Stage Branch:{" "}
+          <Row >
+            <Col className="card-info-key text-start">
+            Stage Branch:{" "}</Col>
             <Col className="line-2 stage-info text-start">
               {" "}
               {stage.stageBranch !== "undefined" ? (
@@ -39,7 +43,7 @@ const StageData = ({ stage, stages, setStages }) => {
                     >
                       <i
                         aria-hidden="true"
-                        className="fa  fa-code-fork bg-1h"
+                        className="fa fa-code-fork bg-1h"
                       ></i>
                       {stage.stageBranch}
                     </a>
@@ -61,28 +65,33 @@ const StageData = ({ stage, stages, setStages }) => {
               </a>
             </Col>
           </Row>
-          <Row>
+          <Row className="text-start">
+            <Row>
             <span
               target="_blank"
-              className="commit ps-1 stage-info text-start"
+              className="commit stage-info"
               rel="noopener noreferrer"
               href={stage.stageId}
             >
-              <strong>Last Deployed: </strong>
-              {stage.lastDeploymentTime
-                ? String(new Date(stage.lastDeploymentTime))
-                : "Not Deployed"}
-            </span>
-          </Row>
-          <Row>
-            <span className=" app-id stage-info">
-              Commit ID:{" "}
-              {stage.lastCommitId ? (
-                <CommitId value={stage.lastCommitId} />
-              ) : (
-                "N/A"
-              )}
-            </span>
+              <text className="card-info-key text-start">Last Deployed: </text>
+              <text className="card-info-value">
+                {stage.lastDeploymentTime
+                  ? String(new Date(stage.lastDeploymentTime))
+                  : "Not Deployed"}
+              </text>
+            </span></Row><Row>
+            <span className="row text-start">
+              <text className="card-info-key">
+                Commit ID:{" "}
+                <text className="stage-info-value">
+                  {stage.lastCommitId ? (
+                    <CommitId value={stage.lastCommitId} />
+                  ) : (
+                    "N/A"
+                  )}
+                </text>
+              </text>
+            </span></Row>
           </Row>
         </Row>
         {stage.stageState === "created" && (
@@ -120,10 +129,10 @@ const StageData = ({ stage, stages, setStages }) => {
         )}
         {stage.stageState === "removed" && (
           <Col className="text-center mt-2">
-          {" "}
-          <FileExcel color="red" size={38} />
-          <p>Removed</p>
-        </Col>
+            {" "}
+            <FileExcel color="red" size={38} />
+            <p>Removed</p>
+          </Col>
         )}
         {branchSettingsVisible ? (
           <BranchSettings

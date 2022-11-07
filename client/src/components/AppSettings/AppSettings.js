@@ -34,7 +34,7 @@ const AppSettings = () => {
 
 
   return (
-    <div className="container pipes mt-3 mid-card holder">
+    <div className="container pipes mt-3 mid-card holder settings-container">
     <div className="row">
       <div className="col pipeline-title mt-1">Settings</div>
     </div>

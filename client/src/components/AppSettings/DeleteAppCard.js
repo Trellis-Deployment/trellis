@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Row, Card, Button } from "react-bootstrap";
+import { Row, Card, Col, Button } from "react-bootstrap";
 import DeleteAppForm from "./forms/DeleteAppForm";
 const DeleteApp = ({stages}) => {
   const [ showForm, toggleShowForm ] = useState(false);
@@ -9,16 +9,18 @@ const DeleteApp = ({stages}) => {
   }
 
   return(
-    <Row className="py-1 stage-row m-1 my-2 bh-bla">
-      <Card.Title className="SectionHeader text-start">
+    <Row className="py-1 my-3 mb-5 text-center">
+      <Card.Title className="SectionHeader  my-1">
         Delete Application:
       </Card.Title>
+      <Row>
+        <Col className="mb-3">
       {showForm ?
       <DeleteAppForm toggleShowForm={toggleShowForm} stages={stages}/> : 
-      <Button variant="danger" onClick={handleDeleteClick}>
+      <Button className="btn bttn settings-btn-delete" onClick={handleDeleteClick}>
         Delete Application
       </Button>
-      }
+      }</Col></Row>
     </Row>
   )
 }

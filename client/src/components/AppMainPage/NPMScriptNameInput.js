@@ -48,7 +48,7 @@ const NPMScriptNameInput = ({stage, stages, setStages}) => {
       onChange={(e) => setNPMScriptName(e.target.value)}
     >
     </Form.Control>
-    <Button variant="primary" type="submit" disabled={isSubmissionInProgress || npmScriptName === stage.npmScriptName}>
+    <Button variant="primary" className="btn bttn mt-2" type="submit" disabled={isSubmissionInProgress || npmScriptName === stage.npmScriptName}>
       {generateSubmitButtonText()}
     </Button>
   </Form>
