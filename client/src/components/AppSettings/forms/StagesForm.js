@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import { useAppContext } from "../../../Lib/AppContext";
 import APICalls from "../../../services/APICalls";
 
-const StagesForm = ({ toggleShowForm, stages, app }) => {
+const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
   const { userId, appId, appName } = useAppContext();
   const [branches, setBranches] = useState([]);
   const [ branch, setBranch ] = useState("");
@@ -57,6 +57,9 @@ const StagesForm = ({ toggleShowForm, stages, app }) => {
       if (data.error) {
         alert(data.error);
       }
+      const stages = await APICalls.getStages(app.appId);
+      setStages(stages);
+      toggleShowForm(false);
     } catch(e) {
       alert(e.message);
     }

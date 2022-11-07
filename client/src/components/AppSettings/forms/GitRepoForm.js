@@ -14,6 +14,7 @@ const GitRepoForm = ({ onSubmit, toggleShowForm}) => {
       return;
     }
     await onSubmit(repo);
+    toggleShowForm(false);
   }
 
   useEffect(() => {

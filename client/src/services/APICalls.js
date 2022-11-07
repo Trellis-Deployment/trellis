@@ -125,6 +125,11 @@ const deleteStage = async(stageId) => {
   return response.data;
 }
 
+const deleteApp = async(appId) => {
+  const response = await axios.delete(`${API_URL}/app/${appId}`);
+  return response.data;
+}
+
 const APICalls = {
   getRepos,
   getApp,
@@ -146,7 +151,8 @@ const APICalls = {
   setStageNPMCommand,
   getUsers,
   createStage,
-  deleteStage
+  deleteStage,
+  deleteApp
 };
 
 export default APICalls;

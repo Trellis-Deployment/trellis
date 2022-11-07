@@ -26,7 +26,6 @@ export const main = handler(async (event) => {
       newStage.envLocation = envLocation;
     }
     delete newStage.envVariablesString;
-    console.log({newStage});
     const stage = await createStage(newStage);
     return stage;
     

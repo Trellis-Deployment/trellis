@@ -36,6 +36,7 @@ const AddUsers = ({ app, setApp }) => {
     try {
       const data = await APICalls.putApp(newApp);
       setApp(data);
+      toggleShowForm(false);
     } catch(e) {
       console.log(e.message);
       alert(e.message);
