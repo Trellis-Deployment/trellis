@@ -102,9 +102,7 @@ const CreateApp = () => {
               <div className="row d-flex pt-1">
                 <div className="col">
                   <Button
-                    className="d-flex configure-git"
-                    variant="dark"
-                    size="dark"
+                    className="d-flex settings-configure-git"
                   >
                     Configure Github
                   </Button>
@@ -133,7 +131,6 @@ const CreateApp = () => {
           <div className="container row">
             <div className="col">
               <Button
-                variant="outline-light"
                 size="md"
                 type="submit"
                 className="submit"
@@ -144,9 +141,8 @@ const CreateApp = () => {
             <div className="col text-center">
               <Button
                 href="/apps"
-                className="cancel-button"
+                className="settings-btn-delete"
                 size="md"
-                variant="danger"
               >
                 Cancel
               </Button>

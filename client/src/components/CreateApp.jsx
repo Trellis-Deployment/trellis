@@ -87,7 +87,7 @@ const CreateApp = ({ authUser }) => {
               <em>Don't see your repo? configure github</em>
             </p>
             <Nav.Link href={CONFIGURE}>
-              <Button variant="success" size="sm" className="#">
+              <Button  size="sm" className="#">
                 Configure Github
               </Button>
             </Nav.Link>

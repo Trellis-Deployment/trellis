@@ -32,11 +32,6 @@ body {
   border: 1px solid gray;
 }
 
-.settings-row {
-  background: rgb(12, 89, 157);
-  border-radius: 5px;
-  border: 1px solid white;
-}
 
 .gear {
   color: white;
@@ -110,9 +105,9 @@ dark
   font-family: "Montserrat",sans-serif;
   letter-spacing: 0.5px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  color:  rgb(225, 254, 94);;
+  color:  rgb(94, 235, 254);
 }
 
 ol, ul {
@@ -210,7 +205,7 @@ color: rgb(242, 255, 192); */
 }
 
 .card-info-key {
-  color:  rgb(225, 254, 94);;
+  color:  rgb(94, 254, 193);
   font-family: 'Montserrat';
   font-size: 14px;
   font-weight: 500;

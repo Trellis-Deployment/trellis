@@ -45,7 +45,7 @@ const Applications = () => {
       <Shapes></Shapes>
       <div className="row pb-2">
         <div className="col">
-          <Button onClick={handleNewAppClick} size="sm" variant="primary">
+          <Button onClick={handleNewAppClick} size="sm" variant="primary" className="settings-configure-git">
             <PlusCircle size={25} className="pe-1"/> New App
           </Button>
         </div>
