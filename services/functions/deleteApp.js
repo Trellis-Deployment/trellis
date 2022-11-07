@@ -42,7 +42,7 @@ export const main = handler(async (event) => {
         throw e;
       }
     } else {
-      return{error: `Please tear down these stages and then try again ${stagesToBeTornDown.join(",")}`}
+      return{error: `Please tear down these stages and then try again: ${stagesToBeTornDown.join(",")}`}
     }
   } catch(e) {
     console.log(e.message);
