@@ -1,3 +1,4 @@
+import "../../stylesheets/AppSettings.css"
 import AppName from "./AppNameCard";
 import GitRepo from "./GitRepoCard";
 import AppDescription from "./AppDescriptionCard";
