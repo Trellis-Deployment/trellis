@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
-import APICalls from "../../../services/APICalls";
 
 const AddUsersForm = ({ onSubmit, appUsers, users, toggleShowForm }) => {
   const [updatedUsers, setUpdatedUsers] = useState([]);
@@ -30,7 +29,7 @@ const AddUsersForm = ({ onSubmit, appUsers, users, toggleShowForm }) => {
   return (
     <Form onSubmit={handleFormSubmit}>
       <Form.Group>
-        <p className="text-start">User:</p>
+        <p className="text-start">Below are all the users signed up with Trellis other than the current app's owner, select those that you want to access this application</p>
 
         {users.map((user, idx) => (
           <Form.Check 

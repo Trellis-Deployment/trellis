@@ -130,11 +130,13 @@ export function ApiStack({ stack, app }: StackContext) {
       "POST /teardown": "functions/teardown.main",
       "PUT /stageStatus": "functions/setStageStatus.main",
       "POST /promote": "functions/promote.main",
+      "POST /stage": "functions/createStage.main",
       "GET /repoBranches": "functions/getRepoBranches.main",
       "PUT /stageBranch": "functions/setStageBranch.main",
       "PUT /app/{appId}": "functions/putApp.main",
       "PUT /npmScriptName": "functions/setStageNPMCommand.main",
       "DELETE /app/{appId}": "functions/deleteApp.main",
+      "DELETE /stage/{stageId}": "functions/deleteStage.main",
     },
     accessLog: false,
   });

@@ -18,7 +18,7 @@ const Header = () => {
               {/* <img src={TrellisPro} className="img-fluid front" alt="#"></img> */}
               <TextSVG className="front"/>
             </div>
-            <div class="col-md p-2 ms-4 align-self-md-center">
+            <div className="col-md p-2 ms-4 align-self-md-center">
               <div className="text-md-start text-sm-center">
                 <h3>Welcome to</h3>
                 <h1>TRELLIS</h1>

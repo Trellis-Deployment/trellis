@@ -6,6 +6,7 @@ import NPMScriptNameInput from "./NPMScriptNameInput";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import { Row } from "react-bootstrap";
+import DeleteStage from "./DeleteStage";
 
 const BranchSettings = ({
   stage,
@@ -94,7 +95,7 @@ const BranchSettings = ({
       const response = await APICalls.teardown({
         stageId: stage.stageId,
         userId,
-        appName,
+        appId,
         commitId: stage.lastCommitId,
       });
 
@@ -118,6 +119,8 @@ const BranchSettings = ({
     <>
       <div className="screen" onClick={handleScreenClick}></div>
       <div className="modal holder main-modal p-3 m-3">
+        {stage.stageName === "prod" || stage.stageName === "dev" ?
+        null : <DeleteStage stage={stage} setStages={setStages}/>}
         {repoBranches.length === 0 ? (
           <p>Loading branches</p>
         ) : (

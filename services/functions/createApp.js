@@ -50,8 +50,18 @@ export const main = handler(async (event) => {
   let prodStage;
   let devStage;
   try {
-    prodStage = await createStage({ app, branch: null, stageName: "prod" });
-    devStage = await createStage({ app, branch: "main", stageName: "dev" });
+    prodStage = await createStage({
+      lastCommitId: "", stageState: "created",
+      IAMCredentialsLocation: app.defaultIAMCredentialsLocation,
+      appId: app.appId, stageBranch: "undefined",
+      stageName: "prod" 
+    });
+    devStage = await createStage({ 
+      lastCommitId: "", stageState: "created", 
+      IAMCredentialsLocation: app.defaultIAMCredentialsLocation, 
+      appId: app.appId, stageBranch: "main", 
+      stageName: "dev" 
+    });
     console.log({ prodStage });
   } catch (e) {
     console.log(e.message);

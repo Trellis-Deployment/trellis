@@ -4,6 +4,7 @@ import AppDescription from "./AppDescriptionCard";
 import AddUsers from "./AddUsersCard";
 import DeleteApp
  from "./DeleteAppCard";
+import AppStages from "./AppStagesCard";
 import { useAppContext } from "../../Lib/AppContext";
 import { useEffect, useState } from "react";
 import APICalls from "../../services/APICalls";
@@ -36,10 +37,11 @@ const AppSettings = () => {
     {
     app ?
       <>
-        <AppName setApp={setApp} app={app}></AppName>
-        <GitRepo setApp={setApp} app={app}></GitRepo>
-        <AppDescription setApp={setApp} app={app}></AppDescription>
-        <AddUsers setApp={setApp} app={app}></AddUsers>
+        <AppName setApp={setApp} app={app}/>
+        <GitRepo setApp={setApp} app={app}/>
+        <AppDescription setApp={setApp} app={app}/>
+        <AddUsers setApp={setApp} app={app}/>
+        <AppStages setApp={setApp} app={app}/>
         <DeleteApp></DeleteApp>
       </> :
       null

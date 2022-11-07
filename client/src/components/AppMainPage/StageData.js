@@ -6,7 +6,7 @@ import BranchSettings from "./BranchSettings";
 import CommitId from "./CommitId";
 import { Card, Col, Row } from "react-bootstrap";
 
-import { CloudCheck, ExclamationCircle, FileEarmarkBinary, Gear } from "react-bootstrap-icons";
+import { CloudCheck, ExclamationCircle, FileEarmarkBinary, Gear, FileExcel } from "react-bootstrap-icons";
 
 const StageData = ({ stage, stages, setStages }) => {
   const [branchSettingsVisible, setBranchSettingsVisible] = useState(false);
@@ -117,6 +117,13 @@ const StageData = ({ stage, stages, setStages }) => {
             <ExclamationCircle color="red" size={38} />
             <p>Error</p>
           </Col>
+        )}
+        {stage.stageState === "removed" && (
+          <Col className="text-center mt-2">
+          {" "}
+          <FileExcel color="red" size={38} />
+          <p>Removed</p>
+        </Col>
         )}
         {branchSettingsVisible ? (
           <BranchSettings
