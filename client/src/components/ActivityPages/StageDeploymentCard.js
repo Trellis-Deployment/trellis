@@ -2,7 +2,7 @@ import "../../stylesheets/AppStage.css";
 import { useState, useEffect } from "react";
 import DeploymentCard from "./DeploymentCard";
 import APICalls from "../../services/APICalls";
-import { Col, Card } from "react-bootstrap";
+import { Col, Card, Row } from "react-bootstrap";
 
 const StageDeploymentCard = ({ stage }) => {
   const [deployments, setDeployments] = useState([]);
@@ -15,23 +15,44 @@ const StageDeploymentCard = ({ stage }) => {
   }, [stage.stageState, stage.stageId, stage.lastDeploymentTime]);
 
   return (
-    <Col className="py-1 stage-row m-1 my-2 bh-bla">
-      <Card.Title className="SectionHeader text-start">
-        {stage.stageName} Deployments:
-        {deployments.map((deployment, idx) => (
-          <>
-            <DeploymentCard
-              key={deployment.deploymentId}
-              deployment={deployment}
-              version={deployments.length - idx}
-              idx={idx}
-              stageId={stage.stageId}
-              setDeployments={setDeployments}
-            ></DeploymentCard>
-          </>
-        ))}
-      </Card.Title>
-    </Col>
+    <>
+    {stage.stageName === 'prod' ?
+      <Row className="py-1 stage-row m-1 my-2 bh-bla">
+        <Card.Title className="SectionHeader text-start">
+          {stage.stageName} Deployments:
+          {deployments.map((deployment, idx) => (
+            <>
+              <DeploymentCard
+                key={deployment.deploymentId}
+                deployment={deployment}
+                version={deployments.length - idx}
+                idx={idx}
+                stageId={stage.stageId}
+                setDeployments={setDeployments}
+              ></DeploymentCard>
+            </>
+          ))}
+        </Card.Title>
+      </Row> :
+      <Col className="py-1 stage-row m-1 my-2 bh-bla">
+        <Card.Title className="SectionHeader text-start">
+          {stage.stageName} Deployments:
+          {deployments.map((deployment, idx) => (
+            <>
+              <DeploymentCard
+                key={deployment.deploymentId}
+                deployment={deployment}
+                version={deployments.length - idx}
+                idx={idx}
+                stageId={stage.stageId}
+                setDeployments={setDeployments}
+              ></DeploymentCard>
+            </>
+          ))}
+        </Card.Title>
+      </Col>
+    }
+    </>
   );
 };
 
