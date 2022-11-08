@@ -66,6 +66,7 @@ const createWebhook = async (token, webhookURL, user, fullRepo) => {
         insecure_ssl: '0'
       }
     });
+    return response.data.id;
   } catch(e) {
     console.log({githubFailed: e.message});
     throw new Error(`{githubFailed: ${e.message}}`);

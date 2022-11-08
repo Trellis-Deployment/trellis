@@ -5,9 +5,7 @@ import getUserByLogin from "./getUserByLogin";
 
 const saveUser = async (tokenObject) => {
   const data = await githubCalls.getUserInfo(tokenObject.access_token);
-  console.log(data);
   const userId = uuidv4();
-  console.log({userId});
   const newUser = {
     userId,
     githubLogin: data.login,
@@ -17,9 +15,7 @@ const saveUser = async (tokenObject) => {
     refreshToken: tokenObject.refresh_token,
     githubAvatarUrl: data['avatar_url'],
   }
-  console.log({newUser});
   const userExists = await getUserByLogin(data.login);
-  console.log({userExists});
   if (userExists) {
     userExists.new = false;
     return userExists;

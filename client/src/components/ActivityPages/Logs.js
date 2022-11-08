@@ -1,5 +1,6 @@
 import "../../stylesheets/AppActivity.css";
 import { useRef, useEffect } from "react";
+import { Row } from "react-bootstrap";
 
 const Logs = (logs = "") => {
   const logText = logs.logs;
@@ -11,7 +12,7 @@ const Logs = (logs = "") => {
   });
 
   return (
-    <div className="row m-1 form-floating">
+    <Row className="m-1 form-floating">
       <textarea
         className="logs my-1"
         id="floatingTextarea"
@@ -19,7 +20,7 @@ const Logs = (logs = "") => {
         readOnly={true}
         ref={textArea} // This links the useRef() hook to this object in the dom
       />
-    </div>
+    </Row>
   );
 };
 

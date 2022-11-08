@@ -35,17 +35,18 @@ export const main = handler(async (event) => {
 
   const webhookUrl = `https://${event.headers.host}/webhook?user=${userLogin}&repo=${repoName}`;
 
-  let webhook;
+  let webhookId;
   try {
-    webhook = await createWebhook({
+    webhookId = await createWebhook({
       webhookUrl,
       login: data.userLogin,
       repo: data.repoName,
       userId,
     });
+
   } catch (e) {
     console.log(e.message);
-    webhook = e.message;
+    webhookId = e.message;
   }
   let prodStage;
   let devStage;
@@ -62,11 +63,10 @@ export const main = handler(async (event) => {
       appId: app.appId, stageBranch: "main", 
       stageName: "dev" 
     });
-    console.log({ prodStage });
   } catch (e) {
     console.log(e.message);
     prodStage = e.message;
   }
 
-  return { app, webhook, devStage, prodStage };
+  return { app, webhookId, devStage, prodStage };
 });

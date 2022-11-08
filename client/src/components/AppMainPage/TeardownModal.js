@@ -40,9 +40,7 @@ const TeardownModal = ({ stage, setTeardownVisible, stages, setStages }) => {
 
   return (
     <Row>
-      {/* <div className="screen" onClick={handleScreenClick}>
-    </div> */}
-      <div className="#">
+      <div>
         <p>{`Are you sure you want to teardown stage ${stage.stageName}?`}</p> :
         <Button onClick={handleTeardownClick} variant="primary" type="submit">
           Yes, Tear It Down

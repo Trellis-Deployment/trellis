@@ -35,7 +35,6 @@ const updateUser = async (tokenObject) => {
   } catch(e) {
     throw new Error(e.message);
   }
-  console.log({user});
   return userToUpdate;
 }
 

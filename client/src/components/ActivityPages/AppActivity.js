@@ -4,6 +4,7 @@ import StageDeploymentCard from "./StageDeploymentCard";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import WebSocket from "../../services/WebSocket";
+import { Col, Card, Row } from "react-bootstrap";
 
 const AppActivity = () => {
   const [stages, setStages] = useState([]);
@@ -25,17 +26,17 @@ const AppActivity = () => {
 
   return (
     <div className="container pipes mt-3 mid-card holder">
-      <div className="row">
+      <Row>
         <div className="col pipeline-title mt-1">Activity</div>
-      </div>
-        <div className="mx-0 row card-back">
+      </Row>
+        <Row className="mx-0 card-back">
           {stages.map((stage) => (
             <StageDeploymentCard
               key={stage.stageId}
               stage={stage}
             ></StageDeploymentCard>
           ))}
-        </div>
+        </Row>
     </div>
   );
 };

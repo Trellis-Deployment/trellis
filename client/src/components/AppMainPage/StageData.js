@@ -2,7 +2,6 @@ import "../../App.css";
 import "../../stylesheets/AppStage.css";
 import { useState } from "react";
 import BranchSettings from "./BranchSettings";
-// import TeardownModal from "./TeardownModal";
 import CommitId from "./CommitId";
 import { Card, Col, Row } from "react-bootstrap";
 

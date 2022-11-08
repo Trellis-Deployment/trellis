@@ -148,7 +148,6 @@ const BranchSettings = ({
         )}
         <h4>Set per-stage IAM credentials</h4>
         <Form onSubmit={handleIAMCredentialsSubmit}>
-          {/* <p className="text-start">IAM Access Key ID:</p> */}
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
             <p className="text-start">IAM Access Key:</p>
             <Form.Control

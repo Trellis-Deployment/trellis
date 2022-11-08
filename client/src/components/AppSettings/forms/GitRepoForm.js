@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Form, Button, Nav } from "react-bootstrap";
 import { useAppContext } from "../../../Lib/AppContext";
 import APICalls from "../../../services/APICalls";
+import { Col, Card, Row } from "react-bootstrap";
 
 const GitRepoForm = ({ onSubmit, toggleShowForm}) => {
   const [repo, setRepo] = useState("");
@@ -59,15 +60,15 @@ const GitRepoForm = ({ onSubmit, toggleShowForm}) => {
         </p>
 
         <Nav.Link target="_" href={CONFIGURE}>
-          <div className="row d-flex">
-            <div className="col">
+          <Row className="d-flex">
+            <Col>
               <Button
                 className="d-flex settings-configure-git"
               >
                 Configure Github
               </Button>
-            </div>
-          </div>
+            </Col>
+          </Row>
         </Nav.Link>
       </Form.Group>
       <Button className="m-1 mt-2" type="submit">

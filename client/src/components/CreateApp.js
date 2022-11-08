@@ -5,6 +5,7 @@ import APICalls from "../services/APICalls";
 import { useNavigate } from "react-router-dom";
 import { Container, Nav } from "react-bootstrap";
 import { useAppContext } from "../Lib/AppContext";
+import { Col, Row } from "react-bootstrap";
 
 const CreateApp = () => {
   const [repos, setRepos] = useState([]);
@@ -31,7 +32,7 @@ const CreateApp = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if(!repo) {
+    if (!repo) {
       alert("Please, select a repo from the provided list");
       return;
     }
@@ -99,15 +100,13 @@ const CreateApp = () => {
             </p>
 
             <Nav.Link target="_" href={CONFIGURE}>
-              <div className="row d-flex pt-1">
-                <div className="col">
-                  <Button
-                    className="d-flex settings-configure-git"
-                  >
+              <Row className="d-flex pt-1">
+                <Col>
+                  <Button className="d-flex settings-configure-git">
                     Configure Github
                   </Button>
-                </div>
-              </div>
+                </Col>
+              </Row>
             </Nav.Link>
           </Form.Group>
           <Form.Group className="mb-3" controlid="formBasicAccessKey">
@@ -128,26 +127,18 @@ const CreateApp = () => {
               onChange={(e) => setSecretKey(e.target.value)}
             />
           </Form.Group>
-          <div className="container row">
-            <div className="col">
-              <Button
-                size="md"
-                type="submit"
-                className="submit"
-              >
+          <Row className="container">
+            <Col>
+              <Button size="md" type="submit" className="submit">
                 Submit
               </Button>
-            </div>
-            <div className="col text-center">
-              <Button
-                href="/apps"
-                className="settings-btn-delete"
-                size="md"
-              >
+            </Col>
+            <Col className="text-center">
+              <Button href="/apps" className="settings-btn-delete" size="md">
                 Cancel
               </Button>
-            </div>
-          </div>
+            </Col>
+          </Row>
         </Form>
       </Container>
     </div>

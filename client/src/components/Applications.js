@@ -57,7 +57,7 @@ const Applications = () => {
       <Row className="mt-3">
         <ul className="container p-0">
           {applications.map((application) => (
-            <div key={application.appId} className="row">
+            <Row key={application.appId}>
               <li className="my-1">
                 <div className="oam">
                   <div className="button"
@@ -91,16 +91,12 @@ const Applications = () => {
                       
                       pe-4"
                       >
-                        <div className="row dep d-flex justify-content-end">
-                          Last Deployed
-                        </div>
-                        <div className="row date">-</div>
                       </Col>
                     </Row>
                   </div>
                 </div>
               </li>
-            </div>
+            </Row>
           ))}
         </ul>
       </Row>

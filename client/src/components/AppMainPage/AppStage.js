@@ -32,7 +32,7 @@ const AppStage = ({ stage, setStages, stages }) => {
 
   return (
     <>
-      {stage.stageName === 'prod' ? 
+      {stage.stageName === "prod" ? (
         <Row key={stage.stageId} className="stage-row m-1 py-1 pb-2">
           <Card.Title className="SectionHeader text-center">
             Stage Name:{" "}
@@ -79,55 +79,56 @@ const AppStage = ({ stage, setStages, stages }) => {
               </>
             ) : null}
           </div>
-        </Row> :
-        <Col key={stage.stageId} className="stage-row m-1 py-1 pb-2">
-        <Card.Title className="SectionHeader text-center">
-          Stage Name:{" "}
-          <Link to={`/application/${appName}/activity`} className="links">
-            {stage.stageName}
-          </Link>
-        </Card.Title>
-        <Row>
-          {
-            <StageData
-              stage={stage}
-              stages={stages}
-              setStages={setStages}
-            ></StageData>
-          }
         </Row>
-        <div className="d-flex">
-          {stage.stageName !== "prod" ? (
-            <>
-              {" "}
-              <Button
-                size="sm"
-                variant="success"
-                onClick={(e) => handleDeployClick(e, stage.stageId)}
-              >
-                Manually Deploy Stage
-              </Button>
-              <Button
-                disabled={
-                  stage.stageState === "deployed" &&
-                  stages.find((s) => s.stageName === "prod").stageState !==
-                    "deploying" &&
-                  stages.find((s) => s.stageName === "prod").stageState !==
-                    "tearingDown"
-                    ? false
-                    : true
-                }
-                size="sm"
-                variant="primary"
-                onClick={handlePromoteClick}
-              >
-                Promote to Production
-              </Button>
-            </>
-          ) : null}
-        </div>
-      </Col>
-      }
+      ) : (
+        <Col key={stage.stageId} className="stage-row m-1 py-1 pb-2">
+          <Card.Title className="SectionHeader text-center">
+            Stage Name:{" "}
+            <Link to={`/application/${appName}/activity`} className="links">
+              {stage.stageName}
+            </Link>
+          </Card.Title>
+          <Row>
+            {
+              <StageData
+                stage={stage}
+                stages={stages}
+                setStages={setStages}
+              ></StageData>
+            }
+          </Row>
+          <div className="d-flex">
+            {stage.stageName !== "prod" ? (
+              <>
+                {" "}
+                <Button
+                  size="sm"
+                  variant="success"
+                  onClick={(e) => handleDeployClick(e, stage.stageId)}
+                >
+                  Manually Deploy Stage
+                </Button>
+                <Button
+                  disabled={
+                    stage.stageState === "deployed" &&
+                    stages.find((s) => s.stageName === "prod").stageState !==
+                      "deploying" &&
+                    stages.find((s) => s.stageName === "prod").stageState !==
+                      "tearingDown"
+                      ? false
+                      : true
+                  }
+                  size="sm"
+                  variant="primary"
+                  onClick={handlePromoteClick}
+                >
+                  Promote to Production
+                </Button>
+              </>
+            ) : null}
+          </div>
+        </Col>
+      )}
     </>
   );
 };

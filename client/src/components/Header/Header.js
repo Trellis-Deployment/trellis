@@ -3,7 +3,7 @@ import "./Header.css";
 import Shapes from "../Development/Shapes";
 import { Github } from "react-bootstrap-icons";
 import Logo from "../../Resources/Motion/logo_intro_5.mov";
-import { Row, Card, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 const Header = () => {
   const SIGN_UP = `https://github.com/apps/${process.env.REACT_APP_GitHubApp}/installations/new`;

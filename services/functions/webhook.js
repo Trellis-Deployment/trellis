@@ -8,6 +8,9 @@ import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
   const commitId = data.after;
+  if (!data.ref) {
+    return;
+  }
   const refArray = data.ref.split("/");
   let branch = refArray[refArray.length - 1];
   const repoName = data.repository["full_name"];
@@ -39,7 +42,6 @@ export const main = handler(async (event, context) => {
 
     };
 
-    console.log({ buildData });
     await invokeBuildFunction(buildData, stage, commitId);
     const updatedStages = await getStagesByAppId(stage.appId);
     await invokeWebSocketMessage({ userId, updatedStages });
