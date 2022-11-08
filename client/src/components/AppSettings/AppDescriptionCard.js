@@ -3,36 +3,38 @@ import CardLayout from "./CardLayout";
 import NameAndDescriptionForm from "./forms/NameAndDescriptionForm";
 import { useState } from "react";
 
-const AppDescription = ({ app, setApp}) => {
-  const [ showForm, toggleShowForm ] = useState(false);
+const AppDescription = ({ app, setApp }) => {
+  const [showForm, toggleShowForm] = useState(false);
 
   const handleFormSubmit = async (description) => {
-    const newApp = {...app, description: description};
+    const newApp = { ...app, description: description };
     try {
       const data = await APICalls.putApp(newApp);
-      if(data.error) {
+      if (data.error) {
         alert(data.error);
         return;
       }
       setApp(data);
-    } catch(e) {
+    } catch (e) {
       console.log(e.message);
       alert(e.message);
     }
-  }
+  };
   return (
     <CardLayout
       property="description"
       appValue={app.description}
       showForm={showForm}
       toggleShowForm={toggleShowForm}
-      inputForm={<NameAndDescriptionForm
-        property="description"
-        onSubmit={handleFormSubmit}
-        toggleShowForm={toggleShowForm}
-      />}
+      inputForm={
+        <NameAndDescriptionForm
+          property="description"
+          onSubmit={handleFormSubmit}
+          toggleShowForm={toggleShowForm}
+        />
+      }
     />
-  )
-}
+  );
+};
 
 export default AppDescription;

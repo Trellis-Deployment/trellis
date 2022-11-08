@@ -19,11 +19,6 @@
   transition: 0.3s;
 }
 
-/* .form-layout:hover {
-background: rgb(31,150,255);
-background: linear-gradient(225deg, rgba(31,150,255,1) 36%, rgba(4,87,159,1) 100%);
-} */
-
 .Login form {
   margin: 0 auto;
   max-width: 320px;
@@ -50,11 +45,6 @@ button {
   margin: 0 auto;
   max-width: 230px;
 }
-
-/* .cancel-button {
-background-color: rgb(146, 126, 126);
-border: 1px solid white;
-} */
 
 .cancel-button:hover {
   background-color: rgb(183, 0, 0);

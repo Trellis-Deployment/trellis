@@ -34,11 +34,6 @@ li {
   margin: 5px;
 }
 
-/* .card-face {
-  background-color: rgb(166, 249, 230);
-  border-radius: 5px;
-} */
-
 .c-title {
   color: #25415f;
   font-weight: 600;
@@ -48,15 +43,6 @@ li {
 .c-subtitle {
   font-size: 0.85em;
 }
-
-/* .card-face :hover {
-  transition: 0.3s;
-  color: darkgray;
-  font-weight: 500;
-  cursor: grab;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0);
-} */
 
 .welcome {
   font-size: 1.5em;
@@ -85,7 +71,7 @@ li {
 }
 
 .oam:hover {
-  background-color: #2D96FF;
+  background-color: #2d96ff;
   border-radius: 6px;
   border: 1px solid #dce1e0;
   transition: 0.3s;
@@ -95,7 +81,7 @@ li {
 .oam {
   background-color: #002050a9;
   border-radius: 6px;
-  border: 1px solid #1F96FF;
+  border: 1px solid #1f96ff;
   transition: 0.3s;
 }
 
@@ -104,7 +90,6 @@ li {
 }
 
 .card-text {
-  /* color: dodgerblue; */
   font-size: 18px;
   text-shadow: 1px 1px 2px #5b5b5b;
 }
@@ -113,8 +98,6 @@ li {
   font-size: 16px;
 }
 
-
 .spinner-border {
   animation-duration: 3s;
 }
-

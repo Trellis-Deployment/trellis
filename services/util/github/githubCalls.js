@@ -73,6 +73,24 @@ const createWebhook = async (token, webhookURL, user, fullRepo) => {
   }
 }
 
+const deleteWebhook = async (token, fullRepo, hookId) => {
+  const octokit = new Octokit({
+    auth: token
+  });
+  let [owner, repo] = fullRepo.split("/");
+  
+  try {
+    await octokit.request('DELETE /repos/{owner}/{repo}/hooks/{hook_id}', {
+      owner: owner,
+      repo: repo,
+      hook_id: hookId
+    });
+  } catch(e) {
+    console.log({githubFailed: e.message});
+    throw new Error(`{githubFailed: ${e.message}}`);
+  }
+}
+
 const getCommits = async ({token, userLogin, repo}) => {
   const octokit = new Octokit({
     auth: token
@@ -164,6 +182,7 @@ const githubCalls = {
   getLastBranchCommit,
   refreshTokens,
   getContributors,
+  deleteWebhook
 };
 
 export default githubCalls;

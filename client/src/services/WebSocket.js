@@ -12,11 +12,9 @@ class WebSocket {
   }
 
   connectionOpened(e) {
-    console.log('WebSocket is connected');
   }
 
   connectionClosed(e) {
-    console.log('WebSocket Connection is closed')
   }
 
   connectionErrored(e) {
@@ -25,7 +23,6 @@ class WebSocket {
 
   messageReceived(currentClass) {
     return (e) => {
-      console.log("messaged received");
       const updatedStages = JSON.parse(e.data);
       if (currentClass.appId !== updatedStages[0].appId) {
         return;

@@ -1,5 +1,4 @@
 import "../../stylesheets/AppStage.css";
-import { Col, Card, Row } from "react-bootstrap";
 import APICalls from "../../services/APICalls";
 import StageData from "./StageData";
 import { Button } from "react-bootstrap";
@@ -16,7 +15,6 @@ const AppStage = ({ stage, setStages, stages }) => {
     setStages(data);
   };
 
-  //need to properly debounce this - when are promotions valid to do?
   const handlePromoteClick = async (e) => {
     e.preventDefault();
     const prodStageId = stages.find((s) => s.stageName === "prod").stageId;
@@ -33,14 +31,14 @@ const AppStage = ({ stage, setStages, stages }) => {
   return (
     <>
       {stage.stageName === "prod" ? (
-        <Row key={stage.stageId} className="stage-row m-1 py-1 pb-2">
-          <Card.Title className="SectionHeader text-center">
+        <div key={stage.stageId} className="row stage-row m-1 py-1 pb-2">
+          <div className="card-title SectionHeader text-center">
             Stage Name:{" "}
             <Link to={`/application/${appName}/activity`} className="links">
               {stage.stageName}
             </Link>
-          </Card.Title>
-          <Row>
+          </div>
+          <div className="row">
             {
               <StageData
                 stage={stage}
@@ -48,7 +46,7 @@ const AppStage = ({ stage, setStages, stages }) => {
                 setStages={setStages}
               ></StageData>
             }
-          </Row>
+          </div>
           <div className="d-flex">
             {stage.stageName !== "prod" ? (
               <>
@@ -79,16 +77,16 @@ const AppStage = ({ stage, setStages, stages }) => {
               </>
             ) : null}
           </div>
-        </Row>
+        </div>
       ) : (
-        <Col key={stage.stageId} className="stage-row m-1 py-1 pb-2">
-          <Card.Title className="SectionHeader text-center">
+        <div key={stage.stageId} className="col stage-row m-1 py-1 pb-2">
+          <div className="card-titleSectionHeader text-center">
             Stage Name:{" "}
             <Link to={`/application/${appName}/activity`} className="links">
               {stage.stageName}
             </Link>
-          </Card.Title>
-          <Row>
+          </div>
+          <div className="row">
             {
               <StageData
                 stage={stage}
@@ -96,7 +94,7 @@ const AppStage = ({ stage, setStages, stages }) => {
                 setStages={setStages}
               ></StageData>
             }
-          </Row>
+          </div>
           <div className="d-flex">
             {stage.stageName !== "prod" ? (
               <>
@@ -127,7 +125,7 @@ const AppStage = ({ stage, setStages, stages }) => {
               </>
             ) : null}
           </div>
-        </Col>
+        </div>
       )}
     </>
   );

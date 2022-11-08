@@ -1,5 +1,5 @@
 import "../../stylesheets/AppActivity.css";
-import { Row, Card, Col, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import Logs from "./Logs";
@@ -31,33 +31,48 @@ const DeploymentCard = ({
 
   return (
     <>
-    <Row className="#">
-      <Col className="activity-row m-1 row col-auto">
-        <Col className="col-auto align-self-center">
-          <Card.Title className="badge badge-version">
-            V{version}
-          </Card.Title>
-        </Col>
-        <Col className="text-start stage-info col-8">
-          {/* <DeploymentInfo deployment={deployment}></DeploymentInfo> */}
-          <Row>
-       <text className="dep-key">Deployment State: <text className="dep-value">{deployment.deploymentState}</text></text>
-       <text className="dep-key">CommitId: <text className="dep-value">{deployment.commitId}</text></text>
-       <text className="dep-key">Deployment time: <text className="dep-value">{String(new Date(deployment.time))}</text></text>
-      </Row>
-        </Col>
-        {idx === 0 || deployment.deploymentState !== "deployed" ? null : (
-          <Col className="col-2 text-sm-center">
-            <Button className="rollback" onClick={handleRollBackClick}>
-              Rollback
-            </Button>
-          </Col>
-        )}
-      </Col>
+      <div className="row">
+        <div className="col col-auto align-self-center">
+          <div className="card-title badge badge-version">V{version}</div>
+        </div>
 
-
-    </Row>
-        <Logs logs={deployment.logs} ></Logs>
+        <div className="col activity-row m-1">
+          <div className="row">
+            <div className="col col-auto">
+              <p className="dep-key">Deployment State: </p>
+            </div>
+            <div className="col">
+              <p className="dep-value">{deployment.deploymentState}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col col-auto">
+              <p className="dep-key">CommitId:</p>{" "}
+            </div>
+            <div className="col">
+              <p className="dep-value">{deployment.commitId}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col col-auto">
+              <p className="dep-key">Deployment time: </p>
+            </div>
+            <div className="col">
+              <p className="dep-value">{String(new Date(deployment.time))}</p>
+            </div>
+          </div>
+        </div>
+        <div className="col col-2">
+          {idx === 0 || deployment.deploymentState !== "deployed" ? null : (
+            <div className="col text-sm-center">
+              <Button className="rollback" onClick={handleRollBackClick}>
+                Rollback
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+      <Logs logs={deployment.logs}></Logs>
     </>
   );
 };

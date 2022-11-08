@@ -15,8 +15,6 @@ const invokeWebSocketMessage = async ({userId, updatedStages}) => {
   };
   const lambdaResponse = await lambda.invoke(params).promise();
 
-  console.log("websocket message invoked");
-
   return "success";
 };
 

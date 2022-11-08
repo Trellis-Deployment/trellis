@@ -1,9 +1,9 @@
 body {
-  font-size: 05.em;
+  font-size: 05em;
 }
 
 .card-top {
-  background-color: #25415F;
+  background-color: #25415f;
   padding: 1px;
   font-weight: 500;
   font-size: 0.9em;
@@ -25,13 +25,16 @@ body {
 }
 
 .stage-row {
-  background: rgb(0,100,186);
-  background: linear-gradient(180deg, rgba(0,100,186,1) 0%, rgba(0,78,146,1) 100%);
+  background: rgb(0, 100, 186);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 100, 186, 1) 0%,
+    rgba(0, 78, 146, 1) 100%
+  );
   /* margin: 0.5%; */
   border-radius: 5px;
   border: 1px solid gray;
 }
-
 
 .gear {
   color: white;
@@ -41,7 +44,8 @@ body {
   align-items: flex-start;
 }
 
-.h4, h4 {
+.h4,
+h4 {
   font-size: 18px;
 }
 
@@ -58,23 +62,22 @@ img {
 } */
 
 .holder {
-  background: linear-gradient(180deg, #002050,#1F96FF, white);
+  background: linear-gradient(180deg, #002050, #1f96ff, white);
   background-size: 400% 400%;
   animation: gradient 20s ease infinite;
 }
 
 @keyframes gradient {
   0% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
   50% {
-      background-position: 100% 50%;
+    background-position: 100% 50%;
   }
   100% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
 }
-
 
 .spinner-border {
   color: #1eb99000;
@@ -102,19 +105,19 @@ dark
 /* second box */
 .SectionHeader {
   /* margin-top: 0; */
-  font-family: "Montserrat",sans-serif;
+  font-family: "Montserrat", sans-serif;
   letter-spacing: 0.5px;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
-  color:  rgb(94, 235, 254);
+  color: rgb(94, 235, 254);
 }
 
-ol, ul {
+ol,
+ul {
   margin-top: 0;
   margin-bottom: 10px;
 }
-
 
 .pipeline-title {
   font-size: 20px;
@@ -122,11 +125,11 @@ ol, ul {
 
 .stage-title {
   font-size: 14px;
-  color:#246b58;
+  color: #246b58;
   padding-left: 4px;
-  border-bottom: #2980B9;
+  border-bottom: #2980b9;
   border-width: 2px;
-  background-color:lightgray
+  background-color: lightgray;
 }
 
 .mid-wide-card {
@@ -142,8 +145,9 @@ ol, ul {
   border-width: 2px;
 }
 
-
-.show {display: block;}
+.show {
+  display: block;
+}
 
 .custom {
   width: 30px !important;
@@ -152,7 +156,6 @@ ol, ul {
 .stage-branch {
   font-size: 13px;
 }
-
 
 /* margin-top: 0;
 font-family: "Poppins",sans-serif;
@@ -176,14 +179,14 @@ color: rgb(242, 255, 192); */
 }
 
 .btn:hover {
-  background-color: #004E92;
+  background-color: #004e92;
   border: 1px solid dodgerblue;
   transition: 0.3s;
 }
 
-.small-font  {
+.small-font {
   font-size: 12px;
-  color: #A3C2DC;
+  color: #a3c2dc;
   font-weight: 500;
 }
 
@@ -199,21 +202,21 @@ color: rgb(242, 255, 192); */
 
 .stage-info-branch {
   color: rgb(192, 227, 255);
-  font-family: "Poppins",sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   padding-left: 1px;
 }
 
 .card-info-key {
-  color:  rgb(94, 254, 193);
-  font-family: 'Montserrat';
+  color: rgb(94, 254, 193);
+  font-family: "Montserrat";
   font-size: 14px;
   font-weight: 500;
 }
 
 .card-info-value {
   color: white;
-  font-family: 'Baloo 2';
+  font-family: "Baloo 2";
   font-size: 16px;
   font-weight: 400;
 }
@@ -253,20 +256,15 @@ color: rgb(242, 255, 192); */
   height: 100vh;
   width: 100%;
   transition: 0.5s;
-  }
-  
-  .modal {
+}
+
+.modal {
   position: relative;
   display: inline-block;
-  /* background-color: rgba(255, 255, 255, 1); */
-  /* z-index: 10; */
-  /* top: 30%; */
-  /* left: 30%; */
   height: auto;
   width: 500px;
   transition: 0.5s;
-  }
-
+}
 
 .main-modal {
   border-radius: 12px;
@@ -275,7 +273,7 @@ color: rgb(242, 255, 192); */
 
 .formatter-link {
   color: rgb(220, 251, 132);
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 .formatter-link:hover {

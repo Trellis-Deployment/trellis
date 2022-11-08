@@ -5,7 +5,6 @@ import getAppByAppId from "../appsTableUtils/getAppByAppId";
 const getDataForManualDeployment = async ({ userId, appId, stageId }) => {
   const app = await getAppByAppId(appId);
   const stage = await getStageById(stageId);
-  console.log({ stage });
   const token = await getTokenByUserId(userId);
   const [user, repoName] = app.repoName.split("/");
   return {

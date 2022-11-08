@@ -147,7 +147,6 @@ const APICalls = {
   signin,
   getStages,
   buildStage,
-  getStageStatus,
   getDeployments,
   promoteStage,
   getRepoBranches,

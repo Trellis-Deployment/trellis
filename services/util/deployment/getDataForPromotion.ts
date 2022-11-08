@@ -1,4 +1,3 @@
-import getAppByUserAndAppName from "../appsTableUtils/getAppByUserAndAppName";
 import getTokenByUserId from "../usersTableUtils/getTokenByUserId";
 import getStageById from "../stagesTableUtils/getStageById";
 import getAppByAppId from "../appsTableUtils/getAppByAppId";
@@ -6,7 +5,6 @@ import getAppByAppId from "../appsTableUtils/getAppByAppId";
 const getDataForPromotion = async ({ userId, appId, targetStageId }) => {
   const app = await getAppByAppId(appId);
   const stage = await getStageById(targetStageId);
-  console.log({ stage });
   const [user, repoName] = app.repoName.split("/");
   const token = await getTokenByUserId(userId);
   return {

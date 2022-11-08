@@ -17,17 +17,29 @@ const CardLayout = ({
         <Card.Title className="SectionHeader text-start">
           Application {property}:
         </Card.Title>
-        <Card.Text className="card-info-key my-1 text-center">
-          Current Application {property}: -{" "}
-          <text className="card-info-value">{appValue}</text>
-        </Card.Text>
+        <div className="card-text row card-info-key my-1 text-center">
+          <div className="col col-auto">
+            {" "}
+            <p>Current Application {property}: - </p>
+          </div>
+          <div className="col col-auto">
+            {" "}
+            <p className="card-info-value">{appValue}</p>
+          </div>
+        </div>
       </Row>
       <Row>
-      <Col className="text-center">
+        <Col className="text-center">
           {showForm ? (
             inputForm
           ) : (
-            <Button variant="primary" className="bttn" onClick={handleUpdateClick}>Update App's {property}</Button>
+            <Button
+              variant="primary"
+              className="bttn"
+              onClick={handleUpdateClick}
+            >
+              Update App's {property}
+            </Button>
           )}
         </Col>
       </Row>

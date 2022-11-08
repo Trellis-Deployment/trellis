@@ -9,7 +9,7 @@ import WebSocket from "../../services/WebSocket";
 const UserApp = () => {
   const [stages, setStages] = useState([]);
   const { appId, userId, appName } = useAppContext();
-  
+
   useEffect(() => {
     const updateStages = async () => {
       const data = await APICalls.getStages(appId);
@@ -25,20 +25,20 @@ const UserApp = () => {
   }, [appId, userId]);
 
   return (
-      <div className="card px-3 py-1 pipes mt-3 mid-wide-card container holder">
-        <div className="row">
-          <div className="col pipeline-title mb-1 aling-self-end">
-            Pipeline
-            <a className="ps-2 small-font" href={`/application/${appName}/settings`}>
-              edit
-            </a>
-          </div>
-          <div className="d-flex col pe-0 justify-content-end align-items-center">
-            <a href="/apps" className="small-font">
-              View Full Pipeline
-            </a>
-          </div>
+    <div className="card px-3 py-1 pipes mt-3 mid-wide-card container holder">
+      <div className="row">
+        <div className="col pipeline-title mb-1 aling-self-end">
+          Pipeline
         </div>
+        <div className="d-flex col pe-2 justify-content-end align-items-center">
+        <a
+            className="ps-2 small-font"
+            href={`/application/${appName}/settings`}
+          >
+            edit
+          </a>
+        </div>
+      </div>
 
       <div className="row col card-back">
         {stages.map((stage) => (

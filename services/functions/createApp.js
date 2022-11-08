@@ -3,6 +3,7 @@ import createWebhook from "../util/createWebhook";
 import createAppFromData from "../util/appsTableUtils/createAppFromData";
 import createStage from "../util/stagesTableUtils/createStage";
 import AWS from "aws-sdk";
+import updateAppWithHookId from "../util/appsTableUtils/updateAppWithHookId";
 
 export const main = handler(async (event) => {
   const data = JSON.parse(event.body);
@@ -43,7 +44,7 @@ export const main = handler(async (event) => {
       repo: data.repoName,
       userId,
     });
-
+    await updateAppWithHookId(app, webhookId);
   } catch (e) {
     console.log(e.message);
     webhookId = e.message;

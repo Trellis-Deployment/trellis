@@ -120,8 +120,9 @@ const BranchSettings = ({
     <>
       <div className="screen" onClick={handleScreenClick}></div>
       <div className="modal holder main-modal p-3 m-3">
-        {stage.stageName === "prod" || stage.stageName === "dev" ?
-        null : <DeleteStage stage={stage} setStages={setStages}/>}
+        {stage.stageName === "prod" || stage.stageName === "dev" ? null : (
+          <DeleteStage stage={stage} setStages={setStages} />
+        )}
         {repoBranches.length === 0 ? (
           <p>Loading branches</p>
         ) : (
@@ -172,12 +173,14 @@ const BranchSettings = ({
         </Form>
         <hr></hr>
         <Form onSubmit={handleEnvVariableSubmit}>
-          <h4>
-            Set stage environment variables as a JSON string{" "}
-          </h4>
-            <a target="_blank" rel="noreferrer" href="https://jsonformatter.curiousconcept.com/">
-              online formatter
-            </a>
+          <h4>Set stage environment variables as a JSON string </h4>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://jsonformatter.curiousconcept.com/"
+          >
+            online formatter
+          </a>
           <Form.Control
             type="textarea"
             className="mt-1"
@@ -185,8 +188,7 @@ const BranchSettings = ({
             required
             onChange={(e) => setEnvVariablesString(e.target.value)}
           />
-          <Button variant="primary" type="submit"
-          className="mt-2">
+          <Button variant="primary" type="submit" className="mt-2">
             Submit
           </Button>
         </Form>
@@ -203,9 +205,17 @@ const BranchSettings = ({
           </Row>
         ) : null}
         <hr></hr>
-        <NPMScriptNameInput stage={stage} stages={stages} setStages={setStages}></NPMScriptNameInput>
+        <NPMScriptNameInput
+          stage={stage}
+          stages={stages}
+          setStages={setStages}
+        ></NPMScriptNameInput>
         <hr></hr>
-        <ToggleIsUnitTestRequired stage={stage} stages={stages} setStages={setStages}></ToggleIsUnitTestRequired>
+        <ToggleIsUnitTestRequired
+          stage={stage}
+          stages={stages}
+          setStages={setStages}
+        ></ToggleIsUnitTestRequired>
       </div>
     </>
   );

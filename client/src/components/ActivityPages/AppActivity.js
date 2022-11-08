@@ -4,7 +4,7 @@ import StageDeploymentCard from "./StageDeploymentCard";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import WebSocket from "../../services/WebSocket";
-import { Col, Card, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 const AppActivity = () => {
   const [stages, setStages] = useState([]);

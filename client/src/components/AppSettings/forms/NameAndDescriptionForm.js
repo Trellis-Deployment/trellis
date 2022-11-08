@@ -12,6 +12,7 @@ const NameAndDescription = ({ onSubmit, property, toggleShowForm }) => {
     }
     await onSubmit(input);
     setInput("");
+    toggleShowForm(false);
   };
 
   const handleCancelClick = (e) => {
@@ -29,7 +30,7 @@ const NameAndDescription = ({ onSubmit, property, toggleShowForm }) => {
           onChange={(e) => setInput(e.target.value)}
         />
       </Form.Group>
-      <Button variant="primary" className="m-1 mt-2">
+      <Button type="submit" variant="primary" className="m-1 mt-2">
         Save
       </Button>
       <Button

@@ -21,7 +21,6 @@ STEPS NEED TO ACCOMPLISH UPDATING THE STATUS:
   - Send a websocket message once you finish looping through the logEvents
 */
 export const main = async (event, context, callback) => {
-  console.log('LogScheduledEventTriggered');
   const payload = Buffer.from(event.awslogs.data, 'base64');
   const parsed = JSON.parse(zlib.unzipSync(payload).toString());
   const logEvents = parsed.logEvents;
@@ -48,7 +47,6 @@ export const main = async (event, context, callback) => {
     }
   }
   if (!deployment) {
-    // change this function to use filterExpressions?
     deployment = await getDeploymentByLogStream(logStream);
   }
   if (deployment.deploymentState === 'tearingDown' && state === 'deploying') {

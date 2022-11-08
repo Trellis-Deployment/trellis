@@ -10,7 +10,6 @@ const deleteStage = async (stageId) => {
 
   try {
     const data = await dynamoDb.delete(params);
-    console.log("stage");
   } catch(e) {
     console.log(e.message);
     throw e;

@@ -3,7 +3,7 @@ import "../../stylesheets/AppStage.css";
 import { useState } from "react";
 import BranchSettings from "./BranchSettings";
 import CommitId from "./CommitId";
-import { Card, Col, Row } from "react-bootstrap";
+// import Details from "./Details";
 
 import {
   CloudCheck,
@@ -23,16 +23,15 @@ const StageData = ({ stage, stages, setStages }) => {
 
   return (
     <div>
-      <Card.Text className="stage-branch ps-1 text-center">
-        <Row className="stage-info-branch">
-          <Row >
-            <Col className="card-info-key text-start">
-            Stage Branch:{" "}</Col>
-            <Col className="line-2 stage-info text-start">
+      <div className="card-text stage-branch ps-1 text-center">
+        <div className="row stage-info-branch">
+          <div className="row">
+            <div className="col card-info-key text-start">Stage Branch: </div>
+            <div className="col line-2 stage-info text-start">
               {" "}
               {stage.stageBranch !== "undefined" ? (
                 <>
-                  <Col>
+                  <div className="col">
                     <a
                       target="_blank"
                       className="branch text-white px-1"
@@ -46,13 +45,13 @@ const StageData = ({ stage, stages, setStages }) => {
                       ></i>
                       {stage.stageBranch}
                     </a>
-                  </Col>
+                  </div>
                 </>
               ) : (
                 <span>N/A</span>
               )}
-            </Col>
-            <Col>
+            </div>
+            <div className="col">
               <a
                 target="_blank"
                 className="branch stage-info text-white px-1"
@@ -62,76 +61,83 @@ const StageData = ({ stage, stages, setStages }) => {
               >
                 settings
               </a>
-            </Col>
-          </Row>
-          <Row className="text-start">
-            <Row>
-            <span
+            </div>
+          </div>
+          <div className="row text-start">
+            <div
               target="_blank"
-              className="commit stage-info"
+              className="row commit stage-info"
               rel="noopener noreferrer"
               href={stage.stageId}
             >
-              <text className="card-info-key text-start">Last Deployed: </text>
-              <text className="card-info-value">
-                {stage.lastDeploymentTime
-                  ? String(new Date(stage.lastDeploymentTime))
-                  : "Not Deployed"}
-              </text>
-            </span></Row><Row>
-            <span className="row text-start">
-              <text className="card-info-key">
-                Commit ID:{" "}
-                <text className="stage-info-value">
+              <div className="col col-auto">
+                <p className="card-info-key">Last Deployed: </p>
+              </div>
+              <div className="col">
+                <p className="card-info-value">
+                  {stage.lastDeploymentTime
+                    ? String(new Date(stage.lastDeploymentTime))
+                    : "Not Deployed"}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="row text-start">
+              <div className="col col-auto">
+                <p className="card-info-key">Commit ID: </p>
+              </div>
+              <div className="col">
+                <p className="stage-info-value">
                   {stage.lastCommitId ? (
                     <CommitId value={stage.lastCommitId} />
                   ) : (
                     "N/A"
                   )}
-                </text>
-              </text>
-            </span></Row>
-          </Row>
-        </Row>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
         {stage.stageState === "created" && (
-          <Row>
-            <Col className="text-center">
+          <div className="row">
+            <div className="col text-center">
               <FileEarmarkBinary color="yellow" className="mt-2" size={38} />
               <p>created</p>
-            </Col>
-          </Row>
+            </div>
+          </div>
         )}
         {stage.stageState === "deployed" && (
-          <Col className="text-center">
+          <div className="col text-center">
             {" "}
             <CloudCheck color="lightgreen" className="mt-2" size={38} />
             <p>Deployed</p>
-          </Col>
+          </div>
         )}
         {(stage.stageState === "deploying" ||
           stage.stageState === "tearingDown") && (
-          <Col>
+          <div className="col">
             <Gear
               className="text-center text-transparent spinner-border"
               color="white"
               size={38}
             />
             <p>Deploying</p>
-          </Col>
+          </div>
         )}
         {stage.stageState === "error" && (
-          <Col className="text-center mt-2">
+          <div className="col text-center mt-2">
             {" "}
             <ExclamationCircle color="red" size={38} />
             <p>Error</p>
-          </Col>
+          </div>
         )}
         {stage.stageState === "removed" && (
-          <Col className="text-center mt-2">
+          <div className="col text-center mt-2">
             {" "}
             <FileExcel color="red" size={38} />
             <p>Removed</p>
-          </Col>
+          </div>
         )}
         {branchSettingsVisible ? (
           <BranchSettings
@@ -141,7 +147,7 @@ const StageData = ({ stage, stages, setStages }) => {
             setStages={setStages}
           />
         ) : null}
-      </Card.Text>
+      </div>
     </div>
   );
 };

@@ -6,16 +6,16 @@ import APICalls from "../../../services/APICalls";
 const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
   const { userId, appId, appName } = useAppContext();
   const [branches, setBranches] = useState([]);
-  const [ branch, setBranch ] = useState("");
-  const [ stageName, setStageName] = useState("");
-  const [ envVariablesString, setEnvVariablesString ] = useState("");
-  const [ npmScriptName, setNpmScriptName ] = useState("");
+  const [branch, setBranch] = useState("");
+  const [stageName, setStageName] = useState("");
+  const [envVariablesString, setEnvVariablesString] = useState("");
+  const [npmScriptName, setNpmScriptName] = useState("");
   useEffect(() => {
     const loadBranches = async () => {
       try {
         const branches = await APICalls.getRepoBranches({ userId, appId });
-        const filteredBranches = branches.filter(branch => {
-          return !stages.some(stage => stage.stageBranch === branch.name);
+        const filteredBranches = branches.filter((branch) => {
+          return !stages.some((stage) => stage.stageBranch === branch.name);
         });
         setBranches(filteredBranches);
       } catch (e) {
@@ -24,21 +24,26 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
       }
     };
     loadBranches();
-
   }, [userId, appId, appName, stages]);
 
   const handleCancelClick = (e) => {
     e.preventDefault();
     toggleShowForm(false);
-  }
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (stages.some(stage => stage.stageName === stageName)) {
-      alert(`You can't use the same stage name of an existing stage name ${stageName}`);
+    if (stages.some((stage) => stage.stageName === stageName)) {
+      alert(
+        `You can't use the same stage name of an existing stage name ${stageName}`
+      );
       return;
     }
-    if (!branch || branch === 'Click here to select a branch that is not tied to another stage') {
+    if (
+      !branch ||
+      branch ===
+        "Click here to select a branch that is not tied to another stage"
+    ) {
       alert("Please select a branch");
       return;
     }
@@ -50,7 +55,7 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
       stageState: "created",
       envVariablesString,
       npmScriptName,
-    }
+    };
 
     try {
       const data = await APICalls.createStage(newStage);
@@ -61,45 +66,59 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
       const stages = await APICalls.getStages(app.appId);
       setStages(stages);
       toggleShowForm(false);
-    } catch(e) {
+    } catch (e) {
       alert(e.message);
     }
-  }
+  };
 
   return (
     <Form onSubmit={handleFormSubmit}>
-      <p className="text-start">New stage: (This stage will use the default APP AWS credentials. If you would like to change it, please do so on the stage settings after it's created.) </p>
+      <p className="text-start">
+        New stage: (This stage will use the default APP AWS credentials. If you
+        would like to change it, please do so on the stage settings after it's
+        created.){" "}
+      </p>
 
       <Form.Group>
         <p className="text-start card-info-key">stage Name*</p>
         <Form.Control
           type="string"
           value={stageName}
-          placeholder='stage name'
+          placeholder="stage name"
           onChange={(e) => setStageName(e.target.value)}
           required
         />
-        <br/>
-        <p className="text-start card-info-key">Environment variables(JSON string)</p>
-        <a target="_blank" rel="noreferrer" href="https://jsonformatter.curiousconcept.com/" className="formatter-link">
-              online formatter
+        <br />
+        <p className="text-start card-info-key">
+          Environment variables(JSON string)
+        </p>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://jsonformatter.curiousconcept.com/"
+          className="formatter-link"
+        >
+          online formatter
         </a>
         <Form.Control
-            type="textarea"
-            className="mt-1"
-            placeholder="JSON-formatted ENV variables"
-            value={envVariablesString}
-            onChange={(e) => setEnvVariablesString(e.target.value)}
+          type="textarea"
+          className="mt-1"
+          placeholder="JSON-formatted ENV variables"
+          value={envVariablesString}
+          onChange={(e) => setEnvVariablesString(e.target.value)}
         />
-        <br/>
-        <p className="text-start">Choose an optional NPM command to be executed before deployment: (e.g. enter 'test' for 'npm run test')</p>
+        <br />
+        <p className="text-start">
+          Choose an optional NPM command to be executed before deployment: (e.g.
+          enter 'test' for 'npm run test')
+        </p>
         <Form.Control
           placeholder="npm command name"
           type="text"
           value={npmScriptName}
           onChange={(e) => setNpmScriptName(e.target.value)}
         />
-        <br/>
+        <br />
         <p className="text-start card-info-key">Stage Branch*</p>
         <Form.Select
           aria-label="select branch"
@@ -108,22 +127,25 @@ const StagesForm = ({ toggleShowForm, stages, app, setStages }) => {
           onChange={(e) => setBranch(e.target.value)}
           required
         >
-          <option>Click here to select a branch that is not tied to another stage</option>
+          <option>
+            Click here to select a branch that is not tied to another stage
+          </option>
           {branches.map((branch, idx) => (
             <option key={idx}>{branch.name}</option>
           ))}
         </Form.Select>
-        
       </Form.Group>
       <Button className="m-1 mt-2" type="submit">
         Save
       </Button>
-      <Button className="m-1 mt-2 settings-btn-delete" onClick={handleCancelClick}>
+      <Button
+        className="m-1 mt-2 settings-btn-delete"
+        onClick={handleCancelClick}
+      >
         Cancel
       </Button>
-
     </Form>
-  )
-}
+  );
+};
 
 export default StagesForm;

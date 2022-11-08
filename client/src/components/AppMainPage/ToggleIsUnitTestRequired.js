@@ -4,29 +4,32 @@ import Form from "react-bootstrap/Form";
 import APICalls from "../../services/APICalls";
 
 const ToggleIsUnitTestRequired = ({ stage, stages, setStages }) => {
-  const [isUnitTestRequired, setIsUnitTestRequired] = useState(stage.isUnitTestRequired || false);
+  const [isUnitTestRequired, setIsUnitTestRequired] = useState(
+    stage.isUnitTestRequired || false
+  );
   const [isSubmissionInProgress, setIsSubmissionInProgress] = useState(false);
 
   const handleUnitTestToggle = async (e) => {
     setIsUnitTestRequired(!isUnitTestRequired);
     setIsSubmissionInProgress(true);
     try {
-      const response = await APICalls.toggleIsUnitTestRequired({stageId: stage.stageId, isUnitTestRequired: !isUnitTestRequired});
+      const response = await APICalls.toggleIsUnitTestRequired({
+        stageId: stage.stageId,
+        isUnitTestRequired: !isUnitTestRequired,
+      });
       if (response.status === 200) {
         const responseData = JSON.parse(response.data);
         const updatedStages = stages.map((s) =>
-        s.stageId === stage.stageId
-          ? { ...s, ...responseData }
-          : s
+          s.stageId === stage.stageId ? { ...s, ...responseData } : s
         );
-        setStages(updatedStages)
+        setStages(updatedStages);
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
     setIsSubmissionInProgress(false);
-  }
-  
+  };
+
   return (
     <Form>
       <Form.Check
@@ -39,7 +42,6 @@ const ToggleIsUnitTestRequired = ({ stage, stages, setStages }) => {
       />
     </Form>
   );
-}
+};
 
 export default ToggleIsUnitTestRequired;
-

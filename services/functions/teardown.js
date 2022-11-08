@@ -7,7 +7,6 @@ import invokeWebSocketMessage from "util/deployment/invokeWebSocketMessage";
 import getStagesByAppId from "util/stagesTableUtils/getStagesByAppId";
 export const main = handler(async (event) => {
   let { userId, appId, stageId, commitId } = JSON.parse(event.body);
-  console.log({userId, appId, stageId, commitId});
   const { stage, token, user, stageName, repoName, IAMCredentialsLocation, appName } = await getDataForManualDeployment({ userId, appId, stageId });
 
   if (!commitId) {

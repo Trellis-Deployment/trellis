@@ -4,6 +4,8 @@ import getDeploymentsByStageId from "util/deploymentsTableUtils/getDeploymentsBy
 import deleteApp from "../util/appsTableUtils/deleteApp";
 import deleteStage from "util/stagesTableUtils/deleteStage";
 import getAppByAppId from "util/appsTableUtils/getAppByAppId";
+import getTokenByUserId from "../util/usersTableUtils/getTokenByUserId";
+import githubCalls from "util/github/githubCalls";
 
 export const main = handler(async (event) => {
   const appId = await event['pathParameters']['appId'];
@@ -34,6 +36,10 @@ export const main = handler(async (event) => {
         let deletePromises = [];
         stages.forEach(stage => deletePromises.push(deleteStage(stage.stageId)));
         const app = await getAppByAppId(appId);
+        if (app.hookId) {
+          const token = await getTokenByUserId(app.userId);
+          deletePromises.push(githubCalls.deleteWebhook(token, app.repoName, app.hookId));
+        }
         deletePromises.push(deleteApp(app.userId, appId));
         await Promise.all(deletePromises);
         return("success");

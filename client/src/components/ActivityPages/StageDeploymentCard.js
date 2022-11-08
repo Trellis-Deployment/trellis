@@ -16,12 +16,11 @@ const StageDeploymentCard = ({ stage }) => {
 
   return (
     <>
-    {stage.stageName === 'prod' ?
-      <Row className="py-1 stage-row m-1 my-2 bh-bla">
-        <Card.Title className="SectionHeader text-start">
-          {stage.stageName} Deployments:
-          {deployments.map((deployment, idx) => (
-            <>
+      {stage.stageName === "prod" ? (
+        <Row className="py-1 stage-row m-1 my-2 bh-bla">
+          <Card.Title className="SectionHeader text-start">
+            {stage.stageName} Deployments:
+            {deployments.map((deployment, idx) => (
               <DeploymentCard
                 key={deployment.deploymentId}
                 deployment={deployment}
@@ -30,15 +29,14 @@ const StageDeploymentCard = ({ stage }) => {
                 stageId={stage.stageId}
                 setDeployments={setDeployments}
               ></DeploymentCard>
-            </>
-          ))}
-        </Card.Title>
-      </Row> :
-      <Col className="py-1 stage-row m-1 my-2">
-        <Card.Title className="SectionHeader text-start">
-          {stage.stageName} Deployments:
-          {deployments.map((deployment, idx) => (
-            <>
+            ))}
+          </Card.Title>
+        </Row>
+      ) : (
+        <Col className="py-1 stage-row m-1 my-2">
+          <Card.Title className="SectionHeader text-start">
+            {stage.stageName} Deployments:
+            {deployments.map((deployment, idx) => (
               <DeploymentCard
                 key={deployment.deploymentId}
                 deployment={deployment}
@@ -47,11 +45,10 @@ const StageDeploymentCard = ({ stage }) => {
                 stageId={stage.stageId}
                 setDeployments={setDeployments}
               ></DeploymentCard>
-            </>
-          ))}
-        </Card.Title>
-      </Col>
-    }
+            ))}
+          </Card.Title>
+        </Col>
+      )}
     </>
   );
 };

@@ -5,10 +5,7 @@
 
 .spin {
   color: darkgray;
-  /* background: bisque; */
 }
-
-/* */
 
 .animate-wait {
   text-transform: uppercase;
@@ -20,12 +17,12 @@
     #072030,
     #072030
   );
+  
   background-size: auto auto;
   background-clip: border-box;
   background-size: 200% auto;
   color: #fff;
   background-clip: text;
-  text-fill-color: transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: textclip 1.5s linear infinite;
