@@ -56,7 +56,6 @@ const GitRedirect = () => {
           </video>
         </div>
         <div>
-          {/* <div className="spinner-grow" role="status"><PersonPlusFill color="black" size={30}></PersonPlusFill></div> */}
           <h2 className="waiting-auth mt-3 text-center animate-wait">
             {authenticated
               ? `Congratulations you signed in`
@@ -64,21 +63,6 @@ const GitRedirect = () => {
           </h2>
         </div>
       </div>
-      {/* <div className="position-absolute top-50 start-50 translate-middle wait pb-1 px-2">
-        <header className="App-header pt-3 pb-2">
-          <div className="container">
-            <Image src={Waiting} className="App-logo" alt="logo" fluid="true" />
-          </div>
-        </header>
-        <div className="text-center"> */}
-      {/* <div className="spinner-grow" role="status"><PersonPlusFill color="black" size={30}></PersonPlusFill></div>
-          <h3 className="box text-dark p-1">
-            {authenticated
-              ? `Congratulations you signed in`
-              : `Waiting for Authentication`}
-          </h3> */}
-      {/* </div>
-      </div> */}
     </div>
   );
 };

@@ -1,12 +1,11 @@
 import "../stylesheets/Applications.css";
-import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
 import APICalls from "../services/APICalls";
 import { useNavigate } from "react-router-dom";
-import Card from "react-bootstrap/Card";
 import { PlusCircle } from "react-bootstrap-icons";
 import { useAppContext } from "../Lib/AppContext";
 import Shapes from './Development/Shapes';
+import {  Button, Card, Col, Row } from "react-bootstrap";
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
@@ -44,18 +43,18 @@ const Applications = () => {
     <div className="app-list-home container pt-2">
       <Shapes></Shapes>
       <div className="row pb-2">
-        <div className="col">
+        <Col>
           <Button onClick={handleNewAppClick} size="sm" variant="primary" className="settings-configure-git">
             <PlusCircle size={25} className="pe-1"/> New App
           </Button>
-        </div>
-        <div className="col col-auto">
+        </Col>
+        <Col className="col-auto">
           <h3 className="text-start welcome">Welcome {authUser}</h3>
-        </div>
+        </Col>
         <div></div>
       </div>
       
-      <div className="row mt-3">
+      <Row className="mt-3">
         <ul className="container p-0">
           {applications.map((application) => (
             <div key={application.appId} className="row">
@@ -65,9 +64,9 @@ const Applications = () => {
                     key={application.appId}
                     onClick={(e) => handleAppClick(e, application)}
                   >
-                    <div className="row mx-2 ps-2">
-                      <div
-                        className="col col-auto
+                    <Row className="mx-2 ps-2">
+                      <Col
+                        className="col-auto
                       align-self-center"
                       >
                         {
@@ -75,8 +74,8 @@ const Applications = () => {
                             {application.appName[0].toUpperCase()}
                           </span>
                         }
-                      </div>
-                      <div className="col">
+                      </Col>
+                      <Col>
                         <Card.Body className="py-2">
                           <Card.Subtitle className="text-start card-text">
                             App: {application.appName}
@@ -85,9 +84,9 @@ const Applications = () => {
                             Repo: {application.repoName}
                           </Card.Title>
                         </Card.Body>
-                      </div>
-                      <div
-                        className="col col-auto 
+                      </Col>
+                      <Col
+                        className="col-auto 
                       align-self-center 
                       
                       pe-4"
@@ -96,15 +95,15 @@ const Applications = () => {
                           Last Deployed
                         </div>
                         <div className="row date">-</div>
-                      </div>
-                    </div>
+                      </Col>
+                    </Row>
                   </div>
                 </div>
               </li>
             </div>
           ))}
         </ul>
-      </div>
+      </Row>
     </div>
   );
 };
