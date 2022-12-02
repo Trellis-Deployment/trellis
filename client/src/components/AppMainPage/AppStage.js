@@ -29,9 +29,7 @@ const AppStage = ({ stage, setStages, stages }) => {
   };
 
   return (
-    <>
-      {stage.stageName === "prod" ? (
-        <div key={stage.stageId} className="row stage-row m-1 py-1 pb-2">
+        <div key={stage.stageId} className="col stage-row m-1 py-1 pb-2 px-2">
           <div className="card-title SectionHeader text-center">
             Stage Name:{" "}
             <Link to={`/application/${appName}/activity`} className="links">
@@ -78,56 +76,6 @@ const AppStage = ({ stage, setStages, stages }) => {
             ) : null}
           </div>
         </div>
-      ) : (
-        <div key={stage.stageId} className="col stage-row m-1 py-1 pb-2">
-          <div className="card-titleSectionHeader text-center">
-            Stage Name:{" "}
-            <Link to={`/application/${appName}/activity`} className="links">
-              {stage.stageName}
-            </Link>
-          </div>
-          <div className="row">
-            {
-              <StageData
-                stage={stage}
-                stages={stages}
-                setStages={setStages}
-              ></StageData>
-            }
-          </div>
-          <div className="d-flex">
-            {stage.stageName !== "prod" ? (
-              <>
-                {" "}
-                <Button
-                  size="sm"
-                  variant="success"
-                  onClick={(e) => handleDeployClick(e, stage.stageId)}
-                >
-                  Manually Deploy Stage
-                </Button>
-                <Button
-                  disabled={
-                    stage.stageState === "deployed" &&
-                    stages.find((s) => s.stageName === "prod").stageState !==
-                      "deploying" &&
-                    stages.find((s) => s.stageName === "prod").stageState !==
-                      "tearingDown"
-                      ? false
-                      : true
-                  }
-                  size="sm"
-                  variant="primary"
-                  onClick={handlePromoteClick}
-                >
-                  Promote to Production
-                </Button>
-              </>
-            ) : null}
-          </div>
-        </div>
-      )}
-    </>
   );
 };
 
