@@ -25,18 +25,26 @@ const AppActivity = () => {
 
 
   return (
-    <div className="container pipes mt-3 mid-card holder">
+    <div className="card px-3 py-1 pipes mt-3 mid-wide-card container holder">
       <Row>
         <div className="col pipeline-title mt-1">Activity</div>
       </Row>
-        <Row className="mx-0 card-back">
-          {stages.map((stage) => (
-            <StageDeploymentCard
-              key={stage.stageId}
-              stage={stage}
-            ></StageDeploymentCard>
-          ))}
-        </Row>
+      <Row className="mx-0 card-back">
+        {stages.map((stage) => stage.stageName !== 'prod' ? (
+          <StageDeploymentCard
+            key={stage.stageId}
+            stage={stage}
+          ></StageDeploymentCard>
+        ) : null)}
+      </Row>
+      <Row className="mx-0 card-back m-1">
+        {stages.map((stage) => stage.stageName === 'prod' ? (
+          <StageDeploymentCard
+            key={stage.stageId}
+            stage={stage}
+          ></StageDeploymentCard>
+        ) : null)}
+      </Row>
     </div>
   );
 };

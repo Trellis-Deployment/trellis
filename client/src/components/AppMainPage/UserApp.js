@@ -40,15 +40,33 @@ const UserApp = () => {
         </div>
       </div>
 
-      <div className="row col card-back">
-        {stages.map((stage) => (
+      <div className="mx-0 row card-back">
+        {stages.map((stage) => {
+          return stage.stageName !== 'prod' ?
+          (
           <AppStage
             key={stage.stageId}
             stage={stage}
             setStages={setStages}
             stages={stages}
           />
-        ))}
+          ) : null;
+        })}
+      </div>
+      <div className="mx-0 row card-back m-1">
+        {
+          stages.map((stage) => {
+            return stage.stageName === 'prod' ?
+          (
+          <AppStage
+            key={stage.stageId}
+            stage={stage}
+            setStages={setStages}
+            stages={stages}
+          />
+          ) : null;
+          })
+        }
       </div>
     </div>
   );
