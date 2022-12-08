@@ -120,33 +120,38 @@ const BranchSettings = ({
     <>
       <div className="screen" onClick={handleScreenClick}></div>
       <div className="modal holder main-modal p-3 m-3">
-        {stage.stageName === "prod" || stage.stageName === "dev" ? null : (
+        {stage.stageName === "prod" || stage.stageName === "staging" || stage.stageName === "dev" ? null : (
           <DeleteStage stage={stage} setStages={setStages} />
         )}
-        {repoBranches.length === 0 ? (
-          <p>Loading branches</p>
-        ) : (
-          <>
-            <h4>Change git branch for stage {stage.stageName}:</h4>
-            <Form onSubmit={handleBranchChangeSubmit}>
-              <Form.Select
-                aria-label="branch select"
-                value={selectedBranch}
-                onChange={(e) => setSelectedBranch(e.target.value)}
-              >
-                {repoBranches.map((branch) => (
-                  <option key={branch.name} value={branch.name}>
-                    {branch.name}
-                  </option>
-                ))}
-              </Form.Select>
-              <Button variant="primary mt-2" type="submit">
-                Submit
-              </Button>
-              <hr></hr>
-            </Form>
-          </>
-        )}
+        {
+          stage.stageName !== "prod" && stage.stageName !== "staging" ?
+
+          repoBranches.length === 0 ? (
+            <p>Loading branches</p>
+          ) : (
+            <>
+              <h4>Change git branch for stage {stage.stageName}:</h4>
+              <Form onSubmit={handleBranchChangeSubmit}>
+                <Form.Select
+                  aria-label="branch select"
+                  value={selectedBranch}
+                  onChange={(e) => setSelectedBranch(e.target.value)}
+                >
+                  {repoBranches.map((branch) => (
+                    <option key={branch.name} value={branch.name}>
+                      {branch.name}
+                    </option>
+                  ))}
+                </Form.Select>
+                <Button variant="primary mt-2" type="submit">
+                  Submit
+                </Button>
+                <hr></hr>
+              </Form>
+            </>
+          ) :
+          null
+        }
         <h4>Set per-stage IAM credentials</h4>
         <Form onSubmit={handleIAMCredentialsSubmit}>
           <Form.Group className="mb-3" controlid="formBasicAccessKey">

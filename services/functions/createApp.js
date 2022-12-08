@@ -51,6 +51,7 @@ export const main = handler(async (event) => {
   }
   let prodStage;
   let devStage;
+  let stagingStage;
   try {
     prodStage = await createStage({
       lastCommitId: "", stageState: "created",
@@ -58,6 +59,12 @@ export const main = handler(async (event) => {
       appId: app.appId, stageBranch: "undefined",
       stageName: "prod" 
     });
+    stagingStage = await createStage({
+      lastCommitId: "", stageState: "created",
+      IAMCredentialsLocation: app.defaultIAMCredentialsLocation,
+      appId: app.appId, stageBranch: "undefined",
+      stageName: "staging"
+    })
     devStage = await createStage({ 
       lastCommitId: "", stageState: "created", 
       IAMCredentialsLocation: app.defaultIAMCredentialsLocation, 
@@ -69,5 +76,5 @@ export const main = handler(async (event) => {
     prodStage = e.message;
   }
 
-  return { app, webhookId, devStage, prodStage };
+  return { app, webhookId, devStage, prodStage, stagingStage };
 });
