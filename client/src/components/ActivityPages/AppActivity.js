@@ -4,7 +4,8 @@ import StageDeploymentCard from "./StageDeploymentCard";
 import { useAppContext } from "../../Lib/AppContext";
 import APICalls from "../../services/APICalls";
 import WebSocket from "../../services/WebSocket";
-import { Row } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+import { ArrowRight } from "react-bootstrap-icons";
 
 const AppActivity = () => {
   const [stages, setStages] = useState([]);
@@ -29,22 +30,42 @@ const AppActivity = () => {
       <Row>
         <div className="col pipeline-title mt-1">Activity</div>
       </Row>
-      <Row className="mx-0 card-back">
-        {stages.map((stage) => stage.stageName !== 'prod' ? (
-          <StageDeploymentCard
-            key={stage.stageId}
-            stage={stage}
-          ></StageDeploymentCard>
-        ) : null)}
+      <Row>
+        <Col className="mx-0 card-back m-1 text-dark text-center">
+          Development
+          {stages.map((stage) => stage.stageName !== 'prod' && stage.stageName !== 'staging' ? (
+            <StageDeploymentCard
+              key={stage.stageId}
+              stage={stage}
+            ></StageDeploymentCard>
+          ) : null)}
+        </Col>
+        <Col md="auto">
+          <ArrowRight size={16}/>
+        </Col>
+        <Col className="mx-0 card-back m-1 text-dark text-center">
+          Staging
+          {stages.map((stage) => stage.stageName === 'staging' ? (
+            <StageDeploymentCard
+              key={stage.stageId}
+              stage={stage}
+            ></StageDeploymentCard>
+          ) : null)}
+        </Col>
+        <Col md="auto">
+          <ArrowRight size={16}/>
+        </Col>
+        <Col className="mx-0 card-back m-1 text-dark text-center">
+          Production
+          {stages.map((stage) => stage.stageName === 'prod' ? (
+            <StageDeploymentCard
+              key={stage.stageId}
+              stage={stage}
+            ></StageDeploymentCard>
+          ) : null)}
+        </Col>
       </Row>
-      <Row className="mx-0 card-back m-1">
-        {stages.map((stage) => stage.stageName === 'prod' ? (
-          <StageDeploymentCard
-            key={stage.stageId}
-            stage={stage}
-          ></StageDeploymentCard>
-        ) : null)}
-      </Row>
+
     </div>
   );
 };

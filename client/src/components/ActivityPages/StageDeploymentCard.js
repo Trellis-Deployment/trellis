@@ -15,9 +15,9 @@ const StageDeploymentCard = ({ stage }) => {
   }, [stage.stageState, stage.stageId, stage.lastDeploymentTime]);
 
   return (
-    <Col className="py-1 stage-row m-1 my-2 bh-bla">
+    <Col className="px-2 py-1 pb-2 stage-row m-1 my-2 bh-bla">
       <Card.Title className="SectionHeader text-start">
-        {stage.stageName} Deployments:
+        {stage.stageName}:
         {deployments.map((deployment, idx) => (
           <DeploymentCard
             key={deployment.deploymentId}

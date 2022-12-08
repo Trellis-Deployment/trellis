@@ -52,11 +52,6 @@ const promoteStage = async (build) => {
   return response.data;
 };
 
-const getStageStatus = async ({ stageId }) => {
-  const response = await axios.get(`${API_URL}/stageStatus?stageId=${stageId}`);
-  return response.data;
-};
-
 const getRepoBranches = async ({ userId, appId }) => {
   const response = await axios.get(
     `${API_URL}/repoBranches?userId=${userId}&appId=${appId}`

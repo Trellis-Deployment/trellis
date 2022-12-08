@@ -18,8 +18,9 @@ const AppStage = ({ stage, setStages, stages }) => {
   const handlePromoteClick = async (e) => {
     e.preventDefault();
     const prodStageId = stages.find((s) => s.stageName === "prod").stageId;
+    const stagingStageId = stages.find((s) => s.stageName === "staging").stageId;
     await APICalls.promoteStage({
-      targetStageId: prodStageId,
+      targetStageId: stage.stageName === 'staging' ? prodStageId : stagingStageId,
       userId,
       appId,
       sourceCommitId: stage.lastCommitId,
@@ -29,7 +30,7 @@ const AppStage = ({ stage, setStages, stages }) => {
   };
 
   return (
-        <div key={stage.stageId} className="col stage-row m-1 py-1 pb-2 px-2">
+        <div key={stage.stageId} className="row stage-row m-1 py-1 pb-2 px-2">
           <div className="card-title SectionHeader text-center">
             Stage Name:{" "}
             <Link to={`/application/${appName}/activity`} className="links">
@@ -46,7 +47,7 @@ const AppStage = ({ stage, setStages, stages }) => {
             }
           </div>
           <div className="d-flex">
-            {stage.stageName !== "prod" ? (
+            {stage.stageName !== "prod" && stage.stageName !== "staging" ? (
               <>
                 {" "}
                 <Button
@@ -56,6 +57,25 @@ const AppStage = ({ stage, setStages, stages }) => {
                 >
                   Manually Deploy Stage
                 </Button>
+                <Button
+                  disabled={
+                    stage.stageState === "deployed" &&
+                    stages.find((s) => s.stageName === "staging").stageState !==
+                      "deploying" &&
+                    stages.find((s) => s.stageName === "staging").stageState !==
+                      "tearingDown"
+                      ? false
+                      : true
+                  }
+                  size="sm"
+                  variant="primary"
+                  onClick={handlePromoteClick}
+                >
+                  Promote to Staging
+                </Button>
+              </>
+            ) : stage.stageName === 'staging' ? (
+              <>
                 <Button
                   disabled={
                     stage.stageState === "deployed" &&
@@ -73,7 +93,13 @@ const AppStage = ({ stage, setStages, stages }) => {
                   Promote to Production
                 </Button>
               </>
-            ) : null}
+            ) : 
+            <div>
+              <b />
+              <b />
+              <b />
+              <span />
+            </div>}
           </div>
         </div>
   );

@@ -5,7 +5,8 @@ import APICalls from "../../services/APICalls";
 import AppStage from "./AppStage";
 import { useAppContext } from "../../Lib/AppContext";
 import WebSocket from "../../services/WebSocket";
-
+import { ArrowRight } from "react-bootstrap-icons";
+import { Col } from "react-bootstrap";
 const UserApp = () => {
   const [stages, setStages] = useState([]);
   const { appId, userId, appName } = useAppContext();
@@ -39,34 +40,67 @@ const UserApp = () => {
           </a>
         </div>
       </div>
-
-      <div className="mx-0 row card-back">
-        {stages.map((stage) => {
-          return stage.stageName !== 'prod' ?
-          (
-          <AppStage
-            key={stage.stageId}
-            stage={stage}
-            setStages={setStages}
-            stages={stages}
-          />
-          ) : null;
-        })}
-      </div>
-      <div className="mx-0 row card-back m-1">
-        {
-          stages.map((stage) => {
-            return stage.stageName === 'prod' ?
-          (
-          <AppStage
-            key={stage.stageId}
-            stage={stage}
-            setStages={setStages}
-            stages={stages}
-          />
-          ) : null;
-          })
-        }
+      <div className="row">
+        <div className="mx-0 col card-back m-1 text-dark text-center">
+          Development
+          <div className="text-light">
+          {
+            stages.map((stage) => {
+              return stage.stageName !== 'prod' && stage.stageName !== 'staging' ?
+              (
+              <AppStage
+                key={stage.stageId}
+                stage={stage}
+                setStages={setStages}
+                stages={stages}
+              />
+              ) : null;
+            })
+          }
+          </div>
+        </div>
+        <Col md="auto">
+          <ArrowRight size={16}/>
+        </Col>
+        <div className="mx-0 col m-1 text-dark text-center card-back">
+          Staging
+          <div className="text-light">
+          {
+            stages.map((stage) => {
+              return stage.stageName === 'staging' ?
+            (
+            <AppStage
+              key={stage.stageId}
+              stage={stage}
+              setStages={setStages}
+              stages={stages}
+            />
+            ) : null;
+            })
+          }
+          </div>
+        </div>
+        <Col md="auto">
+          <ArrowRight size={16}/>
+        </Col>
+        <div className="mx-0 col m-1 text-dark text-center card-back">
+          Production
+          <div className="text-light">
+          {
+            stages.map((stage) => {
+              return stage.stageName === 'prod' ?
+            (
+            <AppStage
+              key={stage.stageId}
+              stage={stage}
+              setStages={setStages}
+              stages={stages}
+            />
+            ) : null;
+            })
+          }
+          </div>
+        </div>
       </div>
     </div>
   );

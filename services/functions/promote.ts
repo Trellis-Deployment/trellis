@@ -27,7 +27,7 @@ export const main = handler(async (event: APIGatewayProxyEventV2) => {
   );
 
   if (stage.state === "deploying") {
-    return "Cannot deploy to production right now";
+    return "Cannot promote right now";
   }
 
   try {
