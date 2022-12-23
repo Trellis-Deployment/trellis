@@ -1,3 +1,42 @@
+![Trellis-logo](https://trellis-deployment.github.io/images/logo/logo-name.svg)
+
+# Trellis
+
+> An open-source deployment pipeline tool built for serverless applications
+
+Trellis is built to give teams a low-configuration deployment pipeline for their serverless applications which are deployed to AWS. Trellis itself is a serverless application, deployed on the users's own AWS infrastructure. Trellis handles the provisioning and management of development, staging and production environments for serverless applications.
+
+Find more about the details of Trellis by reading our <a href = "https://trellis-deployment.github.io/" target="_blank">case study<a/>
+
+## Features
+
+- Trellis provisions deployment environments for serverless applications built on AWS
+- Deployment environments can be automatically provisioned from commits to connected GitHub branches
+- Code is promoted to staging and production environments manually, and can be rolled back as well
+- Trellis provides a dashboard for managaing deployment pipelines
+
+## How Trellis Works
+
+Trellis is itself a serverless application, and can be deployed to AWS with a single command. Users then create a Trellis application and connect it to their target GitHub repository. Trellis is composed of a React dashboard, a backend mostly composed of AWS Lambda functions and an on-demand build server run using AWS Elastic Container Service.
+
+A webhook is registered on the target GitHub repository. Commits to that repository trigger the provision of an ephemeral build server which deploys the users application on AWS infrastructure. Users can log in to the Trellis dashboard to view the state of their deployments, or to trigger manual promotions, rollbacks or teardowns of deployment environments.
+
+## Technology
+
+- AWS CDK and SDK
+- Serverless Stack (SST) Framework
+- AWS Lambda, ECS, Fargate, DynamoDb
+- Node.js and React
+
+## The Team
+**<a href = "https://maru-ko.github.io/" target="_blank" >Marco Avila</a>** *Software Engineer* New York, NY 
+
+**<a href = "http://www.dev.mohamadel-chanti.com/" target="_blank">Mohamad El-Chanti</a>** *Software Engineer* Toronto, ON, Canada
+
+**<a href = "http://martingraham.dev" target="_blank" >Martin Graham</a>** *Software Engineer* Waco, TX 
+
+**<a href = "https://codywilliams.dev/" target="_blank">Cody Williams</a>** *Software Engineer* Los Angeles, CA
+
 # Installation
 
 <details>
@@ -73,3 +112,15 @@
    - Copy this url into the Setup URL and select `Redirect on update`
 
 </details>
+
+# License
+
+MIT License
+
+Copyright (c) 2022 Aria
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
